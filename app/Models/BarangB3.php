@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BarangB3 extends Model
 {
+    protected $table = 'barang_b3s';
+
     protected $fillable = [
         'nama',
         'un_number',

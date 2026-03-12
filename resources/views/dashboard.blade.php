@@ -1,6 +1,4 @@
-<x-app-layout>
-    <x-slot name="title">Dashboard</x-slot>
-
+<x-app-layout title="Dashboard">
     <!-- Summary Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <!-- Card: Total Kunjungan -->

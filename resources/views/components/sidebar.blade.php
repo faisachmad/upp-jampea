@@ -1,4 +1,5 @@
-<aside class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform bg-gray-800 text-white">
+<aside class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform duration-300 bg-gray-800 text-white -translate-x-full lg:translate-x-0"
+       :class="{ 'translate-x-0': sidebarOpen }">
     <div class="h-full px-3 py-4 overflow-y-auto">
         <!-- Logo & Title -->
         <div class="flex items-center mb-5 p-2">
@@ -38,10 +39,9 @@
             </li>
 
             <!-- Master Data -->
-            <li>
+            <li x-data="{ open: false }">
                 <button type="button"
                         class="flex items-center w-full p-2 rounded-lg hover:bg-gray-700 group"
-                        x-data="{ open: false }"
                         @click="open = !open">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"/>
@@ -68,10 +68,9 @@
             </li>
 
             <!-- Laporan -->
-            <li>
+            <li x-data="{ open: false }">
                 <button type="button"
                         class="flex items-center w-full p-2 rounded-lg hover:bg-gray-700"
-                        x-data="{ open: false }"
                         @click="open = !open">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"/>

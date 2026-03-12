@@ -3,13 +3,13 @@
 @section('title', 'Data Kunjungan Kapal')
 
 @section('content')
-<div class="space-y-6" x-data="{ showModal: false, ...kunjunganForm() }">
+<div class="space-y-6">
     <!-- Header -->
     <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-gray-900">Data Kunjungan Kapal</h1>
-        <button @click="showModal = true" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <a href="{{ route('kunjungan.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             Input Kunjungan Baru
-        </button>
+        </a>
     </div>
 
     <!-- Success/Error Alert -->
@@ -147,116 +147,5 @@
     <div class="mt-4">
         {{ $kunjungans->links() }}
     </div>
-
-    <!-- Modal Form Input Kunjungan -->
-    <div x-show="showModal" 
-         class="fixed inset-0 z-50 overflow-y-auto" 
-         style="display: none;"
-         x-cloak>
-        <!-- Backdrop (tidak bisa diklik) -->
-        <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity"></div>
-
-        <!-- Modal Content -->
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="relative bg-white rounded-lg shadow-xl max-w-7xl w-full max-h-[90vh] overflow-y-auto">
-                <!-- Modal Header -->
-                <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center z-10">
-                    <div>
-                        <h2 class="text-xl font-bold text-gray-900">Input Kunjungan Kapal</h2>
-                        <p class="text-sm text-gray-600 mt-1">Lengkapi semua data kunjungan kapal</p>
-                    </div>
-                    <button @click="showModal = false; currentTab = 1" class="text-gray-400 hover:text-gray-600">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Modal Body -->
-                <div class="p-6">
-                    @include('kunjungan.partials.form')
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
-
-@push('scripts')
-<script>
-function kunjunganForm() {
-    return {
-        currentTab: 1,
-        muatans: [],
-        b3s: [],
-
-        addMuatan() {
-            this.muatans.push({
-                tipe: '',
-                jenis_barang: '',
-                ton_m3: '',
-                jenis_hewan: '',
-                jumlah_hewan: ''
-            });
-        },
-
-        removeMuatan(index) {
-            this.muatans.splice(index, 1);
-        },
-
-        addB3() {
-            this.b3s.push({
-                barang_b3_id: '',
-                jenis_kegiatan: '',
-                bentuk_muatan: '',
-                jumlah_ton: '',
-                jumlah_container: '',
-                kemasan: '',
-                jumlah: '',
-                petugas: ''
-            });
-        },
-
-        removeB3(index) {
-            this.b3s.splice(index, 1);
-        }
-    }
-}
-
-function autocomplete(url, fieldName) {
-    return {
-        searchQuery: '',
-        results: [],
-        showResults: false,
-        selectedId: '',
-
-        async search() {
-            if (this.searchQuery.length < 2) {
-                this.results = [];
-                return;
-            }
-
-            try {
-                const response = await fetch(`${url}?q=${encodeURIComponent(this.searchQuery)}`);
-                this.results = await response.json();
-            } catch (error) {
-                console.error('Search error:', error);
-            }
-        },
-
-        selectItem(item) {
-            this.searchQuery = item.label || item.nama;
-            this.selectedId = item.id;
-            this.showResults = false;
-        }
-    }
-}
-
-function autocompleteNakhoda() {
-    return {
-        searchQuery: '',
-        nakhodaId: ''
-    }
-}
-</script>
-@endpush
 @endsection
