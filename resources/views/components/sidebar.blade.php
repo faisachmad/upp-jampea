@@ -1,4 +1,4 @@
-<aside class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform duration-300 bg-gray-800 text-white -translate-x-full lg:translate-x-0"
+<aside class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform duration-300 bg-gray-800 text-white -translate-x-full"
        :class="{ 'translate-x-0': sidebarOpen }">
     <div class="h-full px-3 py-4 overflow-y-auto">
         <!-- Logo & Title -->

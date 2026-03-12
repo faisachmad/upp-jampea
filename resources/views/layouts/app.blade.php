@@ -20,8 +20,9 @@
               isMobile: window.innerWidth < 1024,
               init() {
                   window.addEventListener('resize', () => {
+                      const wasMobile = this.isMobile;
                       this.isMobile = window.innerWidth < 1024;
-                      if (!this.isMobile) {
+                      if (!this.isMobile && wasMobile) {
                           this.sidebarOpen = true;
                       }
                   });
@@ -43,7 +44,8 @@
         <x-sidebar />
 
         <!-- Main Content Area -->
-        <div class="min-h-screen transition-all duration-300 lg:ml-64"
+        <div class="min-h-screen transition-all duration-300"
+             :class="{ 'lg:ml-64': sidebarOpen && !isMobile, 'ml-0': !sidebarOpen || isMobile }"
              id="main-content">
             <!-- Topbar -->
             <x-topbar :title="view()->yieldContent('title', 'Dashboard')" />
