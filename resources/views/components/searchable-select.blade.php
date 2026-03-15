@@ -11,13 +11,13 @@
 @php
     $id = $id ?? $name;
     $classes = 'searchable-select w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200';
-    
+
     if ($errors->has($name)) {
         $classes .= ' border-red-500';
     }
 @endphp
 
-<select 
+<select
     name="{{ $name }}"
     id="{{ $id }}"
     {{ $required ? 'required' : '' }}
@@ -27,7 +27,7 @@
     @if($placeholder)
     <option value="">{{ $placeholder }}</option>
     @endif
-    
+
     {{ $slot }}
 </select>
 
