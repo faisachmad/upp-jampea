@@ -116,7 +116,15 @@
 @section('title', 'Master Jenis Kapal')
 
 @section('content')
-<div class="mb-6">
+<div class="mb-6" x-data="{
+    editData: {},
+    editAction: '',
+    editJenisKapal(jenis) {
+        this.editData = { ...jenis };
+        this.editAction = '{{ route('master.jenis-kapal.index') }}/' + jenis.id;
+        $dispatch('open-modal', 'edit-jenis-kapal-modal');
+    }
+}" @edit-jenis-kapal.window="editJenisKapal($event.detail)">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-bold text-gray-800">Master Jenis Kapal</h2>
         <button x-on:click="$dispatch('open-modal', 'tambah-jenis-kapal-modal')"
@@ -171,15 +179,7 @@
     </div>
 
     <!-- Table -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible" x-data="{
-        editData: {},
-        editAction: '',
-        editJenisKapal(jenis) {
-            this.editData = { ...jenis };
-            this.editAction = '{{ route('master.jenis-kapal.index') }}/' + jenis.id;
-            $dispatch('open-modal', 'edit-jenis-kapal-modal');
-        }
-    }" @edit-jenis-kapal.window="editJenisKapal($event.detail)">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible">
         <div class="overflow-x-auto overflow-visible">
             <table id="jenis-kapal-table" class="min-w-full divide-y divide-gray-200">
                 <thead>

@@ -116,7 +116,15 @@
 @section('title', 'Master Nakhoda')
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-6" x-data="{
+    editData: {},
+    editAction: '',
+    editNakhoda(nakhoda) {
+        this.editData = { ...nakhoda };
+        this.editAction = '{{ route('master.nakhoda.index') }}/' + nakhoda.id;
+        $dispatch('open-modal', 'edit-nakhoda-modal');
+    }
+}" @edit-nakhoda.window="editNakhoda($event.detail)">
     <!-- Header -->
     <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-gray-900">Master Nakhoda</h1>
@@ -164,15 +172,7 @@
     </div>
 
     <!-- Data Table -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible" x-data="{
-        editData: {},
-        editAction: '',
-        editNakhoda(nakhoda) {
-            this.editData = { ...nakhoda };
-            this.editAction = '{{ route('master.nakhoda.index') }}/' + nakhoda.id;
-            $dispatch('open-modal', 'edit-nakhoda-modal');
-        }
-    }" @edit-nakhoda.window="editNakhoda($event.detail)">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible">
         <div class="overflow-x-auto overflow-visible">
             <table id="nakhoda-table" class="min-w-full divide-y divide-gray-200">
                 <thead>

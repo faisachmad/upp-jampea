@@ -116,7 +116,15 @@
 @section('title', 'Master Barang B3')
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-6" x-data="{
+    editData: {},
+    editAction: '',
+    editBarangB3(barang) {
+        this.editData = { ...barang };
+        this.editAction = '{{ route('master.barang-b3.index') }}/' + barang.id;
+        $dispatch('open-modal', 'edit-barang-b3-modal');
+    }
+}" @edit-barang-b3.window="editBarangB3($event.detail)">
     <!-- Header -->
     <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-gray-900">Master Barang B3 (Bahan Berbahaya & Beracun)</h1>
@@ -156,15 +164,7 @@
     </div>
 
     <!-- Data Table -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible" x-data="{
-        editData: {},
-        editAction: '',
-        editBarangB3(barang) {
-            this.editData = { ...barang };
-            this.editAction = '{{ route('master.barang-b3.index') }}/' + barang.id;
-            $dispatch('open-modal', 'edit-barang-b3-modal');
-        }
-    }" @edit-barang-b3.window="editBarangB3($event.detail)">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible">
         <div class="overflow-x-auto overflow-visible">
             <table id="barang-b3-table" class="min-w-full divide-y divide-gray-200">
                 <thead>

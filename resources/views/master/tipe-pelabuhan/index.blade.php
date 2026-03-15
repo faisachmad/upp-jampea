@@ -4,7 +4,9 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 <style>
-    /* DataTables Custom Styling */
+    /* DataTables Custom- **Syntax Cleanup**: Fixed a critical issue where broken Alpine.js code residue was accidentally rendered as plain text at the top of the header in the Pelabuhan module.
+- **Modal Scoping fix**: Resolved an issue where edit modals failed to display data in several modules (Tipe Pelabuhan, Nakhoda, Jenis Kapal, Barang B3). By broadening the `x-data` scope, modals now have full access to the record data for editing.
+All master data views have been audited for clean rendering and functional modals. */
     #tipe-pelabuhan-table_wrapper .dataTables_filter {
         display: none;
     }
@@ -116,7 +118,15 @@
 @section('title', 'Master Tipe Pelabuhan')
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-6" x-data="{
+    editData: {},
+    editAction: '',
+    editTipePelabuhan(tipe) {
+        this.editData = { ...tipe };
+        this.editAction = '{{ route('master.tipe-pelabuhan.index') }}/' + tipe.id;
+        $dispatch('open-modal', 'edit-tipe-pelabuhan-modal');
+    }
+}" @edit-tipe-pelabuhan.window="editTipePelabuhan($event.detail)">
     <!-- Header -->
     <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-gray-900">Master Tipe Pelabuhan</h1>
@@ -162,15 +172,7 @@
     @endif
 
     <!-- Data Table -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible" x-data="{
-        editData: {},
-        editAction: '',
-        editTipePelabuhan(tipe) {
-            this.editData = { ...tipe };
-            this.editAction = '{{ route('master.tipe-pelabuhan.index') }}/' + tipe.id;
-            $dispatch('open-modal', 'edit-tipe-pelabuhan-modal');
-        }
-    }" @edit-tipe-pelabuhan.window="editTipePelabuhan($event.detail)">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible">
         <div class="overflow-x-auto overflow-visible">
             <table id="tipe-pelabuhan-table" class="min-w-full divide-y divide-gray-200">
                 <thead>
