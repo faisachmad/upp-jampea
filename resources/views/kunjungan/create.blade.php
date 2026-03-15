@@ -73,15 +73,13 @@
                     <label for="pelabuhan_id" class="block text-sm font-medium text-gray-700 mb-2">
                         Pelabuhan <span class="text-red-500">*</span>
                     </label>
-                    <select name="pelabuhan_id" id="pelabuhan_id" required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('pelabuhan_id') border-red-500 @enderror">
-                        <option value="">-- Pilih Pelabuhan --</option>
+                    <x-searchable-select name="pelabuhan_id" id="pelabuhan_id" required placeholder="-- Pilih Pelabuhan --">
                         @foreach($pelabuhans as $pelabuhan)
                         <option value="{{ $pelabuhan->id }}" {{ old('pelabuhan_id') == $pelabuhan->id ? 'selected' : '' }}>
                             {{ $pelabuhan->nama }} ({{ $pelabuhan->kode }})
                         </option>
                         @endforeach
-                    </select>
+                    </x-searchable-select>
                     @error('pelabuhan_id')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
                 </div>
 
@@ -90,15 +88,13 @@
                     <label for="jenis_pelayaran_id" class="block text-sm font-medium text-gray-700 mb-2">
                         Jenis Pelayaran <span class="text-red-500">*</span>
                     </label>
-                    <select name="jenis_pelayaran_id" id="jenis_pelayaran_id" required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('jenis_pelayaran_id') border-red-500 @enderror">
-                        <option value="">-- Pilih Jenis Pelayaran --</option>
+                    <x-searchable-select name="jenis_pelayaran_id" id="jenis_pelayaran_id" required placeholder="-- Pilih Jenis Pelayaran --">
                         @foreach($jenisPelayarans as $jenis)
                         <option value="{{ $jenis->id }}" {{ old('jenis_pelayaran_id') == $jenis->id ? 'selected' : '' }}>
                             {{ $jenis->nama }}
                         </option>
                         @endforeach
-                    </select>
+                    </x-searchable-select>
                     @error('jenis_pelayaran_id')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
                 </div>
 
@@ -155,15 +151,13 @@
                     <label for="bulan" class="block text-sm font-medium text-gray-700 mb-2">
                         Bulan <span class="text-red-500">*</span>
                     </label>
-                    <select name="bulan" id="bulan" required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('bulan') border-red-500 @enderror">
-                        <option value="">-- Pilih Bulan --</option>
+                    <x-searchable-select name="bulan" id="bulan" required placeholder="-- Pilih Bulan --">
                         @for($i = 1; $i <= 12; $i++)
                         <option value="{{ $i }}" {{ old('bulan', date('n')) == $i ? 'selected' : '' }}>
                             {{ DateTime::createFromFormat('!m', $i)->format('F') }}
                         </option>
                         @endfor
-                    </select>
+                    </x-searchable-select>
                     @error('bulan')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
                 </div>
 
@@ -172,12 +166,11 @@
                     <label for="tahun" class="block text-sm font-medium text-gray-700 mb-2">
                         Tahun <span class="text-red-500">*</span>
                     </label>
-                    <select name="tahun" id="tahun" required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('tahun') border-red-500 @enderror">
+                    <x-searchable-select name="tahun" id="tahun" required placeholder="-- Pilih Tahun --">
                         @for($year = date('Y'); $year >= 2020; $year--)
                         <option value="{{ $year }}" {{ old('tahun', date('Y')) == $year ? 'selected' : '' }}>{{ $year }}</option>
                         @endfor
-                    </select>
+                    </x-searchable-select>
                     @error('tahun')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
                 </div>
             </div>

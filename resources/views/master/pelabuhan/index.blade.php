@@ -2,7 +2,116 @@
 
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 <style>
+    /* DataTables Custom Styling */
+    #pelabuhan-table_wrapper .dataTables_filter {
+        display: none;
+    }
+
+    #pelabuhan-table_wrapper .dataTables_length {
+        display: block;
+    }
+
+    #pelabuhan-table_wrapper .dataTables_length label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: #6b7280;
+    }
+
+    #pelabuhan-table_wrapper .dataTables_length select {
+        padding: 0.375rem 1.75rem 0.375rem 0.75rem !important;
+        font-size: 0.75rem !important;
+        line-height: 1.25rem !important;
+        color: #374151 !important;
+        background-color: #fff !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 0.5rem !important;
+        appearance: none !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+        background-position: right 0.5rem center !important;
+        background-repeat: no-repeat !important;
+        background-size: 1.5em 1.5em !important;
+        cursor: pointer;
+    }
+
+    #pelabuhan-table_wrapper .dataTables_length select:focus {
+        outline: none !important;
+        border-color: #3b82f6 !important;
+        ring: 2px !important;
+        ring-color: #3b82f6 !important;
+    }
+
+    table.dataTable.no-footer {
+        border-bottom: 1px solid #e5e7eb !important;
+    }
+
+    #pelabuhan-table thead th {
+        background-color: #f9fafb;
+        color: #374151;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    #pelabuhan-table tbody td {
+        padding: 1rem 1.5rem;
+        vertical-align: middle;
+        border-bottom: 1px solid #f3f4f6;
+    }
+
+    #pelabuhan-table tbody tr:hover {
+        background-color: #eff6ff !important;
+        transition: background-color 0.2s;
+    }
+
+    /* Custom Pagination Styling */
+    .dataTables_wrapper .dataTables_info {
+        padding-top: 1.5rem !important;
+        color: #6b7280 !important;
+        font-size: 0.875rem !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        padding-top: 1.5rem !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        border-radius: 0.5rem !important;
+        border: 1px solid #e5e7eb !important;
+        background: white !important;
+        color: #374151 !important;
+        padding: 0.4rem 0.8rem !important;
+        margin-left: 0.25rem !important;
+        font-size: 0.875rem !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        background: #2563eb !important;
+        color: white !important;
+        border-color: #2563eb !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background: #f3f4f6 !important;
+        color: #2563eb !important;
+        border-color: #d1d5db !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+        background: #f9fafb !important;
+        color: #9ca3af !important;
+        cursor: not-allowed !important;
+    }
+
     .toggle-switch {
         position: relative;
         display: inline-block;
@@ -61,22 +170,59 @@
 <div class="space-y-6" x-data="{
     editData: {},
     editAction: '',
-    editTipeSelect: null,
+    resolveTipePelabuhanId(pelabuhan) {
+        if (pelabuhan.tipe_pelabuhan_id) {
+            return String(pelabuhan.tipe_pelabuhan_id);
+        }
+
+        const editSelect = document.getElementById('edit-tipe-select');
+        if (!editSelect) {
+            return '';
+        }
+
+        const tipeName = String(pelabuhan.tipe_name || pelabuhan.tipe || '').trim().toLowerCase();
+        if (!tipeName) {
+            return '';
+        }
+
+        const matchedOption = Array.from(editSelect.options).find((option) => {
+            if (!option.value) {
+                return false;
+            }
+
+            const optionText = option.textContent.trim().toLowerCase();
+            return optionText === tipeName || optionText.includes(tipeName) || tipeName.includes(optionText);
+        });
+
+        return matchedOption ? String(matchedOption.value) : '';
+    },
+    setEditTipeValue(pelabuhan) {
+        const tipePelabuhanId = this.resolveTipePelabuhanId(pelabuhan);
+        const editSelect = document.getElementById('edit-tipe-select');
+
+        if (!editSelect) {
+            return;
+        }
+
+        if (editSelect.tomselect) {
+            editSelect.tomselect.setValue(tipePelabuhanId);
+            return;
+        }
+
+        editSelect.value = tipePelabuhanId;
+    },
     editPelabuhan(pelabuhan) {
         this.editData = { ...pelabuhan };
         this.editAction = '{{ route('master.pelabuhan.index') }}/' + pelabuhan.id;
-        
+
         $dispatch('open-modal', 'edit-pelabuhan-modal');
-        
-        // Wait for modal to be visible/select to be targets
-        this.$nextTick(() => {
-            if (this.editTipeSelect) {
-                this.editTipeSelect.clear();
-                this.editTipeSelect.addItem(String(pelabuhan.tipe_pelabuhan_id));
-            }
-        });
+
+        // Wait for modal to be visible/select to be ready
+        setTimeout(() => {
+            this.setEditTipeValue(pelabuhan);
+        }, 100);
     }
-}">
+}" @edit-pelabuhan.window="editPelabuhan($event.detail)">
     <!-- Header -->
     <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-gray-900">Master Pelabuhan</h1>
@@ -85,169 +231,62 @@
         </button>
     </div>
 
-    <!-- Success Alert -->
-    @if(session('success'))
-    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-        <span class="block sm:inline">{{ session('success') }}</span>
-    </div>
-    @endif
+    <!-- Success Alert (Old manual one removed, handled by x-sweet-alert globally) -->
 
     <!-- Search & Filter Form -->
     <div class="bg-white p-6 rounded-lg shadow">
-        <form method="GET" action="{{ route('master.pelabuhan.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <form id="filter-form" class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
                 <input type="text"
                        name="search"
-                       value="{{ request('search') }}"
+                       id="search-input"
                        placeholder="Cari kode atau nama..."
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
             </div>
             <div>
-                <select name="tipe" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                <select name="tipe" id="tipe-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                     <option value="">Semua Tipe</option>
                     @foreach($tipes as $tipe)
-                        <option value="{{ $tipe->id }}" {{ request('tipe') == $tipe->id ? 'selected' : '' }}>{{ $tipe->nama }}</option>
+                        <option value="{{ $tipe->id }}">{{ $tipe->nama }}</option>
                     @endforeach
                 </select>
             </div>
             <div>
-                <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                <select name="status" id="status-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                     <option value="">Semua Status</option>
-                    <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Aktif</option>
-                    <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Tidak Aktif</option>
+                    <option value="active">Aktif</option>
+                    <option value="inactive">Tidak Aktif</option>
                 </select>
             </div>
             <div class="flex gap-2">
-                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button type="button" id="btn-cari" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                     Cari
                 </button>
-                <a href="{{ route('master.pelabuhan.index') }}" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                <button type="button" id="btn-reset" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
                     Reset
-                </a>
+                </button>
             </div>
         </form>
     </div>
 
     <!-- Data Table -->
-    <div class="bg-white rounded-lg shadow">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    @php
-                        $sortableColumns = [
-                            'kode' => 'Kode',
-                            'nama' => 'Nama Pelabuhan',
-                            'tipe' => 'Tipe',
-                            'is_active' => 'Status'
-                        ];
-                    @endphp
-                    @foreach($sortableColumns as $column => $label)
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <a href="{{ request()->fullUrlWithQuery(['sort' => $column, 'direction' => request('sort') == $column && request('direction') == 'asc' ? 'desc' : 'asc']) }}" class="flex items-center hover:text-gray-700">
-                                {{ $label }}
-                                @if(request('sort') == $column)
-                                    @if(request('direction') == 'asc')
-                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
-                                    @else
-                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                                    @endif
-                                @else
-                                    <svg class="w-4 h-4 ml-1 text-gray-300 opacity-0 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
-                                @endif
-                            </a>
-                        </th>
-                    @endforeach
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($pelabuhans as $pelabuhan)
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {{ $pelabuhan->kode }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {{ $pelabuhan->nama }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        @php
-                            $badgeColors = [
-                                'UPP' => 'bg-blue-100 text-blue-800',
-                                'POSKER' => 'bg-green-100 text-green-800',
-                                'WILKER' => 'bg-yellow-100 text-yellow-800',
-                                'LUAR' => 'bg-gray-100 text-gray-800',
-                            ];
-                            $typeName = $pelabuhan->tipePelabuhan->nama ?? $pelabuhan->tipe;
-                            $color = $badgeColors[$typeName] ?? 'bg-purple-100 text-purple-800';
-                        @endphp
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $color }}">
-                            {{ $typeName }}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $pelabuhan->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                            {{ $pelabuhan->is_active ? 'Aktif' : 'Tidak Aktif' }}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <x-dropdown align="right" width="48">
-                            <x-slot name="trigger">
-                                <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                                    <div class="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200">Aksi</div>
-
-                                    <div class="ml-1">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                </button>
-                            </x-slot>
-
-                            <x-slot name="content">
-                                <button type="button"
-                                        x-on:click="editPelabuhan({{ $pelabuhan }})"
-                                        class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-                                    {{ __('Edit') }}
-                                </button>
-
-                                <form action="{{ route('master.pelabuhan.destroy', $pelabuhan) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <x-dropdown-link :href="route('master.pelabuhan.destroy', $pelabuhan)"
-                                            onclick="event.preventDefault(); if(confirm('Yakin ingin menghapus data ini?')) { this.closest('form').submit(); }">
-                                        <span class="text-red-600">{{ __('Hapus') }}</span>
-                                    </x-dropdown-link>
-                                </form>
-                            </x-slot>
-                        </x-dropdown>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                        Tidak ada data pelabuhan
-                    </td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Pagination -->
-    <div class="mt-4 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <label for="per_page" class="text-sm text-gray-700">Tampilkan:</label>
-            <select name="per_page" id="per_page" onchange="window.location.href = '{{ route('master.pelabuhan.index') }}?' + new URLSearchParams({...Object.fromEntries(new URLSearchParams(window.location.search)), per_page: this.value}).toString()" class="px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm">
-                <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
-                <option value="15" {{ request('per_page', 15) == 15 ? 'selected' : '' }}>15</option>
-                <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
-                <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
-                <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
-            </select>
-            <span class="text-sm text-gray-700">data per halaman</span>
-        </div>
-        <div>
-            {{ $pelabuhans->appends(request()->query())->links() }}
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible">
+        <div class="overflow-x-auto overflow-visible">
+            <table id="pelabuhan-table" class="min-w-full divide-y divide-gray-200">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Kode</th>
+                        <th>Nama Pelabuhan</th>
+                        <th>Tipe</th>
+                        <th>Status</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                    <!-- DataTables will fill this -->
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -293,7 +332,7 @@
                             <label for="tipe-select" class="block text-sm font-medium text-gray-700">
                                 Tipe Pelabuhan <span class="text-red-500">*</span>
                             </label>
-                            <button type="button" 
+                            <button type="button"
                                     x-on:click="$dispatch('open-modal', 'tambah-tipe-modal')"
                                     class="text-xs text-blue-600 hover:text-blue-700 font-medium">
                                 + Tambah Tipe Baru
@@ -390,7 +429,7 @@
                             <label for="edit-tipe-select" class="block text-sm font-medium text-gray-700">
                                 Tipe Pelabuhan <span class="text-red-500">*</span>
                             </label>
-                            <button type="button" 
+                            <button type="button"
                                     x-on:click="$dispatch('open-modal', 'tambah-tipe-modal')"
                                     class="text-xs text-blue-600 hover:text-blue-700 font-medium">
                                 + Tambah Tipe Baru
@@ -496,11 +535,88 @@
 </div>
 
 @push('scripts')
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 <script>
     let tipeSelect, editTipeSelect;
-    
-    document.addEventListener('DOMContentLoaded', function() {
+    let table;
+
+    $(document).ready(function() {
+        table = $('#pelabuhan-table').DataTable({
+            processing: true,
+            serverSide: true,
+            searching: false,
+            lengthChange: true,
+            pageLength: 10,
+            lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+            ajax: {
+                url: "{{ route('master.pelabuhan.index') }}",
+                data: function (d) {
+                    d.tipe = $('#tipe-filter').val();
+                    d.status = $('#status-filter').val();
+                    d.search_custom = $('#search-input').val();
+                }
+            },
+            dom: "<'flex flex-col'<'overflow-x-auto't><'flex flex-col md:flex-row justify-between items-center p-4 gap-4'<'flex items-center gap-6'li>p>>",
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+                {data: 'kode', name: 'kode'},
+                {data: 'nama', name: 'nama'},
+                {
+                    data: 'tipe_name',
+                    name: 'tipe_name',
+                    render: function(data, type, row) {
+                        const badgeColors = {
+                            'UPP': 'bg-blue-100 text-blue-800',
+                            'POSKER': 'bg-green-100 text-green-800',
+                            'WILKER': 'bg-yellow-100 text-yellow-800',
+                            'LUAR': 'bg-gray-100 text-gray-800',
+                        };
+                        const color = badgeColors[data] || 'bg-purple-100 text-purple-800';
+                        return `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${color}">${data}</span>`;
+                    }
+                },
+                {
+                    data: 'is_active',
+                    name: 'is_active',
+                    render: function(data, type, row) {
+                        const color = data ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+                        const text = data ? 'Aktif' : 'Tidak Aktif';
+                        return `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${color}">${text}</span>`;
+                    }
+                },
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json'
+            },
+            responsive: true
+        });
+
+        $('#filter-form').on('submit', function(e) {
+            e.preventDefault();
+            table.ajax.reload();
+        });
+
+        $('#btn-cari').on('click', function() {
+            table.ajax.reload();
+        });
+
+        $('#btn-reset').on('click', function() {
+            $('#filter-form')[0].reset();
+            table.ajax.reload();
+        });
+
+        // Trigger search on enter
+        $('#search-input').on('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                table.ajax.reload();
+            }
+        });
+
         tipeSelect = new TomSelect('#tipe-select', {
             create: false,
             sortField: {
@@ -517,27 +633,16 @@
             }
         });
 
-        // Wait for Alpine to be ready, then store editTipeSelect
-        document.addEventListener('alpine:init', () => {
-            // This runs when Alpine is initialized
-        });
-        
-        // Alternative: use setTimeout to wait for Alpine
-        setTimeout(() => {
-            const alpineEl = document.querySelector('[x-data]');
-            if (alpineEl && alpineEl.__x && alpineEl.__x.$data) {
-                alpineEl.__x.$data.editTipeSelect = editTipeSelect;
-            }
-        }, 100);
+        // Value assignment for edit tipe is handled directly from Alpine via #edit-tipe-select.tomselect
     });
-    
+
     // Define as window function so Alpine can access it
     window.submitTipePelabuhan = async function(event) {
         const form = event.target;
         const formData = new FormData(form);
         const errorDiv = document.getElementById('tipe-error-message');
         errorDiv.classList.add('hidden');
-        
+
         try {
             const response = await fetch('{{ route('master.tipe-pelabuhan.store') }}', {
                 method: 'POST',
@@ -547,27 +652,36 @@
                 },
                 body: formData
             });
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 // Add new option to both selects
                 const newOption = {
                     value: data.data.id,
                     text: `${data.data.nama} (${data.data.keterangan || ''})`
                 };
-                
+
                 tipeSelect.addOption(newOption);
                 tipeSelect.addItem(data.data.id);
-                
+
                 editTipeSelect.addOption(newOption);
-                
+
                 // Close modal using Alpine's event system
                 window.dispatchEvent(new CustomEvent('close-modal', { detail: 'tambah-tipe-modal' }));
                 form.reset();
-                
+
+                // Refresh table
+                table.ajax.reload();
+
                 // Show success message
-                alert('Tipe pelabuhan berhasil ditambahkan!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: 'Tipe pelabuhan berhasil ditambahkan!',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
             } else {
                 throw new Error(data.message || 'Terjadi kesalahan');
             }

@@ -52,25 +52,37 @@
                 </button>
                 <ul x-show="open" x-collapse class="py-2 space-y-2">
                     <li>
-                        <a href="{{ route('master.pelabuhan.index') }}" 
+                        <a href="{{ route('master.pelabuhan.index') }}"
                            class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('master.pelabuhan.*') ? 'bg-gray-700' : '' }}">
                             Pelabuhan
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('master.kapal.index') }}" 
+                        <a href="{{ route('master.tipe-pelabuhan.index') }}"
+                           class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('master.tipe-pelabuhan.*') ? 'bg-gray-700' : '' }}">
+                            Tipe Pelabuhan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('master.kapal.index') }}"
                            class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('master.kapal.*') ? 'bg-gray-700' : '' }}">
                             Kapal
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('master.nakhoda.index') }}" 
+                        <a href="{{ route('master.jenis-kapal.index') }}"
+                           class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('master.jenis-kapal.*') ? 'bg-gray-700' : '' }}">
+                            Jenis Kapal
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('master.nakhoda.index') }}"
                            class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('master.nakhoda.*') ? 'bg-gray-700' : '' }}">
                             Nakhoda
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('master.barang-b3.index') }}" 
+                        <a href="{{ route('master.barang-b3.index') }}"
                            class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('master.barang-b3.*') ? 'bg-gray-700' : '' }}">
                             Barang B3
                         </a>
@@ -126,7 +138,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const sidebar = document.querySelector('aside .overflow-y-auto');
-            
+
             // Restore scroll position
             const scrollPos = localStorage.getItem('sidebar-scroll-pos');
             if (scrollPos) {

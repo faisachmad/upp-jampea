@@ -35,16 +35,14 @@
 
                 <!-- Jenis Kapal -->
                 <div>
-                    <label for="jenis" class="block text-sm font-medium text-gray-700 mb-1">Jenis Kapal</label>
-                    <select name="jenis"
-                            id="jenis"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-                        <option value="">-- Pilih Jenis --</option>
-                        <option value="KLM" {{ old('jenis', $kapal->jenis) == 'KLM' ? 'selected' : '' }}>KLM</option>
-                        <option value="KM" {{ old('jenis', $kapal->jenis) == 'KM' ? 'selected' : '' }}>KM</option>
-                        <option value="KMP" {{ old('jenis', $kapal->jenis) == 'KMP' ? 'selected' : '' }}>KMP</option>
-                        <option value="MV" {{ old('jenis', $kapal->jenis) == 'MV' ? 'selected' : '' }}>MV</option>
-                    </select>
+                    <label for="jenis_kapal_id" class="block text-sm font-medium text-gray-700 mb-1">Jenis Kapal</label>
+                    <x-searchable-select name="jenis_kapal_id" id="jenis_kapal_id" placeholder="-- Pilih Jenis Kapal --">
+                        @foreach($jenisKapals as $jenisKapal)
+                        <option value="{{ $jenisKapal->id }}" {{ old('jenis_kapal_id', $kapal->jenis_kapal_id) == $jenisKapal->id ? 'selected' : '' }}>
+                            {{ $jenisKapal->nama }} ({{ $jenisKapal->kode }})
+                        </option>
+                        @endforeach
+                    </x-searchable-select>
                 </div>
 
                 <!-- GT -->
@@ -112,12 +110,14 @@
 
                 <!-- Bendera -->
                 <div>
-                    <label for="bendera" class="block text-sm font-medium text-gray-700 mb-1">Bendera</label>
-                    <input type="text"
-                           name="bendera"
-                           id="bendera"
-                           value="{{ old('bendera', $kapal->bendera) }}"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                    <label for="bendera_id" class="block text-sm font-medium text-gray-700 mb-1">Bendera</label>
+                    <x-searchable-select name="bendera_id" id="bendera_id" placeholder="-- Pilih Bendera --">
+                        @foreach($benderas as $bendera)
+                        <option value="{{ $bendera->id }}" {{ old('bendera_id', $kapal->bendera_id) == $bendera->id ? 'selected' : '' }}>
+                            {{ $bendera->nama_negara }} ({{ $bendera->kode }})
+                        </option>
+                        @endforeach
+                    </x-searchable-select>
                 </div>
 
                 <!-- Pemilik/Agen -->

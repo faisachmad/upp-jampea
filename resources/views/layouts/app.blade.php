@@ -19,6 +19,30 @@
 
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="{{ asset('icon.png') }}">
+
+        <!-- SweetAlert2 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <style>
+            .swal2-popup {
+                font-family: 'Figtree', sans-serif !important;
+                border-radius: 1rem !important;
+            }
+            .swal2-title {
+                font-weight: 700 !important;
+            }
+            /* Row Stacking Fix for Dropdown Menus */
+            .dataTables_wrapper table tbody tr {
+                position: relative;
+                z-index: 1;
+            }
+            .dataTables_wrapper table tbody tr:hover,
+            .dataTables_wrapper table tbody tr:focus-within {
+                z-index: 100 !important;
+                position: relative !important;
+            }
+        </style>
     </head>
     <body class="font-sans antialiased bg-gray-100"
           x-data="{
@@ -64,6 +88,30 @@
 
         <!-- Loading Screen -->
         <x-loading-screen />
+
+        <!-- Notification Handler -->
+        <x-sweet-alert />
+
+        <script>
+            // Global Confirmation Handler
+            window.confirmDelete = function(form, message = 'Yakin ingin menghapus data ini?') {
+                Swal.fire({
+                    title: 'Konfirmasi Hapus',
+                    text: message,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            }
+        </script>
 
         <!-- Scripts Stack -->
         @stack('scripts')

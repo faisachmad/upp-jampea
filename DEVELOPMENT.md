@@ -10,6 +10,7 @@ Panduan untuk developer yang ingin berkontribusi atau melanjutkan development ap
 - [Project Structure](#project-structure)
 - [Architecture Overview](#architecture-overview)
 - [Coding Standards](#coding-standards)
+- [Roles & CRUD Standard](#roles--crud-standard)
 - [Development Workflow](#development-workflow)
 - [Testing](#testing)
 - [Deployment](#deployment)
@@ -394,6 +395,73 @@ class KunjunganController extends Controller
 - Use consistent spacing scale (4, 6, 8, etc.)
 - Use semantic colors (blue for primary, red for danger)
 - Responsive design: `md:`, `lg:` prefixes
+
+---
+
+## 👥 Roles & CRUD Standard
+
+### Roles Development
+
+- **Backend Developer**
+    - Wajib implementasi server-side DataTables (Yajra) di branch `if ($request->ajax())`.
+    - Wajib sinkron parameter frontend (`search_custom`, `status`, filter modul) ke query Eloquent.
+    - Wajib menjaga response action/edit/delete konsisten antar modul.
+- **Frontend Developer**
+    - Wajib trigger pencarian/filter dengan `table.ajax.reload()`.
+    - Dilarang submit GET untuk filter DataTables (`#filter-form` harus `preventDefault`).
+    - Enter di search input wajib memakai event keyboard + `preventDefault()` + reload AJAX.
+- **Reviewer / QA**
+    - Wajib cek bahwa modul baru mengikuti pola `Master Pelabuhan`.
+    - Wajib validasi tidak ada `table.draw()` untuk trigger filter/search.
+    - Wajib validasi query AJAX benar-benar memproses parameter filter.
+
+### Standar CRUD Modul Baru (Wajib Ikuti Modul Pelabuhan)
+
+Semua modul CRUD baru harus mengikuti metode yang sama seperti modul `Pelabuhan`:
+
+1. **Controller Index (Yajra + AJAX Branch)**
+     - Gunakan pola:
+     ```php
+     if ($request->ajax()) {
+             $query = Model::query();
+
+             if ($request->filled('search_custom')) {
+                     // apply search columns
+             }
+
+             if ($request->filled('status')) {
+                     // active / inactive
+             }
+
+             return datatables()->of($query)
+                     ->addIndexColumn()
+                     ->addColumn('action', fn ($row) => ...)
+                     ->rawColumns(['action'])
+                     ->make(true);
+     }
+     ```
+
+2. **Frontend DataTable Filter**
+     - Form filter wajib:
+     ```javascript
+     $('#filter-form').on('submit', function (e) {
+             e.preventDefault();
+             table.ajax.reload();
+     });
+     ```
+     - Tombol cari/reset dan Enter search wajib memanggil `table.ajax.reload()`.
+
+3. **Parameter Naming Convention**
+     - Search utama: `search_custom`
+     - Status: `status` (`active` / `inactive`)
+     - Filter spesifik modul: gunakan nama field relasi/kolom (`tipe`, `kapal_id`, `jenis_kapal_id`, dll)
+
+4. **Definition of Done (CRUD Master Module)**
+     - Index list via server-side Yajra.
+     - Search/filter tanpa page refresh.
+     - Create/Update support response JSON untuk modal/AJAX.
+     - Delete menggunakan konfirmasi global.
+     - Test minimal mencakup satu skenario filter/search AJAX.
 
 ---
 

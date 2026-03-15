@@ -7,7 +7,7 @@ use App\Models\TipePelabuhan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pelabuhan>
+ * @extends Factory<Pelabuhan>
  */
 class PelabuhanFactory extends Factory
 {
@@ -23,8 +23,8 @@ class PelabuhanFactory extends Factory
         $tipe = TipePelabuhan::factory()->create();
 
         return [
-            'kode' => 'PLB-' . strtoupper($this->faker->unique()->bothify('???###')),
-            'nama' => 'Pelabuhan ' . $this->faker->city(),
+            'kode' => 'PLB-'.strtoupper($this->faker->unique()->bothify('???###')),
+            'nama' => 'Pelabuhan '.$this->faker->city(),
             'tipe' => $tipe->nama,
             'tipe_pelabuhan_id' => $tipe->id,
             'is_active' => $this->faker->boolean(80), // 80% chance of being active
@@ -58,6 +58,7 @@ class PelabuhanFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             $tipe = TipePelabuhan::factory()->upp()->create();
+
             return [
                 'tipe' => $tipe->nama,
                 'tipe_pelabuhan_id' => $tipe->id,
@@ -72,6 +73,7 @@ class PelabuhanFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             $tipe = TipePelabuhan::factory()->luar()->create();
+
             return [
                 'tipe' => $tipe->nama,
                 'tipe_pelabuhan_id' => $tipe->id,

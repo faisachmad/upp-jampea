@@ -6,7 +6,7 @@ use App\Models\TipePelabuhan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TipePelabuhan>
+ * @extends Factory<TipePelabuhan>
  */
 class TipePelabuhanFactory extends Factory
 {
@@ -29,7 +29,7 @@ class TipePelabuhanFactory extends Factory
         $type = $this->faker->randomElement($types);
 
         return [
-            'nama' => $type['nama'] . '-' . $this->faker->unique()->numberBetween(1000, 9999),
+            'nama' => $type['nama'].'-'.$this->faker->unique()->numberBetween(1000, 9999),
             'keterangan' => $type['keterangan'],
         ];
     }
@@ -40,7 +40,7 @@ class TipePelabuhanFactory extends Factory
     public function upp(): static
     {
         return $this->state(fn (array $attributes) => [
-            'nama' => 'UPP-' . uniqid(),
+            'nama' => 'UPP-'.uniqid(),
             'keterangan' => 'Unit Penyelenggara Pelabuhan',
         ]);
     }
@@ -51,7 +51,7 @@ class TipePelabuhanFactory extends Factory
     public function posker(): static
     {
         return $this->state(fn (array $attributes) => [
-            'nama' => 'POSKER-' . uniqid(),
+            'nama' => 'POSKER-'.uniqid(),
             'keterangan' => 'Pos Pengawasan Kepelabuanan',
         ]);
     }
@@ -62,7 +62,7 @@ class TipePelabuhanFactory extends Factory
     public function wilker(): static
     {
         return $this->state(fn (array $attributes) => [
-            'nama' => 'WILKER-' . uniqid(),
+            'nama' => 'WILKER-'.uniqid(),
             'keterangan' => 'Wilayah Kerja',
         ]);
     }
@@ -73,7 +73,7 @@ class TipePelabuhanFactory extends Factory
     public function luar(): static
     {
         return $this->state(fn (array $attributes) => [
-            'nama' => 'LUAR-' . uniqid(),
+            'nama' => 'LUAR-'.uniqid(),
             'keterangan' => 'Pelabuhan Luar Wilayah',
         ]);
     }

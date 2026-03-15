@@ -13,7 +13,9 @@ class PelabuhanControllerTest extends TestCase
     use RefreshDatabase;
 
     protected User $user;
+
     protected TipePelabuhan $tipeUpp;
+
     protected TipePelabuhan $tipeLuar;
 
     protected function setUp(): void
@@ -147,7 +149,7 @@ class PelabuhanControllerTest extends TestCase
         $response->assertOk();
         $pelabuhans = $response->viewData('pelabuhans');
         $this->assertEquals(3, $pelabuhans->total());
-        $this->assertTrue($pelabuhans->every(fn($p) => $p->is_active === true));
+        $this->assertTrue($pelabuhans->every(fn ($p) => $p->is_active === true));
     }
 
     /** @test */
@@ -162,7 +164,7 @@ class PelabuhanControllerTest extends TestCase
         $response->assertOk();
         $pelabuhans = $response->viewData('pelabuhans');
         $this->assertEquals(2, $pelabuhans->total());
-        $this->assertTrue($pelabuhans->every(fn($p) => $p->is_active === false));
+        $this->assertTrue($pelabuhans->every(fn ($p) => $p->is_active === false));
     }
 
     /** @test */
@@ -198,7 +200,7 @@ class PelabuhanControllerTest extends TestCase
         $this->assertDatabaseHas('pelabuhans', [
             'nama' => 'Pelabuhan Test',
             'tipe_pelabuhan_id' => $this->tipeUpp->id,
-            'tipe' => 'UPP', // Should sync old tipe column
+            'tipe' => $this->tipeUpp->nama,
             'is_active' => true,
         ]);
     }
@@ -236,7 +238,7 @@ class PelabuhanControllerTest extends TestCase
             'id' => $pelabuhan->id,
             'nama' => 'New Name',
             'tipe_pelabuhan_id' => $this->tipeLuar->id,
-            'tipe' => 'LUAR',
+            'tipe' => $this->tipeLuar->nama,
         ]);
     }
 
@@ -277,14 +279,65 @@ class PelabuhanControllerTest extends TestCase
 
         $response->assertOk();
         $pelabuhans = $response->viewData('pelabuhans');
-        
+
         $this->assertEquals(10, $pelabuhans->perPage());
         $this->assertEquals(15, $pelabuhans->total());
-        $this->assertTrue($pelabuhans->every(fn($p) => 
-            str_contains($p->nama, 'Aktif') && 
+        $this->assertTrue($pelabuhans->every(fn ($p) => str_contains($p->nama, 'Aktif') &&
             $p->is_active === true &&
             $p->tipe_pelabuhan_id === $this->tipeUpp->id
         ));
+    }
+
+    /** @test */
+    public function it_can_filter_and_search_pelabuhan_for_ajax_datatable()
+    {
+        Pelabuhan::factory()->create([
+            'nama' => 'Pelabuhan Jampea Aktif',
+            'kode' => 'PLB-JMP-001',
+            'tipe_pelabuhan_id' => $this->tipeUpp->id,
+            'is_active' => true,
+        ]);
+
+        Pelabuhan::factory()->create([
+            'nama' => 'Pelabuhan Jampea Nonaktif',
+            'kode' => 'PLB-JMP-002',
+            'tipe_pelabuhan_id' => $this->tipeUpp->id,
+            'is_active' => false,
+        ]);
+
+        Pelabuhan::factory()->create([
+            'nama' => 'Pelabuhan Lain',
+            'kode' => 'PLB-LAIN-001',
+            'tipe_pelabuhan_id' => $this->tipeLuar->id,
+            'is_active' => true,
+        ]);
+
+        $response = $this->actingAs($this->user)
+            ->get(route('master.pelabuhan.index', [
+                'draw' => 1,
+                'start' => 0,
+                'length' => 10,
+                'search_custom' => 'Jampea',
+                'tipe' => $this->tipeUpp->id,
+                'status' => 'active',
+            ]), [
+                'X-Requested-With' => 'XMLHttpRequest',
+            ]);
+
+        $response->assertOk();
+        $response->assertJsonStructure([
+            'draw',
+            'recordsTotal',
+            'recordsFiltered',
+            'data',
+        ]);
+
+        $rows = $response->json('data');
+
+        $this->assertCount(1, $rows);
+        $this->assertSame('Pelabuhan Jampea Aktif', $rows[0]['nama']);
+        $this->assertTrue((bool) $rows[0]['is_active']);
+        $this->assertSame($this->tipeUpp->id, $rows[0]['tipe_pelabuhan_id']);
     }
 
     /** @test */
