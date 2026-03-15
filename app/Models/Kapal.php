@@ -8,14 +8,14 @@ class Kapal extends Model
 {
     protected $fillable = [
         'nama',
-        'jenis',
+        'jenis_kapal_id',
         'gt',
         'dwt',
         'panjang',
         'tanda_selar',
         'call_sign',
         'tempat_kedudukan',
-        'bendera',
+        'bendera_id',
         'pemilik_agen',
         'is_active',
     ];
@@ -28,6 +28,16 @@ class Kapal extends Model
     ];
 
     // Relationships
+    public function jenisKapal()
+    {
+        return $this->belongsTo(JenisKapal::class);
+    }
+
+    public function bendera()
+    {
+        return $this->belongsTo(Bendera::class);
+    }
+
     public function kunjungans()
     {
         return $this->hasMany(Kunjungan::class);

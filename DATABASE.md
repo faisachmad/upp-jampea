@@ -1,6 +1,6 @@
-# Dokumentasi Database SILAPOR UPP Jampea
+# Dokumentasi Database SAPOJAM UPP Jampea
 
-Dokumen ini menjelaskan struktur database, relasi antar tabel, dan skema lengkap aplikasi SILAPOR UPP Jampea.
+Dokumen ini menjelaskan struktur database, relasi antar tabel, dan skema lengkap aplikasi SAPOJAM UPP Jampea.
 
 ---
 
@@ -597,7 +597,7 @@ php artisan migrate:fresh --seed
 
 ```bash
 # Backup command
-pg_dump -U postgres silapor_upp_jampea -F c -f backup_$(date +%Y%m%d).dump
+pg_dump -U postgres sapojam_upp_jampea -F c -f backup_$(date +%Y%m%d).dump
 ```
 
 ---

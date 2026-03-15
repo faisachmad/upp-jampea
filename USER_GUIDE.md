@@ -1,6 +1,6 @@
-# Panduan Pengguna SILAPOR UPP Jampea
+# Panduan Pengguna SAPOJAM UPP Jampea
 
-Panduan lengkap penggunaan aplikasi SILAPOR UPP Jampea untuk operator pelabuhan.
+Panduan lengkap penggunaan aplikasi SAPOJAM UPP Jampea untuk operator pelabuhan.
 
 ---
 
@@ -24,7 +24,7 @@ Panduan lengkap penggunaan aplikasi SILAPOR UPP Jampea untuk operator pelabuhan.
 
 1. Buka browser dan akses URL aplikasi:
    - Development: `http://localhost:8000`
-   - Production: `https://silapor.uppjampea.id`
+   - Production: `https://sapojam.uppjampea.id`
 
 2. Masukkan kredensial:
    - **Email**: admin@uppjampea.id

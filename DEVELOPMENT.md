@@ -1,6 +1,6 @@
-# Panduan Development SILAPOR UPP Jampea
+# Panduan Development SAPOJAM UPP Jampea
 
-Panduan untuk developer yang ingin berkontribusi atau melanjutkan development aplikasi SILAPOR UPP Jampea.
+Panduan untuk developer yang ingin berkontribusi atau melanjutkan development aplikasi SAPOJAM UPP Jampea.
 
 ---
 
@@ -33,7 +33,7 @@ Pastikan Anda sudah install:
 ```bash
 # Clone repository
 git clone <repository-url>
-cd silapor-upp-jampea
+cd sapojam-upp-jampea
 
 # Install dependencies
 composer install
@@ -79,7 +79,7 @@ php artisan serve --port=8181
 ### Directory Overview
 
 ```
-silapor-upp-jampea/
+sapojam-upp-jampea/
 ├── app/
 │   ├── Http/
 │   │   ├── Controllers/

@@ -1,5 +1,60 @@
 @extends('layouts.app')
 
+@push('styles')
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+<style>
+    .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+    }
+    .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 24px;
+    }
+    .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+    input:checked + .toggle-slider {
+        background-color: #2563eb;
+    }
+    input:checked + .toggle-slider:before {
+        transform: translateX(20px);
+    }
+    /* Tom Select overrides */
+    .ts-control {
+        border-radius: 0.5rem !important;
+        padding: 0.5rem 1rem !important;
+        border-color: #d1d5db !important;
+    }
+    .ts-control:focus {
+        ring: 2px !important;
+        ring-color: #3b82f6 !important;
+    }
+</style>
+@endpush
+
 @section('title', 'Edit Pelabuhan')
 
 @section('content')
@@ -19,21 +74,16 @@
             @method('PUT')
 
             <div class="space-y-4">
-                <!-- Kode -->
+                <!-- Kode (Read-only for context, but can be hidden if preferred) -->
                 <div>
-                    <label for="kode" class="block text-sm font-medium text-gray-700 mb-2">
-                        Kode Pelabuhan <span class="text-red-500">*</span>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Kode Pelabuhan
                     </label>
                     <input type="text"
-                           name="kode"
-                           id="kode"
-                           value="{{ old('kode', $pelabuhan->kode) }}"
-                           required
-                           maxlength="10"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('kode') border-red-500 @enderror">
-                    @error('kode')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
+                           value="{{ $pelabuhan->kode }}"
+                           disabled
+                           class="w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg text-gray-500 cursor-not-allowed">
+                    <input type="hidden" name="kode" value="{{ $pelabuhan->kode }}">
                 </div>
 
                 <!-- Nama -->
@@ -53,35 +103,38 @@
                     @enderror
                 </div>
 
-                <!-- Tipe -->
                 <div>
-                    <label for="tipe" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="tipe-select" class="block text-sm font-medium text-gray-700 mb-2">
                         Tipe Pelabuhan <span class="text-red-500">*</span>
                     </label>
-                    <select name="tipe"
-                            id="tipe"
+                    <select name="tipe_pelabuhan_id"
+                            id="tipe-select"
                             required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('tipe') border-red-500 @enderror">
+                            class="w-full">
                         <option value="">-- Pilih Tipe --</option>
-                        <option value="UPP" {{ old('tipe', $pelabuhan->tipe) == 'UPP' ? 'selected' : '' }}>UPP (Unit Penyelenggara Pelabuhan)</option>
-                        <option value="POSKER" {{ old('tipe', $pelabuhan->tipe) == 'POSKER' ? 'selected' : '' }}>POSKER (Pos Pengawasan Kepelabuanan)</option>
-                        <option value="WILKER" {{ old('tipe', $pelabuhan->tipe) == 'WILKER' ? 'selected' : '' }}>WILKER (Wilayah Kerja)</option>
-                        <option value="LUAR" {{ old('tipe', $pelabuhan->tipe) == 'LUAR' ? 'selected' : '' }}>LUAR (Pelabuhan Luar Wilayah)</option>
+                        @foreach($tipes as $tipe)
+                            <option value="{{ $tipe->id }}" {{ old('tipe_pelabuhan_id', $pelabuhan->tipe_pelabuhan_id) == $tipe->id ? 'selected' : '' }}>
+                                {{ $tipe->nama }}
+                            </option>
+                        @endforeach
                     </select>
-                    @error('tipe')
+                    @error('tipe_pelabuhan_id')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <!-- Status -->
-                <div>
-                    <label class="flex items-center">
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div class="flex flex-col">
+                        <span class="text-sm font-medium text-gray-900">Status Aktif</span>
+                        <span class="text-xs text-gray-500">Aktifkan untuk menampilkan data ini</span>
+                    </div>
+                    <label class="toggle-switch">
                         <input type="checkbox"
                                name="is_active"
                                value="1"
-                               {{ old('is_active', $pelabuhan->is_active) ? 'checked' : '' }}
-                               class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                        <span class="ml-2 text-sm text-gray-700">Aktif</span>
+                               {{ old('is_active', $pelabuhan->is_active) ? 'checked' : '' }}>
+                        <span class="toggle-slider"></span>
                     </label>
                 </div>
             </div>
@@ -98,4 +151,19 @@
         </form>
     </div>
 </div>
+</div>
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        new TomSelect('#tipe-select', {
+            sortField: {
+                field: "text",
+                direction: "asc"
+            }
+        });
+    });
+</script>
+@endpush
 @endsection

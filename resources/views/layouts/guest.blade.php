@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Silapor UPP Jampea') }}</title>
+    <title>{{ config('app.name', 'SAPOJAM UPP Jampea') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,9 @@
 
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('icon.png') }}">
 
     <style>
         body {
@@ -33,7 +36,7 @@
         .auth-background {
             position: absolute;
             inset: 0;
-            background-image: url('{{ asset('images/auth-bg.png') }}');
+            background-image: url('{{ asset('images/auth-bg2.jpg') }}');
             background-size: cover;
             background-position: center;
             filter: brightness(0.6) saturate(1.2);
@@ -85,6 +88,7 @@
             color: rgba(255, 255, 255, 0.6);
             letter-spacing: 0.1em;
             text-transform: uppercase;
+            text-align: center;
         }
         /* Override Laravel Breeze defaults */
         .auth-card input {
@@ -137,8 +141,8 @@
                 <a href="/">
                     <x-application-logo class="w-16 h-16 fill-current text-blue-500" />
                 </a>
-                <span class="brand-name">Silapor</span>
-                <span class="brand-subtitle">UPP Kelas III Jampea</span>
+                <span class="brand-name">SAPOJAM</span>
+                <span class="brand-subtitle">Sistem Administrasi Pelaporan Operasional Pelabuhan Jampea</span>
             </div>
 
             {{ $slot }}

@@ -3,11 +3,11 @@
 @section('title', 'Data Kunjungan Kapal')
 
 @section('content')
-<div class="space-y-6" x-data="{ showModal: false, ...kunjunganForm() }">
+<div class="space-y-6" x-data="{ ...kunjunganForm() }">
     <!-- Header -->
     <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-gray-900">Data Kunjungan Kapal</h1>
-        <button @click="showModal = true" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button x-on:click="$dispatch('open-modal', 'input-kunjungan-modal')" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             Input Kunjungan Baru
         </button>
     </div>
@@ -149,36 +149,27 @@
     </div>
 
     <!-- Modal Form Input Kunjungan -->
-    <div x-show="showModal" 
-         class="fixed inset-0 z-50 overflow-y-auto" 
-         style="display: none;"
-         x-cloak>
-        <!-- Backdrop (tidak bisa diklik) -->
-        <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity"></div>
-
-        <!-- Modal Content -->
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="relative bg-white rounded-lg shadow-xl max-w-7xl w-full max-h-[90vh] overflow-y-auto">
-                <!-- Modal Header -->
-                <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center z-10">
-                    <div>
-                        <h2 class="text-xl font-bold text-gray-900">Input Kunjungan Kapal</h2>
-                        <p class="text-sm text-gray-600 mt-1">Lengkapi semua data kunjungan kapal</p>
-                    </div>
-                    <button @click="showModal = false; currentTab = 1" class="text-gray-400 hover:text-gray-600">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                    </button>
+    <x-modal name="input-kunjungan-modal" :show="false" maxWidth="7xl" :closeable="false">
+        <div class="bg-white">
+            <!-- Modal Header -->
+            <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center z-10">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900">Input Kunjungan Kapal</h2>
+                    <p class="text-sm text-gray-600 mt-1">Lengkapi semua data kunjungan kapal</p>
                 </div>
+                <button x-on:click="$dispatch('close-modal', 'input-kunjungan-modal'); currentTab = 1" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
 
-                <!-- Modal Body -->
-                <div class="p-6">
-                    @include('kunjungan.partials.form')
-                </div>
+            <!-- Modal Body -->
+            <div class="p-6">
+                @include('kunjungan.partials.form')
             </div>
         </div>
-    </div>
+    </x-modal>
 </div>
 
 @push('scripts')

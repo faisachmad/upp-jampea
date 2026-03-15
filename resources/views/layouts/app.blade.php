@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>@yield('title', config('app.name', 'SILAPOR')) - {{ config('app.name', 'SILAPOR') }}</title>
+        <title>@yield('title', config('app.name', 'SAPOJAM')) - {{ config('app.name', 'SAPOJAM') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -13,6 +13,12 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- Styles Stack -->
+        @stack('styles')
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ asset('icon.png') }}">
     </head>
     <body class="font-sans antialiased bg-gray-100"
           x-data="{
@@ -55,6 +61,9 @@
                 @yield('content')
             </main>
         </div>
+
+        <!-- Loading Screen -->
+        <x-loading-screen />
 
         <!-- Scripts Stack -->
         @stack('scripts')

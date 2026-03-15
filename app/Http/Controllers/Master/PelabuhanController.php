@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pelabuhan;
+use App\Models\TipePelabuhan;
 use Illuminate\Http\Request;
 
 class PelabuhanController extends Controller
@@ -22,7 +23,7 @@ class PelabuhanController extends Controller
 
         // Filter by tipe
         if ($request->filled('tipe')) {
-            $query->where('tipe', $request->tipe);
+            $query->where('tipe_pelabuhan_id', $request->tipe);
         }
 
         // Filter by status
@@ -34,9 +35,26 @@ class PelabuhanController extends Controller
             }
         }
 
-        $pelabuhans = $query->orderBy('kode')->paginate(15);
+        // Sorting
+        $sort = $request->get('sort', 'kode');
+        $direction = $request->get('direction', 'asc');
 
-        return view('master.pelabuhan.index', compact('pelabuhans'));
+        $allowedSorts = ['kode', 'nama', 'tipe', 'is_active'];
+        if (!in_array($sort, $allowedSorts)) {
+            $sort = 'kode';
+        }
+
+        // Per page setting
+        $perPage = $request->get('per_page', 15);
+        $allowedPerPage = [10, 15, 25, 50, 100];
+        if (!in_array($perPage, $allowedPerPage)) {
+            $perPage = 15;
+        }
+
+        $pelabuhans = $query->with('tipePelabuhan')->orderBy($sort, $direction)->paginate($perPage);
+        $tipes = TipePelabuhan::all();
+
+        return view('master.pelabuhan.index', compact('pelabuhans', 'tipes'));
     }
 
     /**
@@ -44,7 +62,8 @@ class PelabuhanController extends Controller
      */
     public function create()
     {
-        return view('master.pelabuhan.create');
+        $tipes = TipePelabuhan::all();
+        return view('master.pelabuhan.create', compact('tipes'));
     }
 
     /**
@@ -53,11 +72,14 @@ class PelabuhanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode' => 'required|string|max:10|unique:pelabuhans,kode',
             'nama' => 'required|string|max:100',
-            'tipe' => 'required|in:UPP,POSKER,WILKER,LUAR',
+            'tipe_pelabuhan_id' => 'required|exists:tipe_pelabuhans,id',
             'is_active' => 'boolean',
         ]);
+
+        // Sync old tipe column for compatibility if needed
+        $tipe = TipePelabuhan::find($validated['tipe_pelabuhan_id']);
+        $validated['tipe'] = $tipe->nama;
 
         Pelabuhan::create($validated);
 
@@ -78,7 +100,8 @@ class PelabuhanController extends Controller
      */
     public function edit(Pelabuhan $pelabuhan)
     {
-        return view('master.pelabuhan.edit', compact('pelabuhan'));
+        $tipes = TipePelabuhan::all();
+        return view('master.pelabuhan.edit', compact('pelabuhan', 'tipes'));
     }
 
     /**
@@ -87,11 +110,14 @@ class PelabuhanController extends Controller
     public function update(Request $request, Pelabuhan $pelabuhan)
     {
         $validated = $request->validate([
-            'kode' => 'required|string|max:10|unique:pelabuhans,kode,' . $pelabuhan->id,
             'nama' => 'required|string|max:100',
-            'tipe' => 'required|in:UPP,POSKER,WILKER,LUAR',
+            'tipe_pelabuhan_id' => 'required|exists:tipe_pelabuhans,id',
             'is_active' => 'boolean',
         ]);
+
+        // Sync old tipe column
+        $tipe = TipePelabuhan::find($validated['tipe_pelabuhan_id']);
+        $validated['tipe'] = $tipe->nama;
 
         $pelabuhan->update($validated);
 

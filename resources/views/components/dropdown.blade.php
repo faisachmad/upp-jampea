@@ -1,10 +1,15 @@
-@props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white'])
+@props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white', 'verticalAlign' => 'bottom'])
 
 @php
 $alignmentClasses = match ($align) {
     'left' => 'ltr:origin-top-left rtl:origin-top-right start-0',
     'top' => 'origin-top',
     default => 'ltr:origin-top-right rtl:origin-top-left end-0',
+};
+
+$verticalAlignmentClasses = match ($verticalAlign) {
+    'top' => 'bottom-full mb-2 origin-bottom',
+    default => 'mt-2 origin-top',
 };
 
 $width = match ($width) {
@@ -25,7 +30,7 @@ $width = match ($width) {
             x-transition:leave="transition ease-in duration-75"
             x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-95"
-            class="absolute z-50 mt-2 {{ $width }} rounded-md shadow-lg {{ $alignmentClasses }}"
+            class="absolute z-50 {{ $width }} rounded-md shadow-lg {{ $alignmentClasses }} {{ $verticalAlignmentClasses }}"
             style="display: none;"
             @click="open = false">
         <div class="rounded-md ring-1 ring-black ring-opacity-5 {{ $contentClasses }}">

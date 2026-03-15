@@ -57,15 +57,14 @@
                     <label for="tipe" class="block text-sm font-medium text-gray-700 mb-2">
                         Tipe Pelabuhan <span class="text-red-500">*</span>
                     </label>
-                    <select name="tipe"
-                            id="tipe"
+                    <select name="tipe_pelabuhan_id"
+                            id="tipe_pelabuhan_id"
                             required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('tipe') border-red-500 @enderror">
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('tipe_pelabuhan_id') border-red-500 @enderror">
                         <option value="">-- Pilih Tipe --</option>
-                        <option value="UPP" {{ old('tipe') == 'UPP' ? 'selected' : '' }}>UPP (Unit Penyelenggara Pelabuhan)</option>
-                        <option value="POSKER" {{ old('tipe') == 'POSKER' ? 'selected' : '' }}>POSKER (Pos Pengawasan Kepelabuanan)</option>
-                        <option value="WILKER" {{ old('tipe') == 'WILKER' ? 'selected' : '' }}>WILKER (Wilayah Kerja)</option>
-                        <option value="LUAR" {{ old('tipe') == 'LUAR' ? 'selected' : '' }}>LUAR (Pelabuhan Luar Wilayah)</option>
+                        @foreach($tipes as $tipe)
+                            <option value="{{ $tipe->id }}" {{ old('tipe_pelabuhan_id') == $tipe->id ? 'selected' : '' }}>{{ $tipe->nama }} ({{ $tipe->keterangan }})</option>
+                        @endforeach
                     </select>
                     @error('tipe')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

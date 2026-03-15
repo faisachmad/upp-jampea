@@ -1,6 +1,6 @@
-# Contributing to SILAPOR UPP Jampea
+# Contributing to SAPOJAM UPP Jampea
 
-Thank you for considering contributing to SILAPOR UPP Jampea! This document provides guidelines for contributing to the project.
+Thank you for considering contributing to SAPOJAM UPP Jampea! This document provides guidelines for contributing to the project.
 
 ---
 
@@ -69,11 +69,11 @@ We welcome the following types of contributions:
 # Fork the repository on GitHub/GitLab
 
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/silapor-upp-jampea.git
-cd silapor-upp-jampea
+git clone https://github.com/YOUR_USERNAME/sapojam-upp-jampea.git
+cd sapojam-upp-jampea
 
 # Add upstream remote
-git remote add upstream https://github.com/uppjampea/silapor-upp-jampea.git
+git remote add upstream https://github.com/uppjampea/sapojam-upp-jampea.git
 ```
 
 ### Setup Development Environment
@@ -457,13 +457,13 @@ If you need help:
 
 ## 📄 License
 
-By contributing to SILAPOR UPP Jampea, you agree that your contributions will be licensed under the project's proprietary license.
+By contributing to SAPOJAM UPP Jampea, you agree that your contributions will be licensed under the project's proprietary license.
 
 ---
 
 ## 🙏 Thank You!
 
-Thank you for contributing to SILAPOR UPP Jampea! Your contributions help improve this project for everyone.
+Thank you for contributing to SAPOJAM UPP Jampea! Your contributions help improve this project for everyone.
 
 ---
 

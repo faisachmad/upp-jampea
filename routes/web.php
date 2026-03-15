@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KunjunganController;
 use App\Http\Controllers\Master\KapalController;
 use App\Http\Controllers\Master\PelabuhanController;
+use App\Http\Controllers\Master\TipePelabuhanController;
 use App\Http\Controllers\Master\NakhodaController;
 use App\Http\Controllers\Master\BarangB3Controller;
 use App\Http\Controllers\Api\KapalSearchController;
@@ -29,6 +30,9 @@ Route::middleware('auth')->group(function () {
     // Master Data Routes
     Route::prefix('master')->name('master.')->group(function () {
         Route::resource('kapal', KapalController::class);
+        Route::post('kapal/store-jenis-kapal', [KapalController::class, 'storeJenisKapal'])->name('kapal.store-jenis-kapal');
+        Route::post('kapal/store-bendera', [KapalController::class, 'storeBendera'])->name('kapal.store-bendera');
+        Route::resource('tipe-pelabuhan', TipePelabuhanController::class)->except(['create', 'edit', 'show']);
         Route::resource('pelabuhan', PelabuhanController::class);
         Route::resource('nakhoda', NakhodaController::class);
         Route::resource('barang-b3', BarangB3Controller::class);

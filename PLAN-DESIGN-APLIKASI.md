@@ -1,4 +1,4 @@
-# PLAN DEVELOPMENT — APLIKASI LAPORAN UPP KELAS III JAMPEA
+# PLAN DEVELOPMENT — SAPOJAM
 
 **Tech Stack:** Laravel 12 + PostgreSQL + Blade + Alpine.js + Tailwind CSS 4  
 **Tanggal:** Maret 2026
@@ -553,7 +553,7 @@ jenis_pelayarans ──────┘
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
-│  🚢 SILAPOR UPP JAMPEA                          👤 Admin  [Logout] │
+│  🚢 SAPOJAM UPP JAMPEA                          👤 Admin  [Logout] │
 ├──────────┬───────────────────────────────────────────────────────────┤
 │          │                                                           │
 │ MENU     │   CONTENT AREA                                           │

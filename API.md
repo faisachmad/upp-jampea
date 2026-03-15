@@ -1,6 +1,6 @@
-# Dokumentasi API SILAPOR UPP Jampea
+# Dokumentasi API SAPOJAM UPP Jampea
 
-Dokumentasi lengkap untuk REST API endpoints yang tersedia di aplikasi SILAPOR UPP Jampea.
+Dokumentasi lengkap untuk REST API endpoints yang tersedia di aplikasi SAPOJAM UPP Jampea.
 
 ---
 
@@ -21,7 +21,7 @@ Dokumentasi lengkap untuk REST API endpoints yang tersedia di aplikasi SILAPOR U
 
 ```
 Development: http://localhost:8000/api
-Production:  https://silapor.uppjampea.id/api
+Production:  https://sapojam.uppjampea.id/api
 ```
 
 ### Content Type

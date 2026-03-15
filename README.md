@@ -1,6 +1,6 @@
-# SILAPOR UPP Jampea
+# SAPOJAM UPP Jampea
 
-**Sistem Informasi Laporan Pelabuhan - Unit Penyelenggara Pelabuhan Jampea**
+**Sistem Administrasi Pelaporan Operasional Pelabuhan Jampea**
 
 Aplikasi web untuk mengelola dan melaporkan data kunjungan kapal di wilayah kerja UPP Jampea, Kabupaten Kepulauan Selayar, Sulawesi Selatan.
 
@@ -22,7 +22,7 @@ Aplikasi web untuk mengelola dan melaporkan data kunjungan kapal di wilayah kerj
 
 ## 🎯 Tentang Aplikasi
 
-SILAPOR UPP Jampea adalah sistem informasi berbasis web yang dirancang untuk:
+SAPOJAM UPP Jampea adalah sistem informasi berbasis web yang dirancang untuk:
 
 - **Mengelola data master** pelabuhan, kapal, nakhoda, dan barang berbahaya (B3)
 - **Mencatat kunjungan kapal** dengan detail lengkap (kedatangan, keberangkatan, penumpang, kendaraan, muatan, B3)
@@ -119,7 +119,7 @@ Aplikasi ini mendukung operasional 6 pelabuhan di wilayah UPP Jampea:
 ```bash
 # 1. Clone repository
 git clone <repository-url>
-cd silapor-upp-jampea
+cd SAPOJAM
 
 # 2. Install dependencies
 composer install
@@ -183,7 +183,7 @@ Akses aplikasi di `http://localhost:8000` dan login dengan:
 ## 🗂 Struktur Direktori
 
 ```
-silapor-upp-jampea/
+SAPOJAM/
 ├── app/
 │   ├── Http/Controllers/
 │   │   ├── Api/
@@ -282,7 +282,7 @@ Kabupaten Kepulauan Selayar, Sulawesi Selatan
 ### 1. Clone & Install Dependencies
 
 ```bash
-cd silapor-upp-jampea
+cd SAPOJAM
 composer install
 npm install
 ```
@@ -295,7 +295,7 @@ Copy `.env` file dan sesuaikan database credentials:
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
-DB_DATABASE=silapor_upp_jampea
+DB_DATABASE=sapojam_upp_jampea
 DB_USERNAME=postgres
 DB_PASSWORD=your_password_here
 ```
@@ -313,7 +313,7 @@ QUEUE_CONNECTION=sync
 Buat database PostgreSQL:
 
 ```sql
-CREATE DATABASE silapor_upp_jampea;
+CREATE DATABASE sapojam_upp_jampea;
 ```
 
 ### 4. Run Migrations & Seeders

@@ -1,6 +1,6 @@
-# Panduan Instalasi SILAPOR UPP Jampea
+# Panduan Instalasi SAPOJAM UPP Jampea
 
-Dokumen ini berisi panduan instalasi lengkap untuk aplikasi SILAPOR UPP Jampea.
+Dokumen ini berisi panduan instalasi lengkap untuk aplikasi SAPOJAM UPP Jampea.
 
 ---
 
@@ -60,8 +60,8 @@ php -m
 
 ```bash
 # Clone dari Git
-git clone <repository-url> silapor-upp-jampea
-cd silapor-upp-jampea
+git clone <repository-url> sapojam-upp-jampea
+cd sapojam-upp-jampea
 
 # Atau download ZIP dan extract
 ```
@@ -96,7 +96,7 @@ php artisan key:generate
 Edit file `.env` dengan konfigurasi yang sesuai:
 
 ```env
-APP_NAME="SILAPOR UPP Jampea"
+APP_NAME="SAPOJAM UPP Jampea"
 APP_ENV=local
 APP_DEBUG=true
 APP_TIMEZONE=Asia/Makassar
@@ -106,7 +106,7 @@ APP_LOCALE=id
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
-DB_DATABASE=silapor_upp_jampea
+DB_DATABASE=sapojam_upp_jampea
 DB_USERNAME=postgres
 DB_PASSWORD=your_password
 
@@ -118,7 +118,7 @@ QUEUE_CONNECTION=sync
 # CSRF & Cookie Configuration
 SESSION_LIFETIME=120
 SESSION_ENCRYPT=false
-SESSION_COOKIE=silapor_session
+SESSION_COOKIE=sapojam_session
 ```
 
 **⚠️ PERINGATAN PENTING**:
@@ -139,11 +139,11 @@ QUEUE_CONNECTION=sync   # BUKAN database
 psql -U postgres
 
 # Buat database
-CREATE DATABASE silapor_upp_jampea;
+CREATE DATABASE sapojam_upp_jampea;
 
 # Buat user (opsional)
-CREATE USER silapor_user WITH PASSWORD 'your_secure_password';
-GRANT ALL PRIVILEGES ON DATABASE silapor_upp_jampea TO silapor_user;
+CREATE USER sapojam_user WITH PASSWORD 'your_secure_password';
+GRANT ALL PRIVILEGES ON DATABASE sapojam_upp_jampea TO sapojam_user;
 
 # Keluar
 \q
@@ -151,7 +151,7 @@ GRANT ALL PRIVILEGES ON DATABASE silapor_upp_jampea TO silapor_user;
 
 **Menggunakan pgAdmin**:
 1. Klik kanan pada **PostgreSQL 16** > **Create** > **Database**
-2. Name: `silapor_upp_jampea`
+2. Name: `sapojam_upp_jampea`
 3. Owner: `postgres` (atau user yang dibuat)
 4. Klik **Save**
 
@@ -238,8 +238,8 @@ http://localhost:8000
 ```bash
 # 1. Clone repository ke server
 cd /var/www
-git clone <repository-url> silapor-upp-jampea
-cd silapor-upp-jampea
+git clone <repository-url> sapojam-upp-jampea
+cd sapojam-upp-jampea
 
 # 2. Install dependencies (production only)
 composer install --optimize-autoloader --no-dev
@@ -258,13 +258,13 @@ nano .env
 ```env
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=https://silapor.uppjampea.id
+APP_URL=https://sapojam.uppjampea.id
 
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
-DB_DATABASE=silapor_production
-DB_USERNAME=silapor_prod
+DB_DATABASE=sapojam_production
+DB_USERNAME=sapojam_prod
 DB_PASSWORD=super_secure_password_here
 
 SESSION_DRIVER=file
@@ -281,9 +281,9 @@ SESSION_SAME_SITE=lax
 ```bash
 # Buat database production
 sudo -u postgres psql
-CREATE DATABASE silapor_production;
-CREATE USER silapor_prod WITH PASSWORD 'super_secure_password';
-GRANT ALL PRIVILEGES ON DATABASE silapor_production TO silapor_prod;
+CREATE DATABASE sapojam_production;
+CREATE USER sapojam_prod WITH PASSWORD 'super_secure_password';
+GRANT ALL PRIVILEGES ON DATABASE sapojam_production TO sapojam_prod;
 \q
 
 # Jalankan migrasi
@@ -303,15 +303,15 @@ npm run build
 
 ```bash
 # Set ownership
-sudo chown -R www-data:www-data /var/www/silapor-upp-jampea
+sudo chown -R www-data:www-data /var/www/sapojam-upp-jampea
 
 # Set directory permissions
-sudo find /var/www/silapor-upp-jampea -type d -exec chmod 755 {} \;
-sudo find /var/www/silapor-upp-jampea -type f -exec chmod 644 {} \;
+sudo find /var/www/sapojam-upp-jampea -type d -exec chmod 755 {} \;
+sudo find /var/www/sapojam-upp-jampea -type f -exec chmod 644 {} \;
 
 # Set storage and cache writable
-sudo chmod -R 775 /var/www/silapor-upp-jampea/storage
-sudo chmod -R 775 /var/www/silapor-upp-jampea/bootstrap/cache
+sudo chmod -R 775 /var/www/sapojam-upp-jampea/storage
+sudo chmod -R 775 /var/www/sapojam-upp-jampea/bootstrap/cache
 ```
 
 ### 7. Configure Nginx
@@ -319,8 +319,8 @@ sudo chmod -R 775 /var/www/silapor-upp-jampea/bootstrap/cache
 ```nginx
 server {
     listen 80;
-    server_name silapor.uppjampea.id;
-    root /var/www/silapor-upp-jampea/public;
+    server_name sapojam.uppjampea.id;
+    root /var/www/sapojam-upp-jampea/public;
 
     add_header X-Frame-Options "SAMEORIGIN";
     add_header X-Content-Type-Options "nosniff";
@@ -363,7 +363,7 @@ sudo systemctl restart nginx
 sudo apt install certbot python3-certbot-nginx
 
 # Generate SSL certificate
-sudo certbot --nginx -d silapor.uppjampea.id
+sudo certbot --nginx -d sapojam.uppjampea.id
 
 # Auto-renewal
 sudo certbot renew --dry-run
@@ -392,7 +392,7 @@ composer dump-autoload --optimize
 crontab -e
 
 # Tambahkan baris ini
-* * * * * cd /var/www/silapor-upp-jampea && php artisan schedule:run >> /dev/null 2>&1
+* * * * * cd /var/www/sapojam-upp-jampea && php artisan schedule:run >> /dev/null 2>&1
 ```
 
 ---
@@ -406,7 +406,7 @@ crontab -e
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
-DB_DATABASE=silapor_upp_jampea
+DB_DATABASE=sapojam_upp_jampea
 DB_USERNAME=postgres
 DB_PASSWORD=your_password
 DB_SCHEMA=public
@@ -421,37 +421,37 @@ php artisan tinker
 >>> DB::connection()->getPdo();
 
 # Via psql
-psql -h 127.0.0.1 -U postgres -d silapor_upp_jampea -c "SELECT version();"
+psql -h 127.0.0.1 -U postgres -d sapojam_upp_jampea -c "SELECT version();"
 ```
 
 ### Backup Database
 
 ```bash
 # Backup manual
-pg_dump -U postgres -d silapor_upp_jampea -F c -f backup_silapor_$(date +%Y%m%d).dump
+pg_dump -U postgres -d sapojam_upp_jampea -F c -f backup_sapojam_$(date +%Y%m%d).dump
 
 # Restore dari backup
-pg_restore -U postgres -d silapor_upp_jampea -c backup_silapor_20260312.dump
+pg_restore -U postgres -d sapojam_upp_jampea -c backup_sapojam_20260312.dump
 ```
 
 ### Setup Automated Backup (Production)
 
 ```bash
 # Buat script backup
-sudo nano /usr/local/bin/backup-silapor.sh
+sudo nano /usr/local/bin/backup-sapojam.sh
 ```
 
 ```bash
 #!/bin/bash
-BACKUP_DIR="/var/backups/silapor"
+BACKUP_DIR="/var/backups/sapojam"
 DATE=$(date +%Y%m%d_%H%M%S)
 mkdir -p $BACKUP_DIR
 
 # Database backup
-pg_dump -U silapor_prod silapor_production -F c -f $BACKUP_DIR/db_$DATE.dump
+pg_dump -U sapojam_prod sapojam_production -F c -f $BACKUP_DIR/db_$DATE.dump
 
 # Files backup (storage)
-tar -czf $BACKUP_DIR/storage_$DATE.tar.gz /var/www/silapor-upp-jampea/storage
+tar -czf $BACKUP_DIR/storage_$DATE.tar.gz /var/www/sapojam-upp-jampea/storage
 
 # Hapus backup lebih dari 30 hari
 find $BACKUP_DIR -name "*.dump" -mtime +30 -delete
@@ -460,10 +460,10 @@ find $BACKUP_DIR -name "*.tar.gz" -mtime +30 -delete
 
 ```bash
 # Set executable
-sudo chmod +x /usr/local/bin/backup-silapor.sh
+sudo chmod +x /usr/local/bin/backup-sapojam.sh
 
 # Tambah ke crontab (setiap hari jam 2 pagi)
-0 2 * * * /usr/local/bin/backup-silapor.sh
+0 2 * * * /usr/local/bin/backup-sapojam.sh
 ```
 
 ---
@@ -517,7 +517,7 @@ sudo nano /etc/postgresql/16/main/postgresql.conf
 **Solusi**:
 ```bash
 sudo -u postgres psql
-GRANT ALL PRIVILEGES ON DATABASE silapor_upp_jampea TO postgres;
+GRANT ALL PRIVILEGES ON DATABASE sapojam_upp_jampea TO postgres;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO postgres;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO postgres;
 \q
@@ -599,7 +599,7 @@ php artisan route:clear
 **Solusi**:
 ```bash
 # Pastikan permissions benar
-sudo chown -R www-data:www-data /var/www/silapor-upp-jampea
+sudo chown -R www-data:www-data /var/www/sapojam-upp-jampea
 sudo chmod -R 775 storage bootstrap/cache
 
 # Clear dan rebuild cache
