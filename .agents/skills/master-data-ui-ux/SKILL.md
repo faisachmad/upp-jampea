@@ -62,11 +62,29 @@ Gunakan ukuran tombol yang *compact* (kecil/xs) agar proporsional dengan tabel.
 </button>
 ```
 
-**Tombol Filter / Cari:**
+## 3. Form Filter (Search & Action Card)
+Filter harus ditempatkan dalam *card* horizontal bersama dengan tombol **Cari**, **Reset**, dan **Tambah Data**.
+
+**Layout Container:**
 ```html
-<button type="button" class="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-all">
-    Cari
-</button>
+<div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+    <form id="filter-form" class="flex flex-col md:flex-row gap-3 w-full md:w-auto flex-1">
+        <!-- Input & Select -->
+    </form>
+    <!-- Tombol Tambah Data di Rata Kanan -->
+</div>
+```
+
+**Input Select/Dropdown (Wajib Searchable):**
+Gunakan komponen `select` biasa dan tambahkan class `searchable-select` untuk memicu *Choices.js* (fitur search seperti select2). Pastikan *wrapper*-nya diberikan class `relative z-50` agar dropdown menu tidak tertutup komponen lain:
+```html
+<div class="w-full md:w-48 relative z-50">
+    <select id="filter-id" class="searchable-select w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        <option value="">Semua Data</option>
+        <option value="active">Aktif</option>
+        ...
+    </select>
+</div>
 ```
 
 ## 4. Tombol Aksi Dropdown (Controller / Render Component)

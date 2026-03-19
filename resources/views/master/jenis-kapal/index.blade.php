@@ -146,20 +146,22 @@
                 <input type="text" id="search-input" placeholder="Nama, Kode, Keterangan..."
                        class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
-            <div class="w-full md:w-48">
-                <select id="status-filter" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <div class="w-full md:w-48 relative z-50">
+                <select id="status-filter" class="searchable-select w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="">Semua Status</option>
                     <option value="active">Aktif</option>
                     <option value="inactive">Tidak Aktif</option>
                 </select>
             </div>
-            <div class="flex gap-2 w-full md:w-auto">
-                <button type="button" id="btn-cari" class="px-4 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-all">
-                    Cari
-                </button>
-                <button type="button" id="btn-reset" class="px-4 py-1.5 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200 hover:bg-gray-200 transition-all">
-                    Reset
-                </button>
+            <div class="flex w-full md:w-auto">
+                <div class="inline-flex shadow-sm rounded-md" role="group">
+                    <button type="button" id="btn-cari" class="px-4 py-1.5 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-l-md hover:bg-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-500 transition-all">
+                        Cari
+                    </button>
+                    <button type="button" id="btn-reset" class="px-4 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-blue-500 transition-all">
+                        Reset
+                    </button>
+                </div>
             </div>
         </form>
 
