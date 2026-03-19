@@ -281,12 +281,12 @@
         <form action="{{ route('master.kapal.store') }}" method="POST">
             @csrf
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                 <!-- Nama Kapal -->
                 <div class="md:col-span-2">
                     <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">Nama Kapal <span class="text-red-500">*</span></label>
                     <input type="text" name="nama" id="nama" value="{{ old('nama') }}" required
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 @error('nama') border-red-500 @enderror">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 @error('nama') border-red-500 @enderror">
                     @error('nama')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -297,10 +297,10 @@
                     <div class="flex justify-between items-center mb-1">
                         <label for="jenis_kapal_id" class="block text-sm font-medium text-gray-700">Jenis Kapal</label>
                         <button type="button" x-on:click="$dispatch('open-modal', 'tambah-jenis-kapal-modal')"
-                                class="text-xs text-blue-600 hover:text-blue-800">+ Tambah Baru</button>
+                                class="text-[10px] text-blue-600 hover:text-blue-800 italic bg-blue-50 px-2 py-0.5 rounded border border-blue-100">+ Tambah Baru</button>
                     </div>
                     <select name="jenis_kapal_id" id="jenis_kapal_id"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                            class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                         <option value="">-- Pilih Jenis --</option>
                         <template x-for="jk in jenisKapals" :key="jk.id">
                             <option :value="jk.id" x-text="jk.nama"></option>
@@ -313,10 +313,10 @@
                     <div class="flex justify-between items-center mb-1">
                         <label for="bendera_id" class="block text-sm font-medium text-gray-700">Bendera</label>
                         <button type="button" x-on:click="$dispatch('open-modal', 'tambah-bendera-modal')"
-                                class="text-xs text-blue-600 hover:text-blue-800">+ Tambah Baru</button>
+                                class="text-[10px] text-blue-600 hover:text-blue-800 italic bg-blue-50 px-2 py-0.5 rounded border border-blue-100">+ Tambah Baru</button>
                     </div>
                     <select name="bendera_id" id="bendera_id"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                            class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                         <option value="">-- Pilih Bendera --</option>
                         <template x-for="bendera in benderas" :key="bendera.id">
                             <option :value="bendera.id" x-text="bendera.nama_negara"></option>
@@ -328,68 +328,68 @@
                 <div>
                     <label for="gt" class="block text-sm font-medium text-gray-700 mb-1">GT (Gross Tonnage)</label>
                     <input type="number" name="gt" id="gt" step="0.01" value="{{ old('gt') }}"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- DWT -->
                 <div>
                     <label for="dwt" class="block text-sm font-medium text-gray-700 mb-1">DWT (Dead Weight Tonnage)</label>
                     <input type="number" name="dwt" id="dwt" step="0.01" value="{{ old('dwt') }}"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Panjang -->
                 <div>
                     <label for="panjang" class="block text-sm font-medium text-gray-700 mb-1">Panjang (m)</label>
                     <input type="number" name="panjang" id="panjang" step="0.01" value="{{ old('panjang') }}"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Tanda Selar -->
                 <div>
                     <label for="tanda_selar" class="block text-sm font-medium text-gray-700 mb-1">Tanda Selar</label>
                     <input type="text" name="tanda_selar" id="tanda_selar" value="{{ old('tanda_selar') }}"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Call Sign -->
                 <div>
                     <label for="call_sign" class="block text-sm font-medium text-gray-700 mb-1">Call Sign</label>
                     <input type="text" name="call_sign" id="call_sign" value="{{ old('call_sign') }}"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Tempat Kedudukan -->
                 <div>
                     <label for="tempat_kedudukan" class="block text-sm font-medium text-gray-700 mb-1">Tempat Kedudukan</label>
                     <input type="text" name="tempat_kedudukan" id="tempat_kedudukan" value="{{ old('tempat_kedudukan') }}"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Pemilik/Agen -->
                 <div class="md:col-span-2">
                     <label for="pemilik_agen" class="block text-sm font-medium text-gray-700 mb-1">Pemilik/Agen</label>
                     <input type="text" name="pemilik_agen" id="pemilik_agen" value="{{ old('pemilik_agen') }}"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Status Aktif -->
                 <div class="md:col-span-2">
                     <label class="flex items-center">
                         <input type="checkbox" name="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }}
-                               class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                               class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 scale-90 origin-left">
                         <span class="ml-2 text-sm text-gray-700">Kapal Aktif</span>
                     </label>
                 </div>
             </div>
 
             <!-- Submit Buttons -->
-            <div class="mt-6 flex justify-end space-x-3">
+            <div class="mt-6 flex justify-end gap-3">
                 <button type="button" x-on:click="$dispatch('close-modal', 'tambah-kapal-modal')"
-                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                        class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                     Batal
                 </button>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                     Simpan
                 </button>
             </div>
@@ -413,19 +413,19 @@
             @csrf
             @method('PUT')
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                 <!-- Nama Kapal -->
                 <div class="md:col-span-2">
                     <label for="edit_nama" class="block text-sm font-medium text-gray-700 mb-1">Nama Kapal <span class="text-red-500">*</span></label>
                     <input type="text" name="nama" id="edit_nama" x-model="editData.nama" required
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Jenis Kapal -->
                 <div>
                     <label for="edit_jenis_kapal_id" class="block text-sm font-medium text-gray-700 mb-1">Jenis Kapal</label>
                     <select name="jenis_kapal_id" id="edit_jenis_kapal_id" x-model="editData.jenis_kapal_id"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                            class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                         <option value="">-- Pilih Jenis --</option>
                         <template x-for="jk in jenisKapals" :key="jk.id">
                             <option :value="jk.id" x-text="jk.nama"></option>
@@ -437,7 +437,7 @@
                 <div>
                     <label for="edit_bendera_id" class="block text-sm font-medium text-gray-700 mb-1">Bendera</label>
                     <select name="bendera_id" id="edit_bendera_id" x-model="editData.bendera_id"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                            class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                         <option value="">-- Pilih Bendera --</option>
                         <template x-for="bendera in benderas" :key="bendera.id">
                             <option :value="bendera.id" x-text="bendera.nama_negara"></option>
@@ -449,68 +449,68 @@
                 <div>
                     <label for="edit_gt" class="block text-sm font-medium text-gray-700 mb-1">GT (Gross Tonnage)</label>
                     <input type="number" name="gt" id="edit_gt" step="0.01" x-model="editData.gt"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- DWT -->
                 <div>
                     <label for="edit_dwt" class="block text-sm font-medium text-gray-700 mb-1">DWT (Dead Weight Tonnage)</label>
                     <input type="number" name="dwt" id="edit_dwt" step="0.01" x-model="editData.dwt"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Panjang -->
                 <div>
                     <label for="edit_panjang" class="block text-sm font-medium text-gray-700 mb-1">Panjang (m)</label>
                     <input type="number" name="panjang" id="edit_panjang" step="0.01" x-model="editData.panjang"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Tanda Selar -->
                 <div>
                     <label for="edit_tanda_selar" class="block text-sm font-medium text-gray-700 mb-1">Tanda Selar</label>
                     <input type="text" name="tanda_selar" id="edit_tanda_selar" x-model="editData.tanda_selar"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Call Sign -->
                 <div>
                     <label for="edit_call_sign" class="block text-sm font-medium text-gray-700 mb-1">Call Sign</label>
                     <input type="text" name="call_sign" id="edit_call_sign" x-model="editData.call_sign"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Tempat Kedudukan -->
                 <div>
                     <label for="edit_tempat_kedudukan" class="block text-sm font-medium text-gray-700 mb-1">Tempat Kedudukan</label>
                     <input type="text" name="tempat_kedudukan" id="edit_tempat_kedudukan" x-model="editData.tempat_kedudukan"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Pemilik/Agen -->
                 <div class="md:col-span-2">
                     <label for="edit_pemilik_agen" class="block text-sm font-medium text-gray-700 mb-1">Pemilik/Agen</label>
                     <input type="text" name="pemilik_agen" id="edit_pemilik_agen" x-model="editData.pemilik_agen"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Status Aktif -->
                 <div class="md:col-span-2">
                     <label class="flex items-center">
                         <input type="checkbox" name="is_active" value="1" x-bind:checked="editData.is_active"
-                               class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                               class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 scale-90 origin-left">
                         <span class="ml-2 text-sm text-gray-700">Kapal Aktif</span>
                     </label>
                 </div>
             </div>
 
             <!-- Submit Buttons -->
-            <div class="mt-6 flex justify-end space-x-3">
+            <div class="mt-6 flex justify-end gap-3">
                 <button type="button" x-on:click="$dispatch('close-modal', 'edit-kapal-modal')"
-                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                        class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                     Batal
                 </button>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                     Update
                 </button>
             </div>
@@ -536,23 +536,23 @@
                     <label for="jk_nama" class="block text-sm font-medium text-gray-700 mb-1">Nama <span class="text-red-500">*</span></label>
                     <input type="text" name="nama" id="jk_nama" required maxlength="100"
                            placeholder="Contoh: Kapal Layar Motor"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-                    <p class="mt-1 text-xs text-gray-500">Kode akan dibuat otomatis dari nama</p>
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                    <p class="mt-1 text-[10px] text-gray-500 italic">Kode akan dibuat otomatis dari nama</p>
                 </div>
 
                 <div>
                     <label for="jk_keterangan" class="block text-sm font-medium text-gray-700 mb-1">Keterangan</label>
-                    <textarea name="keterangan" id="jk_keterangan" rows="3"
-                              class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"></textarea>
+                    <textarea name="keterangan" id="jk_keterangan" rows="2"
+                              class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"></textarea>
                 </div>
             </div>
 
             <div class="mt-6 flex justify-end space-x-3">
                 <button type="button" x-on:click="$dispatch('close-modal', 'tambah-jenis-kapal-modal')"
-                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                        class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                     Batal
                 </button>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                     Simpan
                 </button>
             </div>
@@ -577,22 +577,22 @@
                 <div>
                     <label for="b_kode" class="block text-sm font-medium text-gray-700 mb-1">Kode (ISO 3) <span class="text-red-500">*</span></label>
                     <input type="text" name="kode" id="b_kode" required maxlength="3" placeholder="IDN"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
 
                 <div>
                     <label for="b_nama_negara" class="block text-sm font-medium text-gray-700 mb-1">Nama Negara <span class="text-red-500">*</span></label>
                     <input type="text" name="nama_negara" id="b_nama_negara" required maxlength="100" placeholder="Indonesia"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                           class="w-full px-3 py-1.5 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                 </div>
             </div>
 
             <div class="mt-6 flex justify-end space-x-3">
                 <button type="button" x-on:click="$dispatch('close-modal', 'tambah-bendera-modal')"
-                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                        class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                     Batal
                 </button>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                     Simpan
                 </button>
             </div>

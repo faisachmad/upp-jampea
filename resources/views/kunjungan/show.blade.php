@@ -2,25 +2,53 @@
 
 @section('title', 'Detail Kunjungan Kapal')
 
+@push('styles')
+<style>
+    .detail-card {
+        background-color: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        border: 1px solid #f3f4f6;
+        padding: 1rem;
+    }
+    .detail-table thead th {
+        background-color: #f9fafb;
+        color: #374151;
+        text-transform: uppercase;
+        font-size: 0.65rem;
+        letter-spacing: 0.05em;
+        font-weight: 600;
+        padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    .detail-table tbody td {
+        padding: 0.5rem 0.75rem;
+        vertical-align: middle;
+        border-bottom: 1px solid #f3f4f6;
+        font-size: 0.75rem;
+    }
+</style>
+@endpush
+
 @section('content')
-<div class="max-w-7xl mx-auto space-y-6">
+<div class="max-w-7xl mx-auto space-y-4">
     <!-- Header -->
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center bg-white p-3 rounded-xl border border-gray-100 shadow-sm mb-4">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">Detail Kunjungan Kapal</h1>
-            <p class="text-sm text-gray-600 mt-1">
+            <h1 class="text-lg font-bold text-gray-900">Detail Kunjungan Kapal</h1>
+            <p class="text-[10px] text-gray-500 font-medium">
                 {{ $kunjungan->kapal->nama ?? '-' }} |
                 {{ \Carbon\Carbon::parse($kunjungan->tgl_datang)->format('d F Y') }}
             </p>
         </div>
-        <a href="{{ route('kunjungan.index') }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+        <a href="{{ route('kunjungan.index') }}" class="px-3 py-1.5 bg-gray-100 text-gray-700 text-xs font-medium rounded-md hover:bg-gray-200 transition-all">
             Kembali ke Daftar
         </a>
     </div>
 
     <!-- Data Umum Kunjungan -->
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Informasi Umum</h3>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+        <h3 class="text-sm font-bold text-gray-900 mb-3 border-b pb-1.5">Informasi Umum</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label class="block text-sm font-medium text-gray-500">Pelabuhan</label>
@@ -57,8 +85,8 @@
     </div>
 
     <!-- Data Kedatangan & Keberangkatan -->
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Kedatangan & Keberangkatan</h3>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+        <h3 class="text-sm font-bold text-gray-900 mb-3 border-b pb-1.5">Kedatangan & Keberangkatan</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Kedatangan -->
             <div class="border-r pr-6">
@@ -117,8 +145,8 @@
     </div>
 
     <!-- Data Penumpang -->
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Data Penumpang</h3>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+        <h3 class="text-sm font-bold text-gray-900 mb-3 border-b pb-1.5">Data Penumpang</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="bg-green-50 rounded-lg p-4 border border-green-200">
                 <p class="text-sm text-gray-600">Datang - Dewasa</p>
@@ -140,10 +168,10 @@
     </div>
 
     <!-- Data Kendaraan -->
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Data Kendaraan</h3>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+        <h3 class="text-sm font-bold text-gray-900 mb-3 border-b pb-1.5">Data Kendaraan</h3>
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="detail-table min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Golongan</th>
@@ -188,8 +216,8 @@
     </div>
 
     <!-- Data Muatan -->
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Data Muatan</h3>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+        <h3 class="text-sm font-bold text-gray-900 mb-3 border-b pb-1.5">Data Muatan</h3>
 
         @if($kunjungan->lanjutan_ton)
         <div class="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
@@ -200,7 +228,7 @@
 
         @if($kunjungan->kunjunganMuatans->count() > 0)
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="detail-table min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tipe</th>
@@ -233,12 +261,12 @@
     </div>
 
     <!-- Data B3 -->
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Data Barang B3 (Berbahaya & Beracun)</h3>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+        <h3 class="text-sm font-bold text-gray-900 mb-3 border-b pb-1.5">Data Barang B3 (Berbahaya & Beracun)</h3>
 
         @if($kunjungan->kunjunganB3s->count() > 0)
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="detail-table min-w-full divide-y divide-gray-200">
                 <thead class="bg-orange-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Barang B3</th>
@@ -286,17 +314,18 @@
     </div>
 
     <!-- Action Buttons -->
-    <div class="flex justify-between items-center">
-        <a href="{{ route('kunjungan.index') }}" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+    <div class="flex justify-between items-center pt-4 border-t border-gray-100">
+        <a href="{{ route('kunjungan.index') }}" class="px-4 py-2 text-xs font-medium bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-all">
             ← Kembali ke Daftar
         </a>
 
         <form action="{{ route('kunjungan.destroy', $kunjungan) }}" method="POST" class="inline">
             @csrf
             @method('DELETE')
-            <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+            <button type="submit" class="px-4 py-2 text-xs font-medium bg-red-600 text-white rounded-md hover:bg-red-700 transition-all flex items-center gap-2"
                     onclick="return confirm('Yakin ingin menghapus data kunjungan ini beserta semua muatan dan B3-nya?')">
-                🗑️ Hapus Data Kunjungan
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                Hapus Data Kunjungan
             </button>
         </form>
     </div>

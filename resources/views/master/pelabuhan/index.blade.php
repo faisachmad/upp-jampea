@@ -308,7 +308,7 @@
 
                     <!-- Nama -->
                     <div>
-                        <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">
                             Nama Pelabuhan <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -317,7 +317,7 @@
                                value="{{ old('nama') }}"
                                required
                                maxlength="100"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('nama') border-red-500 @enderror">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 @error('nama') border-red-500 @enderror">
                         @error('nama')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -325,20 +325,20 @@
 
                     <!-- Tipe -->
                     <div>
-                        <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center justify-between mb-1">
                             <label for="tipe-select" class="block text-sm font-medium text-gray-700">
                                 Tipe Pelabuhan <span class="text-red-500">*</span>
                             </label>
                             <button type="button"
                                     x-on:click="$dispatch('open-modal', 'tambah-tipe-modal')"
-                                    class="text-xs text-blue-600 hover:text-blue-700 font-medium">
+                                    class="text-[10px] text-blue-600 hover:text-blue-700 font-medium bg-blue-50 px-2 py-0.5 rounded border border-blue-200 italic transition-all">
                                 + Tambah Tipe Baru
                             </button>
                         </div>
                         <select name="tipe_pelabuhan_id"
                                 id="tipe-select"
                                 required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('tipe_pelabuhan_id') border-red-500 @enderror">
+                                class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 @error('tipe_pelabuhan_id') border-red-500 @enderror">
                             <option value="">-- Pilih Tipe --</option>
                             @foreach($tipes as $tipe)
                                 <option value="{{ $tipe->id }}" {{ old('tipe_pelabuhan_id') == $tipe->id ? 'selected' : '' }}>{{ $tipe->nama }} ({{ $tipe->keterangan }})</option>
@@ -350,12 +350,12 @@
                     </div>
 
                     <!-- Status -->
-                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-md border border-gray-200">
                         <div class="flex flex-col">
                             <span class="text-sm font-medium text-gray-900">Status Aktif</span>
-                            <span class="text-xs text-gray-500">Aktifkan untuk menampilkan data ini</span>
+                            <span class="text-[10px] text-gray-500">Aktifkan untuk menampilkan data ini</span>
                         </div>
-                        <label class="toggle-switch">
+                        <label class="toggle-switch transform scale-90 origin-right">
                             <input type="checkbox"
                                    name="is_active"
                                    value="1"
@@ -367,10 +367,10 @@
 
                 <!-- Actions -->
                 <div class="mt-6 flex justify-end gap-3">
-                    <button type="button" x-on:click="$dispatch('close-modal', 'tambah-pelabuhan-modal')" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                    <button type="button" x-on:click="$dispatch('close-modal', 'tambah-pelabuhan-modal')" class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                         Batal
                     </button>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                         Simpan
                     </button>
                 </div>
@@ -383,7 +383,7 @@
         <div class="p-6">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-xl font-bold text-gray-900">Edit Pelabuhan</h2>
-                <button x-on:click="$dispatch('close-modal', 'edit-pelabuhan-modal')" class="text-gray-400 hover:text-gray-600">
+                <button x-on:click="$dispatch('close-modal', 'edit-pelabuhan-modal')" class="text-gray-400 hover:text-gray-600 transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
@@ -397,18 +397,18 @@
                 <div class="space-y-4">
                     <!-- Kode (Locked) -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
                             Kode Pelabuhan
                         </label>
                         <input type="text"
                                x-model="editData.kode"
                                disabled
-                               class="w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg text-gray-500 cursor-not-allowed">
+                               class="w-full px-3 py-1.5 text-sm bg-gray-100 border border-gray-300 rounded-md text-gray-500 cursor-not-allowed italic">
                     </div>
 
                     <!-- Nama -->
                     <div>
-                        <label for="edit_nama" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="edit_nama" class="block text-sm font-medium text-gray-700 mb-1">
                             Nama Pelabuhan <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -417,25 +417,25 @@
                                x-model="editData.nama"
                                required
                                maxlength="100"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     </div>
 
                     <!-- Tipe -->
                     <div>
-                        <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center justify-between mb-1">
                             <label for="edit-tipe-select" class="block text-sm font-medium text-gray-700">
                                 Tipe Pelabuhan <span class="text-red-500">*</span>
                             </label>
                             <button type="button"
                                     x-on:click="$dispatch('open-modal', 'tambah-tipe-modal')"
-                                    class="text-xs text-blue-600 hover:text-blue-700 font-medium">
+                                    class="text-[10px] text-blue-600 hover:text-blue-700 font-medium bg-blue-50 px-2 py-0.5 rounded border border-blue-200 italic transition-all">
                                 + Tambah Tipe Baru
                             </button>
                         </div>
                         <select name="tipe_pelabuhan_id"
                                 id="edit-tipe-select"
                                 required
-                                class="w-full">
+                                class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                             <option value="">-- Pilih Tipe --</option>
                             @foreach($tipes as $tipe)
                                 <option value="{{ $tipe->id }}">{{ $tipe->nama }}</option>
@@ -444,16 +444,16 @@
                     </div>
 
                     <!-- Status -->
-                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-md border border-gray-200">
                         <div class="flex flex-col">
                             <span class="text-sm font-medium text-gray-900">Status Aktif</span>
-                            <span class="text-xs text-gray-500">Aktifkan untuk menampilkan data ini</span>
+                            <span class="text-[10px] text-gray-500">Aktifkan untuk menampilkan data ini</span>
                         </div>
-                        <label class="toggle-switch">
+                        <label class="toggle-switch transform scale-90 origin-right">
                             <input type="checkbox"
                                    name="is_active"
                                    value="1"
-                                   :checked="editData.is_active">
+                                   x-bind:checked="editData.is_active">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -461,10 +461,10 @@
 
                 <!-- Actions -->
                 <div class="mt-6 flex justify-end gap-3">
-                    <button type="button" x-on:click="$dispatch('close-modal', 'edit-pelabuhan-modal')" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                    <button type="button" x-on:click="$dispatch('close-modal', 'edit-pelabuhan-modal')" class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                         Batal
                     </button>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                         Update
                     </button>
                 </div>
@@ -488,7 +488,7 @@
                 <div class="space-y-4">
                     <!-- Nama Tipe -->
                     <div>
-                        <label for="tipe_nama" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="tipe_nama" class="block text-sm font-medium text-gray-700 mb-1">
                             Nama Tipe <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -497,13 +497,13 @@
                                required
                                maxlength="50"
                                placeholder="Contoh: UPP, POSKER, WILKER, LUAR"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                         <p class="mt-1 text-xs text-gray-500">Nama singkat untuk tipe pelabuhan</p>
                     </div>
 
                     <!-- Keterangan -->
                     <div>
-                        <label for="tipe_keterangan" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="tipe_keterangan" class="block text-sm font-medium text-gray-700 mb-1">
                             Keterangan
                         </label>
                         <input type="text"
@@ -511,7 +511,7 @@
                                id="tipe_keterangan"
                                maxlength="255"
                                placeholder="Deskripsi lengkap tipe pelabuhan"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     </div>
 
                     <div id="tipe-error-message" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg"></div>
@@ -519,10 +519,11 @@
 
                 <!-- Actions -->
                 <div class="mt-6 flex justify-end gap-3">
-                    <button type="button" x-on:click="$dispatch('close-modal', 'tambah-tipe-modal')" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                    <button type="button" x-on:click="$dispatch('close-modal', 'tambah-tipe-modal')"
+                            class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                         Batal
                     </button>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                         Simpan
                     </button>
                 </div>

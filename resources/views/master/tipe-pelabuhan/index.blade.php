@@ -212,7 +212,7 @@
                 <div class="space-y-4">
                     <!-- Nama Tipe -->
                     <div>
-                        <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">
                             Nama Tipe <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -221,17 +221,16 @@
                                value="{{ old('nama') }}"
                                required
                                maxlength="50"
-                               placeholder="Contoh: UPP, POSKER, WILKER, LUAR"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('nama') border-red-500 @enderror">
+                               placeholder="Contoh: UPP, POSKER..."
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 @error('nama') border-red-500 @enderror">
                         @error('nama')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                        <p class="mt-1 text-xs text-gray-500">Nama singkat untuk tipe pelabuhan (maksimal 50 karakter)</p>
                     </div>
 
                     <!-- Keterangan -->
                     <div>
-                        <label for="keterangan" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="keterangan" class="block text-sm font-medium text-gray-700 mb-1">
                             Keterangan
                         </label>
                         <textarea
@@ -239,20 +238,17 @@
                                id="keterangan"
                                rows="3"
                                maxlength="255"
-                               placeholder="Deskripsi lengkap tipe pelabuhan"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('keterangan') border-red-500 @enderror">{{ old('keterangan') }}</textarea>
-                        @error('keterangan')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                               placeholder="Deskripsi..."
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 @error('keterangan') border-red-500 @enderror">{{ old('keterangan') }}</textarea>
                     </div>
                 </div>
 
                 <!-- Actions -->
                 <div class="mt-6 flex justify-end gap-3">
-                    <button type="button" x-on:click="$dispatch('close-modal', 'tambah-tipe-modal')" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                    <button type="button" x-on:click="$dispatch('close-modal', 'tambah-tipe-modal')" class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                         Batal
                     </button>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                         Simpan
                     </button>
                 </div>
@@ -264,7 +260,7 @@
     <x-modal name="edit-tipe-pelabuhan-modal" :show="false" maxWidth="md" :closeable="false">
         <div class="p-6">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold text-gray-900">Edit Tipe Pelabuhan</h2>
+                <h2 class="text-xl font-bold text-gray-900">Edit Tipe</h2>
                 <button x-on:click="$dispatch('close-modal', 'edit-tipe-pelabuhan-modal')" class="text-gray-400 hover:text-gray-600">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -279,7 +275,7 @@
                 <div class="space-y-4">
                     <!-- Nama Tipe -->
                     <div>
-                        <label for="edit_nama" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="edit_nama" class="block text-sm font-medium text-gray-700 mb-1">
                             Nama Tipe <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -288,12 +284,12 @@
                                x-model="editData.nama"
                                required
                                maxlength="50"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     </div>
 
                     <!-- Keterangan -->
                     <div>
-                        <label for="edit_keterangan" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="edit_keterangan" class="block text-sm font-medium text-gray-700 mb-1">
                             Keterangan
                         </label>
                         <textarea
@@ -302,16 +298,16 @@
                                x-model="editData.keterangan"
                                rows="3"
                                maxlength="255"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"></textarea>
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"></textarea>
                     </div>
                 </div>
 
                 <!-- Actions -->
                 <div class="mt-6 flex justify-end gap-3">
-                    <button type="button" x-on:click="$dispatch('close-modal', 'edit-tipe-pelabuhan-modal')" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                    <button type="button" x-on:click="$dispatch('close-modal', 'edit-tipe-pelabuhan-modal')" class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                         Batal
                     </button>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                         Update
                     </button>
                 </div>

@@ -213,20 +213,20 @@
                         <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">Nama <span class="text-red-500">*</span></label>
                         <input type="text" name="nama" id="nama" required maxlength="100"
                                placeholder="Contoh: Kapal Layar Motor"
-                               class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-                        <p class="mt-1 text-xs text-gray-500">Kode akan dibuat otomatis dari nama</p>
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        <p class="mt-1 text-[10px] text-gray-500 italic">Kode akan dibuat otomatis dari nama</p>
                     </div>
 
                     <div>
                         <label for="keterangan" class="block text-sm font-medium text-gray-700 mb-1">Keterangan</label>
-                        <textarea name="keterangan" id="keterangan" rows="3"
-                                  class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"></textarea>
+                        <textarea name="keterangan" id="keterangan" rows="2"
+                                  class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"></textarea>
                     </div>
 
                     <div>
                         <label class="flex items-center">
                             <input type="checkbox" name="is_active" value="1" checked
-                                   class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                                   class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 scale-90 origin-left">
                             <span class="ml-2 text-sm text-gray-700">Aktif</span>
                         </label>
                     </div>
@@ -234,10 +234,10 @@
 
                 <div class="mt-6 flex justify-end space-x-3">
                     <button type="button" x-on:click="$dispatch('close-modal', 'tambah-jenis-kapal-modal')"
-                            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                            class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                         Batal
                     </button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                         Simpan
                     </button>
                 </div>
@@ -264,19 +264,19 @@
                     <div>
                         <label for="edit_nama" class="block text-sm font-medium text-gray-700 mb-1">Nama <span class="text-red-500">*</span></label>
                         <input type="text" name="nama" id="edit_nama" x-model="editData.nama" required maxlength="100"
-                               class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                     </div>
 
                     <div>
                         <label for="edit_keterangan" class="block text-sm font-medium text-gray-700 mb-1">Keterangan</label>
-                        <textarea name="keterangan" id="edit_keterangan" x-model="editData.keterangan" rows="3"
-                                  class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"></textarea>
+                        <textarea name="keterangan" id="edit_keterangan" x-model="editData.keterangan" rows="2"
+                                  class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"></textarea>
                     </div>
 
                     <div>
                         <label class="flex items-center">
                             <input type="checkbox" name="is_active" value="1" :checked="editData.is_active"
-                                   class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                                   class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 scale-90 origin-left">
                             <span class="ml-2 text-sm text-gray-700">Aktif</span>
                         </label>
                     </div>
@@ -284,10 +284,10 @@
 
                 <div class="mt-6 flex justify-end space-x-3">
                     <button type="button" x-on:click="$dispatch('close-modal', 'edit-jenis-kapal-modal')"
-                            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                            class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                         Batal
                     </button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                         Update
                     </button>
                 </div>

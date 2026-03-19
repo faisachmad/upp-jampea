@@ -206,7 +206,7 @@
                 <div class="space-y-4">
                     <!-- Nama -->
                     <div>
-                        <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">
                             Nama Nakhoda <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -215,7 +215,7 @@
                                value="{{ old('nama') }}"
                                required
                                maxlength="100"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('nama') border-red-500 @enderror">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 @error('nama') border-red-500 @enderror">
                         @error('nama')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -223,13 +223,13 @@
 
                     <!-- Kapal -->
                     <div>
-                        <label for="kapal_id" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="kapal_id" class="block text-sm font-medium text-gray-700 mb-1">
                             Kapal <span class="text-red-500">*</span>
                         </label>
                         <select name="kapal_id"
                                 id="kapal_id"
                                 required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('kapal_id') border-red-500 @enderror">
+                                class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 @error('kapal_id') border-red-500 @enderror">
                             <option value="">-- Pilih Kapal --</option>
                             @foreach($kapals as $kapal)
                             <option value="{{ $kapal->id }}" {{ old('kapal_id') == $kapal->id ? 'selected' : '' }}>
@@ -249,7 +249,7 @@
                                    name="is_active"
                                    value="1"
                                    {{ old('is_active', true) ? 'checked' : '' }}
-                                   class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                   class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 scale-90 origin-left">
                             <span class="ml-2 text-sm text-gray-700">Aktif</span>
                         </label>
                     </div>
@@ -257,10 +257,10 @@
 
                 <!-- Actions -->
                 <div class="mt-6 flex justify-end gap-3">
-                    <button type="button" x-on:click="$dispatch('close-modal', 'tambah-nakhoda-modal')" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                    <button type="button" x-on:click="$dispatch('close-modal', 'tambah-nakhoda-modal')" class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                         Batal
                     </button>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                         Simpan
                     </button>
                 </div>
@@ -286,7 +286,7 @@
                 <div class="space-y-4">
                     <!-- Nama -->
                     <div>
-                        <label for="edit_nama" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="edit_nama" class="block text-sm font-medium text-gray-700 mb-1">
                             Nama Nakhoda <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -295,19 +295,19 @@
                                x-model="editData.nama"
                                required
                                maxlength="100"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     </div>
 
                     <!-- Kapal -->
                     <div>
-                        <label for="edit_kapal_id" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="edit_kapal_id" class="block text-sm font-medium text-gray-700 mb-1">
                             Kapal <span class="text-red-500">*</span>
                         </label>
                         <select name="kapal_id"
                                 id="edit_kapal_id"
                                 x-model="editData.kapal_id"
                                 required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                             <option value="">-- Pilih Kapal --</option>
                             @foreach($kapals as $kapal)
                             <option value="{{ $kapal->id }}">
@@ -324,7 +324,7 @@
                                    name="is_active"
                                    value="1"
                                    :checked="editData.is_active"
-                                   class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                   class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 scale-90 origin-left">
                             <span class="ml-2 text-sm text-gray-700">Aktif</span>
                         </label>
                     </div>
@@ -332,10 +332,10 @@
 
                 <!-- Actions -->
                 <div class="mt-6 flex justify-end gap-3">
-                    <button type="button" x-on:click="$dispatch('close-modal', 'edit-nakhoda-modal')" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                    <button type="button" x-on:click="$dispatch('close-modal', 'edit-nakhoda-modal')" class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                         Batal
                     </button>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                         Update
                     </button>
                 </div>

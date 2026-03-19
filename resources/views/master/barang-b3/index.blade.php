@@ -196,7 +196,7 @@
                 <div class="space-y-4">
                     <!-- Nama -->
                     <div>
-                        <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">
                             Nama Barang <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -205,7 +205,7 @@
                                value="{{ old('nama') }}"
                                required
                                maxlength="100"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('nama') border-red-500 @enderror">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 @error('nama') border-red-500 @enderror">
                         @error('nama')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -213,7 +213,7 @@
 
                     <!-- UN Number -->
                     <div>
-                        <label for="un_number" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="un_number" class="block text-sm font-medium text-gray-700 mb-1">
                             UN Number <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -223,16 +223,16 @@
                                required
                                maxlength="10"
                                placeholder="Contoh: UN1234"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('un_number') border-red-500 @enderror">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 @error('un_number') border-red-500 @enderror">
                         @error('un_number')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                        <p class="mt-1 text-xs text-gray-500">Kode klasifikasi UN untuk bahan berbahaya</p>
+                        <p class="mt-1 text-[10px] text-gray-500 italic">Kode klasifikasi UN untuk bahan berbahaya</p>
                     </div>
 
                     <!-- Kelas -->
                     <div>
-                        <label for="kelas" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="kelas" class="block text-sm font-medium text-gray-700 mb-1">
                             Kelas <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -242,16 +242,16 @@
                                required
                                maxlength="10"
                                placeholder="Contoh: 3, 6.1, 8"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('kelas') border-red-500 @enderror">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 @error('kelas') border-red-500 @enderror">
                         @error('kelas')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                        <p class="mt-1 text-xs text-gray-500">Kelas bahaya sesuai klasifikasi UN</p>
+                        <p class="mt-1 text-[10px] text-gray-500 italic">Kelas bahaya sesuai klasifikasi UN</p>
                     </div>
 
                     <!-- Kategori -->
                     <div>
-                        <label for="kategori" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="kategori" class="block text-sm font-medium text-gray-700 mb-1">
                             Kategori
                         </label>
                         <input type="text"
@@ -259,7 +259,7 @@
                                id="kategori"
                                value="{{ old('kategori') }}"
                                maxlength="50"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('kategori') border-red-500 @enderror">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 @error('kategori') border-red-500 @enderror">
                         @error('kategori')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -268,10 +268,11 @@
 
                 <!-- Actions -->
                 <div class="mt-6 flex justify-end gap-3">
-                    <button type="button" x-on:click="$dispatch('close-modal', 'tambah-barang-b3-modal')" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                    <button type="button" x-on:click="$dispatch('close-modal', 'tambah-barang-b3-modal')"
+                            class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                         Batal
                     </button>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                         Simpan
                     </button>
                 </div>
@@ -297,7 +298,7 @@
                 <div class="space-y-4">
                     <!-- Nama -->
                     <div>
-                        <label for="edit_nama" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="edit_nama" class="block text-sm font-medium text-gray-700 mb-1">
                             Nama Barang <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -306,12 +307,12 @@
                                x-model="editData.nama"
                                required
                                maxlength="100"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                     </div>
 
                     <!-- UN Number -->
                     <div>
-                        <label for="edit_un_number" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="edit_un_number" class="block text-sm font-medium text-gray-700 mb-1">
                             UN Number <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -320,12 +321,12 @@
                                x-model="editData.un_number"
                                required
                                maxlength="10"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                     </div>
 
                     <!-- Kelas -->
                     <div>
-                        <label for="edit_kelas" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="edit_kelas" class="block text-sm font-medium text-gray-700 mb-1">
                             Kelas <span class="text-red-500">*</span>
                         </label>
                         <input type="text"
@@ -334,12 +335,12 @@
                                x-model="editData.kelas"
                                required
                                maxlength="10"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                     </div>
 
                     <!-- Kategori -->
                     <div>
-                        <label for="edit_kategori" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="edit_kategori" class="block text-sm font-medium text-gray-700 mb-1">
                             Kategori
                         </label>
                         <input type="text"
@@ -347,16 +348,17 @@
                                id="edit_kategori"
                                x-model="editData.kategori"
                                maxlength="50"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                     </div>
                 </div>
 
                 <!-- Actions -->
-                <div class="mt-6 flex justify-end gap-3">
-                    <button type="button" x-on:click="$dispatch('close-modal', 'edit-barang-b3-modal')" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                 <div class="mt-6 flex justify-end gap-3">
+                    <button type="button" x-on:click="$dispatch('close-modal', 'edit-barang-b3-modal')"
+                            class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">
                         Batal
                     </button>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">
                         Update
                     </button>
                 </div>

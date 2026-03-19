@@ -55,11 +55,44 @@ table = $('#table-id').DataTable({
 ## 3. Komponen Tombol (Button Sizing 'xs' atau 'sm')
 Gunakan ukuran tombol yang *compact* (kecil/xs) agar proporsional dengan tabel. 
 
-**Tombol Utama (contoh: Tambah Data):**
-```html
-<button class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-all font-medium">
+<button class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition-all font-medium">
     Tambah Data
 </button>
+```
+
+## 4. Modal Compact UI (Create & Edit)
+Gunakan ukuran input dan tombol yang *compact* (kecil/xs) di dalam modal agar rapi dan tidak memerlukan *vertical scroll* yang tidak perlu.
+
+**Standard Input & Label:**
+- Label: `mb-1` (bukan mb-2).
+- Input/Select/Textarea: `px-3 py-1.5 text-sm border border-gray-300 rounded-md`.
+- Textarea: Maksimal `rows="2"`.
+
+**Standard Checkbox/Toggle:**
+- Wajib gunakan `scale-90 origin-left` pada `input[type="checkbox"]` agar tidak terlihat terlalu besar dibanding input lainnya.
+
+**Tombol Modal (Footer):**
+- Gunakan `text-xs font-medium px-4 py-2 rounded-md`.
+
+```html
+<div class="space-y-4">
+    <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Nama</label>
+        <input type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+    </div>
+    
+    <div>
+        <label class="flex items-center">
+            <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 scale-90 origin-left">
+            <span class="ml-2 text-sm text-gray-700">Aktif</span>
+        </label>
+    </div>
+</div>
+
+<div class="mt-6 flex justify-end gap-3">
+    <button type="button" class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">Batal</button>
+    <button type="submit" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all">Simpan</button>
+</div>
 ```
 
 ## 3. Form Filter (Search & Action Card)
@@ -87,8 +120,10 @@ Gunakan komponen `select` biasa dan tambahkan class `searchable-select` untuk me
 </div>
 ```
 
-## 4. Tombol Aksi Dropdown (Controller / Render Component)
+## 5. Tombol Aksi Dropdown (Controller / Render Component)
 Pastikan menu dropdown aksi Alpine.js di baris DataTable memiliki `z-index` bernilai `100` (`z-[100]`) agar selalu muncul di atas elemen lain.
+- Gunakan `origin-top-right absolute right-0 mt-2 w-32 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-[9995]` pada container menu.
+- Tambahkan logic `:class="{ 'z-[100]': open }"` pada wrapper dropdownnya agar `z-index` membesar saat open.
 
 **Render HTML di Controller:**
 ```php
