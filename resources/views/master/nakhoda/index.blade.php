@@ -52,17 +52,18 @@
         background-color: #f9fafb;
         color: #374151;
         text-transform: uppercase;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         letter-spacing: 0.05em;
         font-weight: 600;
-        padding: 0.75rem 1.5rem;
+        padding: 0.5rem 1rem;
         border-bottom: 1px solid #e5e7eb;
     }
 
     #nakhoda-table tbody td {
-        padding: 1rem 1.5rem;
+        padding: 0.5rem 1rem;
         vertical-align: middle;
         border-bottom: 1px solid #f3f4f6;
+        font-size: 0.75rem;
     }
 
     #nakhoda-table tbody tr:hover {
@@ -128,7 +129,7 @@
     <!-- Header -->
     <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-gray-900">Master Nakhoda</h1>
-        <button x-on:click="$dispatch('open-modal', 'tambah-nakhoda-modal')" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button x-on:click="$dispatch('open-modal', 'tambah-nakhoda-modal')" class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-all font-medium">
             Tambah Nakhoda
         </button>
     </div>
@@ -161,10 +162,10 @@
                 </select>
             </div>
             <div class="flex gap-2">
-                <button type="button" id="btn-cari" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button type="button" id="btn-cari" class="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-all">
                     Cari
                 </button>
-                <button type="button" id="btn-reset" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                <button type="button" id="btn-reset" class="px-4 py-2 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300 transition-all">
                     Reset
                 </button>
             </div>
@@ -173,7 +174,7 @@
 
     <!-- Data Table -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible">
-        <div class="overflow-x-auto overflow-visible">
+        <div class="overflow-visible">
             <table id="nakhoda-table" class="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
@@ -270,7 +271,6 @@
             </form>
         </div>
     </x-modal>
-</div>
     <!-- Modal Edit Nakhoda -->
     <x-modal name="edit-nakhoda-modal" :show="false" maxWidth="2xl" :closeable="false">
         <div class="p-6">
@@ -327,7 +327,7 @@
                             <input type="checkbox"
                                    name="is_active"
                                    value="1"
-                                   x-model="editData.is_active"
+                                   :checked="editData.is_active"
                                    class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                             <span class="ml-2 text-sm text-gray-700">Aktif</span>
                         </label>
@@ -370,7 +370,7 @@
                     d.search_custom = $('#search-input').val();
                 }
             },
-            dom: "<'flex flex-col'<'overflow-x-auto't><'flex flex-col md:flex-row justify-between items-center p-4 gap-4'<'flex items-center gap-6'li>p>>",
+            dom: "<'flex flex-col'<'w-full overflow-visible't><'flex flex-col md:flex-row justify-between items-center p-4 gap-4'<'flex items-center gap-6'li>p>>",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'nama', name: 'nama'},
@@ -389,7 +389,8 @@
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json'
             },
-            responsive: true
+            responsive: true,
+            autoWidth: false
         });
 
         $('#filter-form').on('submit', function(e) {

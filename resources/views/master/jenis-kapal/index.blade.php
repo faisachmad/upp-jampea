@@ -52,17 +52,18 @@
         background-color: #f9fafb;
         color: #374151;
         text-transform: uppercase;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         letter-spacing: 0.05em;
         font-weight: 600;
-        padding: 0.75rem 1.5rem;
+        padding: 0.5rem 1rem;
         border-bottom: 1px solid #e5e7eb;
     }
 
     #jenis-kapal-table tbody td {
-        padding: 1rem 1.5rem;
+        padding: 0.5rem 1rem;
         vertical-align: middle;
         border-bottom: 1px solid #f3f4f6;
+        font-size: 0.75rem;
     }
 
     #jenis-kapal-table tbody tr:hover {
@@ -128,8 +129,8 @@
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-bold text-gray-800">Master Jenis Kapal</h2>
         <button x-on:click="$dispatch('open-modal', 'tambah-jenis-kapal-modal')"
-           class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center">
-            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+           class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-all font-medium flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
             </svg>
             Tambah Jenis Kapal
@@ -168,10 +169,10 @@
                 </select>
             </div>
             <div class="flex items-end gap-2">
-                <button type="button" id="btn-cari" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex-1">
+                <button type="button" id="btn-cari" class="px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 flex-1 transition-all">
                     Cari
                 </button>
-                <button type="button" id="btn-reset" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                <button type="button" id="btn-reset" class="px-4 py-2 bg-gray-300 text-gray-700 text-sm rounded-md hover:bg-gray-400 transition-all">
                     Reset
                 </button>
             </div>
@@ -180,7 +181,7 @@
 
     <!-- Table -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible">
-        <div class="overflow-x-auto overflow-visible">
+        <div class="overflow-visible">
             <table id="jenis-kapal-table" class="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
@@ -199,7 +200,6 @@
             </table>
         </div>
     </div>
-</div>
     <!-- Modal Tambah Jenis Kapal -->
     <x-modal name="tambah-jenis-kapal-modal" maxWidth="lg">
         <div class="p-6">
@@ -281,7 +281,7 @@
 
                     <div>
                         <label class="flex items-center">
-                            <input type="checkbox" name="is_active" value="1" x-model="editData.is_active"
+                            <input type="checkbox" name="is_active" value="1" :checked="editData.is_active"
                                    class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                             <span class="ml-2 text-sm text-gray-700">Aktif</span>
                         </label>
@@ -323,7 +323,7 @@
                     d.search_custom = $('#search-input').val();
                 }
             },
-            dom: "<'flex flex-col'<'overflow-x-auto't><'flex flex-col md:flex-row justify-between items-center p-4 gap-4'<'flex items-center gap-6'li>p>>",
+            dom: "<'flex flex-col'<'w-full overflow-visible't><'flex flex-col md:flex-row justify-between items-center p-4 gap-4'<'flex items-center gap-6'li>p>>",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'kode', name: 'kode'},
@@ -356,7 +356,8 @@
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json'
             },
-            responsive: true
+            responsive: true,
+            autoWidth: false
         });
 
         $('#filter-form').on('submit', function(e) {

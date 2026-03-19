@@ -4,9 +4,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 <style>
-    /* DataTables Custom- **Syntax Cleanup**: Fixed a critical issue where broken Alpine.js code residue was accidentally rendered as plain text at the top of the header in the Pelabuhan module.
-- **Modal Scoping fix**: Resolved an issue where edit modals failed to display data in several modules (Tipe Pelabuhan, Nakhoda, Jenis Kapal, Barang B3). By broadening the `x-data` scope, modals now have full access to the record data for editing.
-All master data views have been audited for clean rendering and functional modals. */
+    /* DataTables Custom Styling */
     #tipe-pelabuhan-table_wrapper .dataTables_filter {
         display: none;
     }
@@ -54,17 +52,18 @@ All master data views have been audited for clean rendering and functional modal
         background-color: #f9fafb;
         color: #374151;
         text-transform: uppercase;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         letter-spacing: 0.05em;
         font-weight: 600;
-        padding: 0.75rem 1.5rem;
+        padding: 0.5rem 1rem;
         border-bottom: 1px solid #e5e7eb;
     }
 
     #tipe-pelabuhan-table tbody td {
-        padding: 1rem 1.5rem;
+        padding: 0.5rem 1rem;
         vertical-align: middle;
         border-bottom: 1px solid #f3f4f6;
+        font-size: 0.75rem;
     }
 
     #tipe-pelabuhan-table tbody tr:hover {
@@ -130,8 +129,8 @@ All master data views have been audited for clean rendering and functional modal
     <!-- Header -->
     <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-gray-900">Master Tipe Pelabuhan</h1>
-        <button x-on:click="$dispatch('open-modal', 'tambah-tipe-modal')" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-            <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button x-on:click="$dispatch('open-modal', 'tambah-tipe-modal')" class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-all font-medium">
+            <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
             Tambah Tipe
@@ -148,10 +147,10 @@ All master data views have been audited for clean rendering and functional modal
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
             </div>
             <div class="flex gap-2">
-                <button type="button" id="btn-cari" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button type="button" id="btn-cari" class="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-all">
                     Cari
                 </button>
-                <button type="button" id="btn-reset" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                <button type="button" id="btn-reset" class="px-4 py-2 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300 transition-all">
                     Reset
                 </button>
             </div>
@@ -173,7 +172,7 @@ All master data views have been audited for clean rendering and functional modal
 
     <!-- Data Table -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible">
-        <div class="overflow-x-auto overflow-visible">
+        <div class="overflow-visible">
             <table id="tipe-pelabuhan-table" class="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
@@ -337,7 +336,7 @@ All master data views have been audited for clean rendering and functional modal
                     d.search_custom = $('#search-input').val();
                 }
             },
-            dom: "<'flex flex-col'<'overflow-x-auto't><'flex flex-col md:flex-row justify-between items-center p-4 gap-4'<'flex items-center gap-6'li>p>>",
+            dom: "<'flex flex-col'<'w-full overflow-visible't><'flex flex-col md:flex-row justify-between items-center p-4 gap-4'<'flex items-center gap-6'li>p>>",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {
@@ -360,7 +359,8 @@ All master data views have been audited for clean rendering and functional modal
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json'
             },
-            responsive: true
+            responsive: true,
+            autoWidth: false
         });
 
         $('#filter-form').on('submit', function(e) {
