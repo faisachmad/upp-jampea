@@ -126,42 +126,33 @@
         $dispatch('open-modal', 'edit-barang-b3-modal');
     }
 }" @edit-barang-b3.window="editBarangB3($event.detail)">
-    <!-- Header -->
-    <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-900">Master Barang B3 (Bahan Berbahaya & Beracun)</h1>
-        <button x-on:click="$dispatch('open-modal', 'tambah-barang-b3-modal')" class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-all font-medium">
-            Tambah Barang B3
-        </button>
-    </div>
-
-    <!-- Success Alert (Handled globally by x-sweet-alert) -->
-
-    <!-- Search & Filter Form -->
-    <div class="bg-white p-6 rounded-lg shadow">
-        <form id="filter-form" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-                <input type="text"
-                       name="search"
-                       id="search-input"
-                       placeholder="Cari nama atau UN Number..."
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+    <!-- Search, Filter & Action Card -->
+    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <form id="filter-form" class="flex flex-col md:flex-row gap-3 w-full md:w-auto flex-1">
+            <div class="w-full md:w-72">
+                <input type="text" name="search" id="search-input" placeholder="Cari nama atau UN Number..."
+                       class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
-            <div>
-                <input type="text"
-                       name="kelas"
-                       id="kelas-filter"
-                       placeholder="Filter by Kelas..."
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <div class="w-full md:w-48">
+                <input type="text" name="kelas" id="kelas-filter" placeholder="Filter by Kelas..."
+                       class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
-            <div class="flex gap-2">
-                <button type="button" id="btn-cari" class="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-all">
+            <div class="flex gap-2 w-full md:w-auto">
+                <button type="button" id="btn-cari" class="px-4 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-all">
                     Cari
                 </button>
-                <button type="button" id="btn-reset" class="px-4 py-2 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300 transition-all">
+                <button type="button" id="btn-reset" class="px-4 py-1.5 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200 hover:bg-gray-200 transition-all">
                     Reset
                 </button>
             </div>
         </form>
+
+        <div class="w-full md:w-auto border-t md:border-t-0 md:border-l border-gray-200 pt-4 md:pt-0 md:pl-4 flex justify-end">
+            <button x-on:click="$dispatch('open-modal', 'tambah-barang-b3-modal')" class="px-4 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-all flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Tambah Barang B3
+            </button>
+        </div>
     </div>
 
     <!-- Data Table -->
