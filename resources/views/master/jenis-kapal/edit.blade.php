@@ -67,14 +67,17 @@
             </div>
 
             <!-- Status Aktif -->
-            <div>
-                <label class="flex items-center">
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                <div class="flex flex-col">
+                    <span class="text-sm font-medium text-gray-900">Status Aktif</span>
+                    <span class="text-xs text-gray-500">Aktifkan untuk menampilkan data jenis kapal ini</span>
+                </div>
+                <label class="toggle-switch">
                     <input type="checkbox"
                            name="is_active"
                            value="1"
-                           {{ old('is_active', $jenisKapal->is_active) ? 'checked' : '' }}
-                           class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-                    <span class="ml-2 text-sm text-gray-700">Jenis Kapal Aktif</span>
+                           {{ old('is_active', $jenisKapal->is_active) ? 'checked' : '' }}>
+                    <span class="toggle-slider"></span>
                 </label>
             </div>
 

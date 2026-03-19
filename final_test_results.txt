@@ -1,0 +1,223 @@
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\BarangB3ControllerTest::user_can_view_barang_b3_index(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\BarangB3ControllerTest::user_can_create_barang_b3(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\BarangB3ControllerTest::user_can_update_barang_b3(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\BarangB3ControllerTest::user_can_delete_barang_b3(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\BarangB3ControllerTest::validation_fails_when_required_fields_are_missing(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\BarangB3ControllerTest::validation_fails_when_fields_exceed_max_length(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\BarangB3ControllerTest::it_can_filter_and_search_barang_b3_for_ajax_datatable(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\JenisKapalControllerTest::user_can_view_jenis_kapal_index(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\JenisKapalControllerTest::user_can_create_jenis_kapal_with_active_status(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\JenisKapalControllerTest::user_can_create_jenis_kapal_with_inactive_status_when_checkbox_not_checked(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\JenisKapalControllerTest::user_can_update_jenis_kapal(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\JenisKapalControllerTest::checkbox_unchecked_updates_is_active_to_false(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\JenisKapalControllerTest::user_cannot_delete_jenis_kapal_with_existing_kapals(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\JenisKapalControllerTest::user_can_delete_jenis_kapal_without_kapals(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\JenisKapalControllerTest::kode_is_auto_generated_from_nama(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\JenisKapalControllerTest::it_can_filter_and_search_jenis_kapal_for_ajax_datatable(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\KapalControllerTest::user_can_view_kapal_index(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\KapalControllerTest::user_can_create_kapal_with_all_fields(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\KapalControllerTest::user_can_create_kapal_with_minimal_fields(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\KapalControllerTest::empty_numeric_fields_are_stored_as_null(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\KapalControllerTest::user_can_update_kapal(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\KapalControllerTest::checkbox_unchecked_updates_is_active_to_false(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\KapalControllerTest::user_can_delete_kapal(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\KapalControllerTest::validation_fails_when_nama_is_missing(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\KapalControllerTest::validation_fails_for_invalid_numeric_fields(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\KapalControllerTest::it_can_filter_and_search_kapal_for_ajax_datatable(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\NakhodaControllerTest::user_can_view_nakhoda_index(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\NakhodaControllerTest::user_can_create_nakhoda(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\NakhodaControllerTest::user_can_create_nakhoda_with_inactive_status(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\NakhodaControllerTest::user_can_update_nakhoda(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\NakhodaControllerTest::checkbox_unchecked_updates_is_active_to_false(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\NakhodaControllerTest::user_can_delete_nakhoda(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\NakhodaControllerTest::validation_fails_when_required_fields_are_missing(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\NakhodaControllerTest::validation_fails_for_non_existent_kapal(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\NakhodaControllerTest::it_can_filter_and_search_nakhoda_for_ajax_datatable(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_can_display_pelabuhan_index(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_paginates_pelabuhan_with_default_per_page(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_paginates_pelabuhan_with_custom_per_page(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_validates_per_page_parameter(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_can_search_pelabuhan_by_nama(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_can_search_pelabuhan_by_kode(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_can_filter_pelabuhan_by_tipe(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_can_filter_pelabuhan_by_status_active(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_can_filter_pelabuhan_by_status_inactive(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_can_sort_pelabuhan_by_kode(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_can_store_new_pelabuhan(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_validates_required_fields_when_storing_pelabuhan(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_can_update_pelabuhan(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_can_delete_pelabuhan(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_combines_search_filter_and_pagination(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::it_can_filter_and_search_pelabuhan_for_ajax_datatable(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\PelabuhanControllerTest::unauthenticated_user_cannot_access_pelabuhan_routes(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_can_display_tipe_pelabuhan_index(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_paginates_tipe_pelabuhan_with_default_per_page(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_paginates_tipe_pelabuhan_with_custom_per_page(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_validates_per_page_parameter(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_can_sort_tipe_pelabuhan_by_nama(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_can_sort_by_pelabuhans_count(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_can_store_new_tipe_pelabuhan(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_can_store_tipe_pelabuhan_via_ajax(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_validates_required_fields_when_storing(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_validates_unique_nama_when_storing(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_validates_max_length_for_nama(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_can_update_tipe_pelabuhan(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_validates_unique_nama_when_updating_except_itself(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_can_delete_unused_tipe_pelabuhan(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_cannot_delete_tipe_pelabuhan_that_is_in_use(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::it_can_search_tipe_pelabuhan_for_ajax_datatable(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;43;1m WARN [39;49;22m Metadata found in doc-comment for method Tests\Feature\Master\TipePelabuhanControllerTest::unauthenticated_user_cannot_access_tipe_pelabuhan_routes(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Master\BarangB3ControllerTest[39m
+  [32;1m✓[39;22m[90m [39m[90muser can v[39m[90m…[39m [90m0.39s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can c[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can u[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can d[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mvalidation[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mvalidation[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can fil[39m[90m…[39m [90m0.03s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Master\JenisKapalControllerTest[39m
+  [32;1m✓[39;22m[90m [39m[90muser can v[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can c[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can c[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can u[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcheckbox u[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser canno[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can d[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mkode is au[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can fil[39m[90m…[39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Master\KapalControllerTest[39m
+  [32;1m✓[39;22m[90m [39m[90muser can v[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can c[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can c[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mempty nume[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can u[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcheckbox u[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can d[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mvalidation[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mvalidation[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can fil[39m[90m…[39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Master\NakhodaControllerTest[39m
+  [32;1m✓[39;22m[90m [39m[90muser can v[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can c[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can c[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can u[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcheckbox u[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90muser can d[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mvalidation[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mvalidation[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can fil[39m[90m…[39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Master\PelabuhanControllerTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit can dis[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit paginat[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit paginat[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit validat[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can sea[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can sea[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can fil[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can fil[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can fil[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can sor[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can sto[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit validat[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can upd[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can del[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit combine[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can fil[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90munauthenti[39m[90m…[39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Master\TipePelabuhanControllerTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit can dis[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit paginat[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit paginat[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit validat[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can sor[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can sor[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can sto[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can sto[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit validat[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit validat[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit validat[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can upd[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit validat[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can del[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit cannot[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit can sea[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90munauthenti[39m[90m…[39m [90m0.02s[39m  
+
+  [90mTests:[39m    [32;1m69 passed[39;22m[90m (268 assertions)[39m
+  [90mDuration:[39m [39m2.14s[39m
+

@@ -90,7 +90,7 @@ class TipePelabuhanController extends Controller
         // Sorting
         $sort = $request->get('sort', 'id');
         $direction = $request->get('direction', 'asc');
-        $allowedSorts = ['id', 'nama', 'keterangan', 'created_at', 'updated_at'];
+        $allowedSorts = ['id', 'nama', 'keterangan', 'created_at', 'updated_at', 'pelabuhans_count'];
         if (! in_array($sort, $allowedSorts)) {
             $sort = 'id';
         }

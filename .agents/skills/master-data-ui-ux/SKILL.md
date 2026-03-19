@@ -68,26 +68,23 @@ Gunakan ukuran input dan tombol yang *compact* (kecil/xs) di dalam modal agar ra
 - Input/Select/Textarea: `px-3 py-1.5 text-sm border border-gray-300 rounded-md`.
 - Textarea: Maksimal `rows="2"`.
 
-**Standard Checkbox/Toggle:**
-- Wajib gunakan `scale-90 origin-left` pada `input[type="checkbox"]` agar tidak terlihat terlalu besar dibanding input lainnya.
-
-**Tombol Modal (Footer):**
-- Gunakan `text-xs font-medium px-4 py-2 rounded-md`.
+**Standard Toggle Switch (Status Aktif):**
+- Wajib gunakan komponen *toggle switch* untuk field `is_active` (Status Aktif).
+- Komponen dibungkus dalam container berlatar belakang `bg-gray-50` agar terlihat terpisah dan jelas.
+- Gunakan class `.toggle-switch` dan `.toggle-slider` (CSS sudah diglobalkan di `app.css`).
 
 ```html
-<div class="space-y-4">
-    <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Nama</label>
-        <input type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+<div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+    <div class="flex flex-col">
+        <span class="text-sm font-medium text-gray-900">Status Aktif</span>
+        <span class="text-xs text-gray-500">Aktifkan untuk menampilkan data ini</span>
     </div>
-    
-    <div>
-        <label class="flex items-center">
-            <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 scale-90 origin-left">
-            <span class="ml-2 text-sm text-gray-700">Aktif</span>
-        </label>
-    </div>
+    <label class="toggle-switch transform scale-90 origin-right">
+        <input type="checkbox" name="is_active" value="1" checked>
+        <span class="toggle-slider"></span>
+    </label>
 </div>
+```
 
 <div class="mt-6 flex justify-end gap-3">
     <button type="button" class="px-4 py-2 text-xs font-medium bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all">Batal</button>

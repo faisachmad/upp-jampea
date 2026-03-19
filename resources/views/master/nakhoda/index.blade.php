@@ -243,14 +243,17 @@
                     </div>
 
                     <!-- Status -->
-                    <div>
-                        <label class="flex items-center">
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-medium text-gray-900">Status Aktif</span>
+                            <span class="text-xs text-gray-500">Aktifkan untuk menampilkan data nakhoda ini</span>
+                        </div>
+                        <label class="toggle-switch transform scale-90 origin-right">
                             <input type="checkbox"
                                    name="is_active"
                                    value="1"
-                                   {{ old('is_active', true) ? 'checked' : '' }}
-                                   class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 scale-90 origin-left">
-                            <span class="ml-2 text-sm text-gray-700">Aktif</span>
+                                   {{ old('is_active', true) ? 'checked' : '' }}>
+                            <span class="toggle-slider"></span>
                         </label>
                     </div>
                 </div>
@@ -318,14 +321,17 @@
                     </div>
 
                     <!-- Status -->
-                    <div>
-                        <label class="flex items-center">
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-medium text-gray-900">Status Aktif</span>
+                            <span class="text-xs text-gray-500">Aktifkan untuk menampilkan data nakhoda ini</span>
+                        </div>
+                        <label class="toggle-switch transform scale-90 origin-right">
                             <input type="checkbox"
                                    name="is_active"
                                    value="1"
-                                   :checked="editData.is_active"
-                                   class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 scale-90 origin-left">
-                            <span class="ml-2 text-sm text-gray-700">Aktif</span>
+                                   :checked="editData.is_active">
+                            <span class="toggle-slider"></span>
                         </label>
                     </div>
                 </div>
