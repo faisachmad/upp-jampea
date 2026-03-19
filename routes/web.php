@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Api\KapalSearchController;
+use App\Http\Controllers\Api\NakhodaSearchController;
 use App\Http\Controllers\Api\PelabuhanSearchController;
 use App\Http\Controllers\KunjunganController;
 use App\Http\Controllers\Master\BarangB3Controller;
 use App\Http\Controllers\Master\JenisKapalController;
+use App\Http\Controllers\Master\JenisPelayaranController;
 use App\Http\Controllers\Master\KapalController;
 use App\Http\Controllers\Master\NakhodaController;
 use App\Http\Controllers\Master\PelabuhanController;
@@ -38,6 +40,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('pelabuhan', PelabuhanController::class);
         Route::resource('nakhoda', NakhodaController::class);
         Route::resource('barang-b3', BarangB3Controller::class);
+        Route::resource('jenis-pelayaran', JenisPelayaranController::class)->except(['create', 'edit', 'show']);
     });
 
     // API Routes for Autocomplete
@@ -45,6 +48,7 @@ Route::middleware('auth')->group(function () {
         Route::get('kapal/search', [KapalSearchController::class, 'search'])->name('kapal.search');
         Route::get('pelabuhan/search', [PelabuhanSearchController::class, 'search'])->name('pelabuhan.search');
         Route::get('pelabuhan/internal', [PelabuhanSearchController::class, 'internal'])->name('pelabuhan.internal');
+        Route::get('nakhoda/search', [NakhodaSearchController::class, 'search'])->name('nakhoda.search');
     });
 });
 

@@ -87,6 +87,12 @@
                             Barang B3
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('master.jenis-pelayaran.index') }}"
+                           class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('master.jenis-pelayaran.*') ? 'bg-gray-700' : '' }}">
+                            Jenis Pelayaran
+                        </a>
+                    </li>
                 </ul>
             </li>
 

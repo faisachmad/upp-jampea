@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kunjungan;
-use App\Models\KunjunganMuatan;
-use App\Models\KunjunganB3;
-use App\Models\Pelabuhan;
+use App\Models\BarangB3;
 use App\Models\JenisPelayaran;
+use App\Models\Kapal;
+use App\Models\Kunjungan;
+use App\Models\KunjunganB3;
+use App\Models\KunjunganMuatan;
+use App\Models\Nakhoda;
+use App\Models\Pelabuhan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,11 +41,14 @@ class KunjunganController extends Controller
 
         $kunjungans = $query->orderBy('tgl_datang', 'desc')->paginate(20);
 
-        // Data for filters
+        // Data for filters and form
         $pelabuhans = Pelabuhan::internal()->active()->orderBy('kode')->get();
         $jenisPelayarans = JenisPelayaran::orderBy('kode')->get();
+        $nakhodas = Nakhoda::active()->orderBy('nama')->get();
+        $kapals = Kapal::active()->orderBy('nama')->get();
+        $barangB3s = BarangB3::orderBy('nama')->get();
 
-        return view('kunjungan.index', compact('kunjungans', 'pelabuhans', 'jenisPelayarans'));
+        return view('kunjungan.index', compact('kunjungans', 'pelabuhans', 'jenisPelayarans', 'nakhodas', 'kapals', 'barangB3s'));
     }
 
     /**
@@ -53,8 +59,11 @@ class KunjunganController extends Controller
         // Data untuk form wizard
         $pelabuhans = Pelabuhan::internal()->active()->orderBy('kode')->get();
         $jenisPelayarans = JenisPelayaran::orderBy('kode')->get();
+        $nakhodas = Nakhoda::active()->orderBy('nama')->get();
+        $kapals = Kapal::active()->orderBy('nama')->get();
+        $barangB3s = BarangB3::orderBy('nama')->get();
 
-        return view('kunjungan.create', compact('pelabuhans', 'jenisPelayarans'));
+        return view('kunjungan.create', compact('pelabuhans', 'jenisPelayarans', 'nakhodas', 'kapals', 'barangB3s'));
     }
 
     /**
@@ -165,7 +174,7 @@ class KunjunganController extends Controller
             ]);
 
             // Create Kunjungan Muatan (if any)
-            if (!empty($validated['muatan'])) {
+            if (! empty($validated['muatan'])) {
                 foreach ($validated['muatan'] as $muatan) {
                     KunjunganMuatan::create([
                         'kunjungan_id' => $kunjungan->id,
@@ -179,7 +188,7 @@ class KunjunganController extends Controller
             }
 
             // Create Kunjungan B3 (if any)
-            if (!empty($validated['b3'])) {
+            if (! empty($validated['b3'])) {
                 foreach ($validated['b3'] as $b3) {
                     KunjunganB3::create([
                         'kunjungan_id' => $kunjungan->id,
@@ -204,7 +213,7 @@ class KunjunganController extends Controller
             DB::rollBack();
 
             return back()->withInput()
-                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+                ->with('error', 'Terjadi kesalahan: '.$e->getMessage());
         }
     }
 
@@ -214,7 +223,7 @@ class KunjunganController extends Controller
     public function show(Kunjungan $kunjungan)
     {
         $kunjungan->load(['pelabuhan', 'kapal', 'jenisPelayaran', 'nakhoda',
-                          'pelabuhanAsal', 'pelabuhanTujuan', 'kunjunganMuatans', 'kunjunganB3s.barangB3']);
+            'pelabuhanAsal', 'pelabuhanTujuan', 'kunjunganMuatans', 'kunjunganB3s.barangB3']);
 
         return view('kunjungan.show', compact('kunjungan'));
     }
@@ -255,7 +264,7 @@ class KunjunganController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            return back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+            return back()->with('error', 'Gagal menghapus data: '.$e->getMessage());
         }
     }
 }
