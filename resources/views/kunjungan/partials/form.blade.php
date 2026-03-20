@@ -82,8 +82,11 @@
                     <label for="jenis_pelayaran_id" class="block text-sm font-medium text-gray-700">
                         Jenis Pelayaran <span class="text-red-500">*</span>
                     </label>
-                    <a href="{{ route('master.jenis-pelayaran.index') }}" target="_blank"
-                       class="text-xs text-blue-600 hover:text-blue-800 font-medium">Kelola →</a>
+                    <button type="button" onclick="openQuickAddJenisPelayaran()"
+                            class="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        Kelola
+                    </button>
                 </div>
                 <select name="jenis_pelayaran_id" id="jenis_pelayaran_id" required
                         class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 @error('jenis_pelayaran_id') border-red-500 @enderror">
@@ -105,21 +108,22 @@
                     <label class="block text-sm font-medium text-gray-700">
                         Kapal <span class="text-red-500">*</span>
                     </label>
-                    <a href="{{ route('master.kapal.create') }}" target="_blank"
-                       class="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
+                    <button type="button" onclick="openQuickAddKapal()"
+                            class="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                         Tambah Kapal
-                    </a>
+                    </button>
                 </div>
                 <div class="relative" x-data="autocomplete('{{ route('api.kapal.search') }}', 'kapal_id')">
                     <input type="text"
+                           id="kapal_search_input"
                            x-model="searchQuery"
                            @input.debounce.300ms="search()"
                            @focus="showResults = true"
                            @click.away="showResults = false"
                            placeholder="Ketik nama kapal..."
                            class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
-                    <input type="hidden" name="kapal_id" x-model="selectedId" required>
+                    <input type="hidden" name="kapal_id" id="kapal_id" x-model="selectedId" required>
                     <div x-show="showResults && results.length > 0"
                          class="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
                         <template x-for="result in results" :key="result.id">
@@ -726,7 +730,105 @@ tangan & Keberangkatan -->
 
 </form>
 
-{{-- ===== QUICK-ADD MODALS ===== --}}
+{{-- Modal: Quick Add Kapal --}}
+<div id="modal-quick-kapal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-y-auto">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl my-8 p-6">
+        <div class="flex justify-between items-center mb-4 border-b pb-3">
+            <h3 class="text-base font-bold text-gray-900">Tambah Kapal Baru</h3>
+            <button type="button" onclick="closeQuickAddKapal()" class="text-gray-400 hover:text-gray-600">&times;</button>
+        </div>
+        <form id="form-quick-kapal" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            @csrf
+            <div class="md:col-span-2">
+                <label class="block text-xs font-medium text-gray-700 mb-1">Nama Kapal <span class="text-red-500">*</span></label>
+                <input type="text" name="nama" required placeholder="Nama lengkap kapal"
+                       class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Jenis Kapal <span class="text-red-500">*</span></label>
+                <select name="jenis_kapal_id" required class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                    <option value="">-- Pilih Jenis --</option>
+                    @foreach($jenisKapals as $jk)
+                        <option value="{{ $jk->id }}">{{ $jk->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Bendera <span class="text-red-500">*</span></label>
+                <select name="bendera_id" required class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                    <option value="">-- Pilih Bendera --</option>
+                    @foreach($benderas as $b)
+                        <option value="{{ $b->id }}">{{ $b->nama_negara }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">GT</label>
+                <input type="number" name="gt" placeholder="Gross Tonnage" step="0.01"
+                       class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">DWT</label>
+                <input type="number" name="dwt" placeholder="Deadweight Tonnage" step="0.01"
+                       class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Panjang (m)</label>
+                <input type="number" name="panjang" placeholder="Panjang kapal" step="0.01"
+                       class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Call Sign</label>
+                <input type="text" name="call_sign" placeholder="Call sign kapal"
+                       class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-xs font-medium text-gray-700 mb-1">Pemilik/Agen</label>
+                <input type="text" name="pemilik_agen" placeholder="Nama pemilik atau agen"
+                       class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            </div>
+            <input type="hidden" name="is_active" value="1">
+            <div id="error-quick-kapal" class="md:col-span-2 text-xs text-red-600 hidden"></div>
+            <div class="md:col-span-2 flex justify-end gap-2 pt-2 border-t mt-2">
+                <button type="button" onclick="closeQuickAddKapal()" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
+                <button type="submit" class="px-3 py-1.5 text-xs bg-blue-600 text-white rounded-md hover:bg-blue-700">Simpan Kapal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- Modal: Quick Add Jenis Pelayaran --}}
+<div id="modal-quick-jenis-pelayaran" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+        <div class="flex justify-between items-center mb-4 border-b pb-3">
+            <h3 class="text-base font-bold text-gray-900">Tambah Jenis Pelayaran</h3>
+            <button type="button" onclick="closeQuickAddJenisPelayaran()" class="text-gray-400 hover:text-gray-600">&times;</button>
+        </div>
+        <form id="form-quick-jenis-pelayaran" class="space-y-4">
+            @csrf
+            <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Kode <span class="text-red-500">*</span></label>
+                <input type="text" name="kode" required placeholder="Mis: DN, LN"
+                       class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Nama <span class="text-red-500">*</span></label>
+                <input type="text" name="nama" required placeholder="Mis: Dalam Negeri"
+                       class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Prefix <span class="text-red-500">*</span></label>
+                <input type="text" name="prefix" maxlength="1" required placeholder="Mis: D, L"
+                       class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div id="error-quick-jenis-pelayaran" class="text-xs text-red-600 hidden"></div>
+            <div class="flex justify-end gap-2 pt-2 border-t mt-2">
+                <button type="button" onclick="closeQuickAddJenisPelayaran()" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
+                <button type="submit" class="px-3 py-1.5 text-xs bg-blue-600 text-white rounded-md hover:bg-blue-700">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 {{-- Modal: Quick Add Pelabuhan --}}
 <div id="modal-quick-pelabuhan" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
@@ -939,5 +1041,64 @@ document.getElementById('form-quick-b3').addEventListener('submit', async functi
     } catch(e) { errEl.textContent = 'Terjadi kesalahan.'; errEl.classList.remove('hidden'); }
     btn.disabled = false;
     btn.textContent = 'Simpan';
+});
+// ===== QUICK ADD KAPAL =====
+function openQuickAddKapal() { document.getElementById('modal-quick-kapal').classList.remove('hidden'); }
+function closeQuickAddKapal() { document.getElementById('modal-quick-kapal').classList.add('hidden'); }
+
+document.getElementById('form-quick-kapal').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('[type=submit]');
+    btn.disabled = true; btn.textContent = 'Menyimpan...';
+    const errEl = document.getElementById('error-quick-kapal');
+    errEl.classList.add('hidden');
+    try {
+        const res = await fetch('{{ route('master.kapal.store') }}', {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
+            body: new FormData(this)
+        });
+        const data = await res.json();
+        if (data.success) {
+            // Set the hidden kapal_id and visible search input
+            document.getElementById('kapal_id').value = data.data.id;
+            document.getElementById('kapal_search_input').value = data.data.nama;
+            this.reset(); closeQuickAddKapal();
+        } else {
+            const msgs = data.errors ? Object.values(data.errors).flat().join(', ') : (data.message ?? 'Gagal menyimpan.');
+            errEl.textContent = msgs; errEl.classList.remove('hidden');
+        }
+    } catch(e) { errEl.textContent = 'Terjadi kesalahan.'; errEl.classList.remove('hidden'); }
+    btn.disabled = false; btn.textContent = 'Simpan Kapal';
+});
+
+// ===== QUICK ADD JENIS PELAYARAN =====
+function openQuickAddJenisPelayaran() { document.getElementById('modal-quick-jenis-pelayaran').classList.remove('hidden'); }
+function closeQuickAddJenisPelayaran() { document.getElementById('modal-quick-jenis-pelayaran').classList.add('hidden'); }
+
+document.getElementById('form-quick-jenis-pelayaran').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('[type=submit]');
+    btn.disabled = true; btn.textContent = 'Menyimpan...';
+    const errEl = document.getElementById('error-quick-jenis-pelayaran');
+    errEl.classList.add('hidden');
+    try {
+        const res = await fetch('{{ route('master.jenis-pelayaran.store') }}', {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
+            body: new FormData(this)
+        });
+        const data = await res.json();
+        if (data.success) {
+            const sel = document.getElementById('jenis_pelayaran_id');
+            const opt = new Option('[' + data.data.prefix + '] ' + data.data.nama, data.data.id, true, true);
+            sel.add(opt);
+            this.reset(); closeQuickAddJenisPelayaran();
+        } else {
+            const msgs = data.errors ? Object.values(data.errors).flat().join(', ') : (data.message ?? 'Gagal menyimpan.');
+            errEl.textContent = msgs; errEl.classList.remove('hidden');
+        }
+    } catch(e) { errEl.textContent = 'Terjadi kesalahan.'; errEl.classList.remove('hidden'); }
+    btn.disabled = false; btn.textContent = 'Simpan';
 });
 </script>

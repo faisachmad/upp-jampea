@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kapal;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class KapalSearchController extends Controller
@@ -11,8 +12,7 @@ class KapalSearchController extends Controller
     /**
      * Search kapals for autocomplete
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function search(Request $request)
     {
@@ -24,7 +24,8 @@ class KapalSearchController extends Controller
 
         $kapals = Kapal::active()
             ->search($query)
-            ->select('id', 'nama', 'jenis', 'gt', 'call_sign', 'pemilik_agen')
+            ->leftJoin('jenis_kapals', 'kapals.jenis_kapal_id', '=', 'jenis_kapals.id')
+            ->select('kapals.id', 'kapals.nama', 'jenis_kapals.nama as jenis', 'kapals.gt', 'kapals.call_sign', 'kapals.pemilik_agen')
             ->limit(10)
             ->get()
             ->map(function ($kapal) {
@@ -35,7 +36,7 @@ class KapalSearchController extends Controller
                     'gt' => $kapal->gt,
                     'call_sign' => $kapal->call_sign,
                     'pemilik_agen' => $kapal->pemilik_agen,
-                    'label' => $kapal->nama . ' (' . $kapal->jenis . ')',
+                    'label' => $kapal->nama.' ('.$kapal->jenis.')',
                 ];
             });
 

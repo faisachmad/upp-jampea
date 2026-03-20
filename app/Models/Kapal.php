@@ -54,13 +54,16 @@ class Kapal extends Model
     // Scopes
     public function scopeActive($query)
     {
-        return $query->where('is_active', true);
+        return $query->where($this->getTable().'.is_active', true);
     }
 
     public function scopeSearch($query, $search)
     {
-        return $query->where('nama', 'ilike', "%{$search}%")
-            ->orWhere('call_sign', 'ilike', "%{$search}%")
-            ->orWhere('pemilik_agen', 'ilike', "%{$search}%");
+        return $query->where(function ($q) use ($search) {
+            $table = $this->getTable();
+            $q->where($table.'.nama', 'ilike', "%{$search}%")
+                ->orWhere($table.'.call_sign', 'ilike', "%{$search}%")
+                ->orWhere($table.'.pemilik_agen', 'ilike', "%{$search}%");
+        });
     }
 }

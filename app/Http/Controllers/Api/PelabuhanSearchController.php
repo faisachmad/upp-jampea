@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pelabuhan;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PelabuhanSearchController extends Controller
@@ -11,8 +12,7 @@ class PelabuhanSearchController extends Controller
     /**
      * Search pelabuhans for autocomplete
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function search(Request $request)
     {
@@ -40,7 +40,7 @@ class PelabuhanSearchController extends Controller
                     'kode' => $pelabuhan->kode,
                     'nama' => $pelabuhan->nama,
                     'tipe' => $pelabuhan->tipe,
-                    'label' => $pelabuhan->nama . ' (' . $pelabuhan->kode . ')',
+                    'label' => $pelabuhan->nama.' ('.$pelabuhan->kode.')',
                 ];
             });
 
@@ -50,7 +50,7 @@ class PelabuhanSearchController extends Controller
     /**
      * Get pelabuhans untuk dropdown (internal only)
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function internal()
     {

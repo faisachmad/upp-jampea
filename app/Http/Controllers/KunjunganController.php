@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BarangB3;
+use App\Models\Bendera;
+use App\Models\JenisKapal;
 use App\Models\JenisPelayaran;
 use App\Models\Kapal;
 use App\Models\Kunjungan;
@@ -47,8 +49,10 @@ class KunjunganController extends Controller
         $nakhodas = Nakhoda::active()->orderBy('nama')->get();
         $kapals = Kapal::active()->orderBy('nama')->get();
         $barangB3s = BarangB3::orderBy('nama')->get();
+        $jenisKapals = JenisKapal::active()->orderBy('nama')->get();
+        $benderas = Bendera::active()->orderBy('nama_negara')->get();
 
-        return view('kunjungan.index', compact('kunjungans', 'pelabuhans', 'jenisPelayarans', 'nakhodas', 'kapals', 'barangB3s'));
+        return view('kunjungan.index', compact('kunjungans', 'pelabuhans', 'jenisPelayarans', 'nakhodas', 'kapals', 'barangB3s', 'jenisKapals', 'benderas'));
     }
 
     /**
@@ -62,8 +66,10 @@ class KunjunganController extends Controller
         $nakhodas = Nakhoda::active()->orderBy('nama')->get();
         $kapals = Kapal::active()->orderBy('nama')->get();
         $barangB3s = BarangB3::orderBy('nama')->get();
+        $jenisKapals = JenisKapal::active()->orderBy('nama')->get();
+        $benderas = Bendera::active()->orderBy('nama_negara')->get();
 
-        return view('kunjungan.create', compact('pelabuhans', 'jenisPelayarans', 'nakhodas', 'kapals', 'barangB3s'));
+        return view('kunjungan.create', compact('pelabuhans', 'jenisPelayarans', 'nakhodas', 'kapals', 'barangB3s', 'jenisKapals', 'benderas'));
     }
 
     /**

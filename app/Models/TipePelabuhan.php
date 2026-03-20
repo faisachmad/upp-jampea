@@ -12,7 +12,15 @@ class TipePelabuhan extends Model
     protected $fillable = [
         'nama',
         'keterangan',
+        'is_active',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+        ];
+    }
 
     public function pelabuhans()
     {

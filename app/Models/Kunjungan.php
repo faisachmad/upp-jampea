@@ -95,6 +95,7 @@ class Kunjungan extends Model
         if ($bulan) {
             $query->where('bulan', $bulan);
         }
+
         return $query;
     }
 

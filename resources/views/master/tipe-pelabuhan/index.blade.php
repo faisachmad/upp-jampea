@@ -183,6 +183,7 @@
                         <th>Nama Tipe</th>
                         <th>Keterangan</th>
                         <th>Jumlah Pelabuhan</th>
+                        <th>Status</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -240,6 +241,21 @@
                                maxlength="255"
                                placeholder="Deskripsi..."
                                class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 @error('keterangan') border-red-500 @enderror">{{ old('keterangan') }}</textarea>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-md border border-gray-200">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-medium text-gray-900">Status Aktif</span>
+                            <span class="text-[10px] text-gray-500">Aktifkan untuk menampilkan data ini</span>
+                        </div>
+                        <label class="toggle-switch transform scale-90 origin-right">
+                            <input type="checkbox"
+                                   name="is_active"
+                                   value="1"
+                                   {{ old('is_active', true) ? 'checked' : '' }}>
+                            <span class="toggle-slider"></span>
+                        </label>
                     </div>
                 </div>
 
@@ -300,6 +316,21 @@
                                maxlength="255"
                                class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"></textarea>
                     </div>
+
+                    <!-- Status -->
+                    <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-md border border-gray-200">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-medium text-gray-900">Status Aktif</span>
+                            <span class="text-[10px] text-gray-500">Aktifkan untuk menampilkan data ini</span>
+                        </div>
+                        <label class="toggle-switch transform scale-90 origin-right">
+                            <input type="checkbox"
+                                   name="is_active"
+                                   value="1"
+                                   x-bind:checked="editData.is_active">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
                 </div>
 
                 <!-- Actions -->
@@ -333,6 +364,7 @@
                 url: "{{ route('master.tipe-pelabuhan.index') }}",
                 data: function (d) {
                     d.search_custom = $('#search-input').val();
+                    d.status = $('#status-filter').val();
                 }
             },
             dom: "<'flex flex-col'<'w-full overflow-visible't><'flex flex-col md:flex-row justify-between items-center p-4 gap-4'<'flex items-center gap-6'li>p>>",
@@ -351,6 +383,15 @@
                     name: 'pelabuhans_count',
                     render: function(data) {
                         return `<span class="px-2 py-1 bg-gray-100 rounded-full">${data} pelabuhan</span>`;
+                    }
+                },
+                {
+                    data: 'is_active',
+                    name: 'is_active',
+                    render: function(data) {
+                        const color = data ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+                        const text = data ? 'Aktif' : 'Tidak Aktif';
+                        return `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${color}">${text}</span>`;
                     }
                 },
                 {data: 'action', name: 'action', orderable: false, searchable: false},
@@ -373,6 +414,10 @@
 
         $('#btn-reset').on('click', function() {
             $('#filter-form')[0].reset();
+            // Choices.js reset handling
+            if ($('#status-filter')[0].choices) {
+                $('#status-filter')[0].choices.setChoiceByValue('');
+            }
             table.ajax.reload();
         });
 
@@ -381,6 +426,10 @@
                 e.preventDefault();
                 table.ajax.reload();
             }
+        });
+
+        $('#status-filter').on('change', function() {
+            table.ajax.reload();
         });
 
         // Export edit function to window

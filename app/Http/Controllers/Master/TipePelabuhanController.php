@@ -24,6 +24,11 @@ class TipePelabuhanController extends Controller
                 });
             }
 
+            if ($request->filled('status')) {
+                $status = $request->status === 'active';
+                $query->where('is_active', $status);
+            }
+
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -87,6 +92,12 @@ class TipePelabuhanController extends Controller
             });
         }
 
+        // Status filter for non-AJAX
+        if ($request->filled('status')) {
+            $status = $request->status === 'active';
+            $query->where('is_active', $status);
+        }
+
         // Sorting
         $sort = $request->get('sort', 'id');
         $direction = $request->get('direction', 'asc');
@@ -120,7 +131,9 @@ class TipePelabuhanController extends Controller
             'keterangan' => 'nullable|string|max:255',
         ]);
 
-        $tipe = TipePelabuhan::create($validated);
+        $tipe = TipePelabuhan::create(array_merge($validated, [
+            'is_active' => $request->has('is_active'),
+        ]));
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
@@ -144,7 +157,9 @@ class TipePelabuhanController extends Controller
             'keterangan' => 'nullable|string|max:255',
         ]);
 
-        $tipePelabuhan->update($validated);
+        $tipePelabuhan->update(array_merge($validated, [
+            'is_active' => $request->has('is_active'),
+        ]));
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([

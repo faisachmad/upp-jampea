@@ -566,6 +566,12 @@
 
         $('#btn-reset').on('click', function() {
             $('#filter-form')[0].reset();
+            // Choices.js reset handling (trigger change event for DataTables reload)
+            $('#tipe-filter, #status-filter').each(function() {
+                if (this.choices) {
+                    this.choices.setChoiceByValue('');
+                }
+            });
             table.ajax.reload();
         });
 
@@ -591,6 +597,11 @@
                 field: "text",
                 direction: "asc"
             }
+        });
+
+        // Initialize Filter Changes
+        $('#tipe-filter, #status-filter').on('change', function() {
+            table.ajax.reload();
         });
 
         // Value assignment for edit tipe is handled directly from Alpine via #edit-tipe-select.tomselect
