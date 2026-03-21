@@ -152,7 +152,7 @@
                             Tambah Nakhoda
                         </button>
                     </div>
-                    <div class="relative" x-data="autocompleteNakhoda()">
+                    <div class="relative" x-data="autocompleteNakhoda('{{ route('api.nakhoda.search') }}')">
                         <input type="text"
                                id="nakhoda_search_input"
                                x-model="searchQuery"
@@ -715,95 +715,6 @@
 
 @push('scripts')
 <script>
-function kunjunganForm() {
-    return {
-        currentTab: 1,
-        muatans: [],
-        b3s: [],
-
-        addMuatan() {
-            this.muatans.push({
-                tipe: '',
-                jenis_barang: '',
-                ton_m3: '',
-                jenis_hewan: '',
-                jumlah_hewan: ''
-            });
-        },
-
-        removeMuatan(index) {
-            this.muatans.splice(index, 1);
-        },
-
-        addB3() {
-            this.b3s.push({
-                barang_b3_id: '',
-                jenis_kegiatan: '',
-                bentuk_muatan: '',
-                jumlah_ton: '',
-                jumlah_container: '',
-                kemasan: '',
-                jumlah: '',
-                petugas: ''
-            });
-        },
-
-        removeB3(index) {
-            this.b3s.splice(index, 1);
-        }
-    }
-}
-
-function autocomplete(url, fieldName) {
-    return {
-        searchQuery: '',
-        results: [],
-        showResults: false,
-        selectedId: '',
-
-        async search() {
-            if (this.searchQuery.length < 2) {
-                this.results = [];
-                return;
-            }
-
-            try {
-                const response = await fetch(`${url}?q=${encodeURIComponent(this.searchQuery)}`);
-                this.results = await response.json();
-            } catch (error) {
-                console.error('Search error:', error);
-            }
-        },
-
-        selectItem(item) {
-            this.searchQuery = item.label || item.nama;
-            this.selectedId = item.id;
-            this.showResults = false;
-        }
-    }
-}
-
-function autocompleteNakhoda() {
-    return {
-        searchQuery: '',
-        nakhodaId: '',
-        results: [],
-        showResults: false,
-        async search() {
-            if (this.searchQuery.length < 2) { this.results = []; return; }
-            try {
-                const r = await fetch(`{{ route('api.nakhoda.search') }}?q=${encodeURIComponent(this.searchQuery)}`);
-                this.results = await r.json();
-                this.showResults = true;
-            } catch(e) { this.results = []; }
-        },
-        selectNakhoda(item) {
-            this.searchQuery = item.nama;
-            this.nakhodaId = item.id;
-            this.showResults = false;
-        }
-    };
-}
 </script>
 @endpush
 

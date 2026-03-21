@@ -56,7 +56,7 @@
                     <label for="pelabuhan_id" class="block text-sm font-medium text-gray-700">
                         Pelabuhan Pencatat <span class="text-red-500">*</span>
                     </label>
-                    <button type="button" onclick="openQuickAddPelabuhan()"
+                    <button type="button" onclick="openModal('modal-quick-pelabuhan')"
                             class="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                         Tambah
@@ -82,7 +82,7 @@
                     <label for="jenis_pelayaran_id" class="block text-sm font-medium text-gray-700">
                         Jenis Pelayaran <span class="text-red-500">*</span>
                     </label>
-                    <button type="button" onclick="openQuickAddJenisPelayaran()"
+                    <button type="button" onclick="openModal('modal-quick-jenis-pelayaran')"
                             class="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                         Kelola
@@ -108,7 +108,7 @@
                     <label class="block text-sm font-medium text-gray-700">
                         Kapal <span class="text-red-500">*</span>
                     </label>
-                    <button type="button" onclick="openQuickAddKapal()"
+                    <button type="button" onclick="openModal('modal-quick-kapal')"
                             class="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                         Tambah Kapal
@@ -145,13 +145,14 @@
                     <label class="block text-sm font-medium text-gray-700">
                         Nakhoda <span class="text-red-500">*</span>
                     </label>
-                    <button type="button" onclick="openQuickAddNakhoda()"
+                    <button type="button" 
+                            onclick="const kId = document.getElementById('kapal_id').value; if(!kId){ Swal.fire('Peringatan', 'Pilih kapal terlebih dahulu!', 'warning'); return; } document.getElementById('quick-nakhoda-kapal-id').value = kId; openModal('modal-quick-nakhoda')"
                             class="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                         Tambah Nakhoda
                     </button>
                 </div>
-                <div class="relative" x-data="autocompleteNakhoda()">
+                <div class="relative" x-data="autocompleteNakhoda('{{ route('api.nakhoda.search') }}')">
                     <input type="text"
                            id="nakhoda_search_input"
                            x-model="searchQuery"
@@ -605,7 +606,7 @@ tangan & Keberangkatan -->
         <div class="flex justify-between items-center mb-4 border-b pb-1.5">
             <h3 class="text-sm font-bold text-gray-900">Data Barang B3 (Bahan Berbahaya & Beracun)</h3>
             <div class="flex items-center gap-3">
-                <button type="button" onclick="openQuickAddB3()"
+                <button type="button" onclick="openModal('modal-quick-b3')"
                         class="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     Jenis B3 Baru
@@ -735,7 +736,7 @@ tangan & Keberangkatan -->
     <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl my-8 p-6">
         <div class="flex justify-between items-center mb-4 border-b pb-3">
             <h3 class="text-base font-bold text-gray-900">Tambah Kapal Baru</h3>
-            <button type="button" onclick="closeQuickAddKapal()" class="text-gray-400 hover:text-gray-600">&times;</button>
+            <button type="button" onclick="closeModal('modal-quick-kapal')" class="text-gray-400 hover:text-gray-600">&times;</button>
         </div>
         <form id="form-quick-kapal" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             @csrf
@@ -790,7 +791,7 @@ tangan & Keberangkatan -->
             <input type="hidden" name="is_active" value="1">
             <div id="error-quick-kapal" class="md:col-span-2 text-xs text-red-600 hidden"></div>
             <div class="md:col-span-2 flex justify-end gap-2 pt-2 border-t mt-2">
-                <button type="button" onclick="closeQuickAddKapal()" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
+                <button type="button" onclick="closeModal('modal-quick-kapal')" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
                 <button type="submit" class="px-3 py-1.5 text-xs bg-blue-600 text-white rounded-md hover:bg-blue-700">Simpan Kapal</button>
             </div>
         </form>
@@ -802,7 +803,7 @@ tangan & Keberangkatan -->
     <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
         <div class="flex justify-between items-center mb-4 border-b pb-3">
             <h3 class="text-base font-bold text-gray-900">Tambah Jenis Pelayaran</h3>
-            <button type="button" onclick="closeQuickAddJenisPelayaran()" class="text-gray-400 hover:text-gray-600">&times;</button>
+            <button type="button" onclick="closeModal('modal-quick-jenis-pelayaran')" class="text-gray-400 hover:text-gray-600">&times;</button>
         </div>
         <form id="form-quick-jenis-pelayaran" class="space-y-4">
             @csrf
@@ -823,7 +824,7 @@ tangan & Keberangkatan -->
             </div>
             <div id="error-quick-jenis-pelayaran" class="text-xs text-red-600 hidden"></div>
             <div class="flex justify-end gap-2 pt-2 border-t mt-2">
-                <button type="button" onclick="closeQuickAddJenisPelayaran()" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
+                <button type="button" onclick="closeModal('modal-quick-jenis-pelayaran')" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
                 <button type="submit" class="px-3 py-1.5 text-xs bg-blue-600 text-white rounded-md hover:bg-blue-700">Simpan</button>
             </div>
         </form>
@@ -835,7 +836,7 @@ tangan & Keberangkatan -->
     <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-base font-bold text-gray-900">Tambah Pelabuhan Baru</h3>
-            <button type="button" onclick="closeQuickAddPelabuhan()" class="text-gray-400 hover:text-gray-600">&times;</button>
+            <button type="button" onclick="closeModal('modal-quick-pelabuhan')" class="text-gray-400 hover:text-gray-600">&times;</button>
         </div>
         <form id="form-quick-pelabuhan" class="space-y-3">
             @csrf
@@ -853,7 +854,7 @@ tangan & Keberangkatan -->
             <input type="hidden" name="is_active" value="1">
             <div id="error-quick-pelabuhan" class="text-xs text-red-600 hidden"></div>
             <div class="flex justify-end gap-2 pt-2">
-                <button type="button" onclick="closeQuickAddPelabuhan()" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
+                <button type="button" onclick="closeModal('modal-quick-pelabuhan')" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
                 <button type="submit" class="px-3 py-1.5 text-xs bg-blue-600 text-white rounded-md hover:bg-blue-700">Simpan</button>
             </div>
         </form>
@@ -865,7 +866,7 @@ tangan & Keberangkatan -->
     <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-base font-bold text-gray-900">Tambah Nakhoda Baru</h3>
-            <button type="button" onclick="closeQuickAddNakhoda()" class="text-gray-400 hover:text-gray-600">&times;</button>
+            <button type="button" onclick="closeModal('modal-quick-nakhoda')" class="text-gray-400 hover:text-gray-600">&times;</button>
         </div>
         <form id="form-quick-nakhoda" class="space-y-3">
             @csrf
@@ -874,10 +875,11 @@ tangan & Keberangkatan -->
                 <input type="text" name="nama" required placeholder="Nama lengkap nakhoda"
                        class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
             </div>
+            <input type="hidden" name="kapal_id" id="quick-nakhoda-kapal-id">
             <input type="hidden" name="is_active" value="1">
             <div id="error-quick-nakhoda" class="text-xs text-red-600 hidden"></div>
             <div class="flex justify-end gap-2 pt-2">
-                <button type="button" onclick="closeQuickAddNakhoda()" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
+                <button type="button" onclick="closeModal('modal-quick-nakhoda')" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
                 <button type="submit" class="px-3 py-1.5 text-xs bg-blue-600 text-white rounded-md hover:bg-blue-700">Simpan</button>
             </div>
         </form>
@@ -889,7 +891,7 @@ tangan & Keberangkatan -->
     <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-base font-bold text-gray-900">Tambah Barang B3 Baru</h3>
-            <button type="button" onclick="closeQuickAddB3()" class="text-gray-400 hover:text-gray-600">&times;</button>
+            <button type="button" onclick="closeModal('modal-quick-b3')" class="text-gray-400 hover:text-gray-600">&times;</button>
         </div>
         <form id="form-quick-b3" class="space-y-3">
             @csrf
@@ -905,200 +907,82 @@ tangan & Keberangkatan -->
             </div>
             <div id="error-quick-b3" class="text-xs text-red-600 hidden"></div>
             <div class="flex justify-end gap-2 pt-2">
-                <button type="button" onclick="closeQuickAddB3()" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
+                <button type="button" onclick="closeModal('modal-quick-b3')" class="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</button>
                 <button type="submit" class="px-3 py-1.5 text-xs bg-orange-600 text-white rounded-md hover:bg-orange-700">Simpan</button>
             </div>
         </form>
     </div>
 </div>
-
 <script>
-// ===== AUTOCOMPLETE NAKHODA (using API) =====
-function autocompleteNakhoda() {
-    return {
-        searchQuery: '',
-        nakhodaId: '',
-        results: [],
-        showResults: false,
-        async search() {
-            if (this.searchQuery.length < 2) { this.results = []; return; }
+document.addEventListener('DOMContentLoaded', () => {
+    // Helper to handle quick add form submission
+    const handleQuickAdd = async (formId, modalId, errorId, url, onSuccess) => {
+        const form = document.getElementById(formId);
+        if (!form) return;
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('[type=submit]');
+            const oldText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = 'Menyimpan...';
+
+            const errEl = document.getElementById(errorId);
+            if (errEl) errEl.classList.add('hidden');
+
             try {
-                const r = await fetch(`{{ route('api.nakhoda.search') }}?q=${encodeURIComponent(this.searchQuery)}`);
-                this.results = await r.json();
-                this.showResults = true;
-            } catch(e) { this.results = []; }
-        },
-        selectNakhoda(item) {
-            this.searchQuery = item.nama;
-            this.nakhodaId = item.id;
-            this.showResults = false;
-        }
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
+                    body: new FormData(form)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    onSuccess(data.data);
+                    form.reset();
+                    closeModal(modalId);
+                } else {
+                    const msgs = data.errors ? Object.values(data.errors).flat().join(', ') : (data.message ?? 'Gagal menyimpan.');
+                    if (errEl) { errEl.textContent = msgs; errEl.classList.remove('hidden'); }
+                }
+            } catch(e) { 
+                console.error(e);
+                if (errEl) { errEl.textContent = 'Terjadi kesalahan.'; errEl.classList.remove('hidden'); }
+            }
+            btn.disabled = false;
+            btn.textContent = oldText;
+        });
     };
-}
 
-// ===== QUICK ADD PELABUHAN =====
-function openQuickAddPelabuhan() { document.getElementById('modal-quick-pelabuhan').classList.remove('hidden'); }
-function closeQuickAddPelabuhan() { document.getElementById('modal-quick-pelabuhan').classList.add('hidden'); }
+    // Initialize all quick add forms
+    handleQuickAdd('form-quick-pelabuhan', 'modal-quick-pelabuhan', 'error-quick-pelabuhan', '{{ route('master.pelabuhan.store') }}', (data) => {
+        const sel = document.getElementById('pelabuhan_id');
+        if (sel) sel.add(new Option(data.nama + ' (' + (data.kode ?? '-') + ')', data.id, true, true));
+    });
 
-document.getElementById('form-quick-pelabuhan').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = this.querySelector('[type=submit]');
-    btn.disabled = true;
-    btn.textContent = 'Menyimpan...';
-    const errEl = document.getElementById('error-quick-pelabuhan');
-    errEl.classList.add('hidden');
-    try {
-        const fd = new FormData(this);
-        const res = await fetch('{{ route('master.pelabuhan.store') }}', {
-            method: 'POST',
-            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
-            body: fd
+    handleQuickAdd('form-quick-nakhoda', 'modal-quick-nakhoda', 'error-quick-nakhoda', '{{ route('master.nakhoda.store') }}', (data) => {
+        const hiddenInput = document.getElementById('nakhoda_id');
+        const searchInput = document.getElementById('nakhoda_search_input');
+        if (hiddenInput) hiddenInput.value = data.id;
+        if (searchInput) searchInput.value = data.nama;
+    });
+
+    handleQuickAdd('form-quick-b3', 'modal-quick-b3', 'error-quick-b3', '{{ route('master.barang-b3.store') }}', (data) => {
+        document.querySelectorAll('select[name$="[barang_b3_id]"]').forEach(sel => {
+            sel.add(new Option(data.nama + ' (' + (data.un_number ?? '-') + ')', data.id));
         });
-        const data = await res.json();
-        if (data.success) {
-            const sel = document.getElementById('pelabuhan_id');
-            const opt = new Option(data.data.nama + ' (' + (data.data.kode ?? '-') + ')', data.data.id, true, true);
-            sel.add(opt);
-            this.reset();
-            closeQuickAddPelabuhan();
-        } else {
-            const msgs = data.errors ? Object.values(data.errors).flat().join(', ') : (data.message ?? 'Gagal menyimpan.');
-            errEl.textContent = msgs;
-            errEl.classList.remove('hidden');
-        }
-    } catch(e) { errEl.textContent = 'Terjadi kesalahan.'; errEl.classList.remove('hidden'); }
-    btn.disabled = false;
-    btn.textContent = 'Simpan';
-});
+    });
 
-// ===== QUICK ADD NAKHODA =====
-function openQuickAddNakhoda() { document.getElementById('modal-quick-nakhoda').classList.remove('hidden'); }
-function closeQuickAddNakhoda() { document.getElementById('modal-quick-nakhoda').classList.add('hidden'); }
+    handleQuickAdd('form-quick-kapal', 'modal-quick-kapal', 'error-quick-kapal', '{{ route('master.kapal.store') }}', (data) => {
+        const hiddenInput = document.getElementById('kapal_id');
+        const searchInput = document.getElementById('kapal_search_input');
+        if (hiddenInput) hiddenInput.value = data.id;
+        if (searchInput) searchInput.value = data.nama;
+    });
 
-document.getElementById('form-quick-nakhoda').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = this.querySelector('[type=submit]');
-    btn.disabled = true;
-    btn.textContent = 'Menyimpan...';
-    const errEl = document.getElementById('error-quick-nakhoda');
-    errEl.classList.add('hidden');
-    try {
-        const fd = new FormData(this);
-        const res = await fetch('{{ route('master.nakhoda.store') }}', {
-            method: 'POST',
-            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
-            body: fd
-        });
-        const data = await res.json();
-        if (data.success) {
-            // Set the hidden nakhoda_id and visible search input
-            document.getElementById('nakhoda_id').value = data.data.id;
-            document.getElementById('nakhoda_search_input').value = data.data.nama;
-            this.reset();
-            closeQuickAddNakhoda();
-        } else {
-            const msgs = data.errors ? Object.values(data.errors).flat().join(', ') : (data.message ?? 'Gagal menyimpan.');
-            errEl.textContent = msgs;
-            errEl.classList.remove('hidden');
-        }
-    } catch(e) { errEl.textContent = 'Terjadi kesalahan.'; errEl.classList.remove('hidden'); }
-    btn.disabled = false;
-    btn.textContent = 'Simpan';
-});
-
-// ===== QUICK ADD BARANG B3 =====
-function openQuickAddB3() { document.getElementById('modal-quick-b3').classList.remove('hidden'); }
-function closeQuickAddB3() { document.getElementById('modal-quick-b3').classList.add('hidden'); }
-
-document.getElementById('form-quick-b3').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = this.querySelector('[type=submit]');
-    btn.disabled = true;
-    btn.textContent = 'Menyimpan...';
-    const errEl = document.getElementById('error-quick-b3');
-    errEl.classList.add('hidden');
-    try {
-        const fd = new FormData(this);
-        const res = await fetch('{{ route('master.barang-b3.store') }}', {
-            method: 'POST',
-            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
-            body: fd
-        });
-        const data = await res.json();
-        if (data.success) {
-            // Add new option to all B3 selects on the page
-            document.querySelectorAll('select[name$="[barang_b3_id]"]').forEach(sel => {
-                const opt = new Option(data.data.nama + ' (' + (data.data.un_number ?? '-') + ')', data.data.id);
-                sel.add(opt);
-            });
-            this.reset();
-            closeQuickAddB3();
-        } else {
-            const msgs = data.errors ? Object.values(data.errors).flat().join(', ') : (data.message ?? 'Gagal menyimpan.');
-            errEl.textContent = msgs;
-            errEl.classList.remove('hidden');
-        }
-    } catch(e) { errEl.textContent = 'Terjadi kesalahan.'; errEl.classList.remove('hidden'); }
-    btn.disabled = false;
-    btn.textContent = 'Simpan';
-});
-// ===== QUICK ADD KAPAL =====
-function openQuickAddKapal() { document.getElementById('modal-quick-kapal').classList.remove('hidden'); }
-function closeQuickAddKapal() { document.getElementById('modal-quick-kapal').classList.add('hidden'); }
-
-document.getElementById('form-quick-kapal').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = this.querySelector('[type=submit]');
-    btn.disabled = true; btn.textContent = 'Menyimpan...';
-    const errEl = document.getElementById('error-quick-kapal');
-    errEl.classList.add('hidden');
-    try {
-        const res = await fetch('{{ route('master.kapal.store') }}', {
-            method: 'POST',
-            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
-            body: new FormData(this)
-        });
-        const data = await res.json();
-        if (data.success) {
-            // Set the hidden kapal_id and visible search input
-            document.getElementById('kapal_id').value = data.data.id;
-            document.getElementById('kapal_search_input').value = data.data.nama;
-            this.reset(); closeQuickAddKapal();
-        } else {
-            const msgs = data.errors ? Object.values(data.errors).flat().join(', ') : (data.message ?? 'Gagal menyimpan.');
-            errEl.textContent = msgs; errEl.classList.remove('hidden');
-        }
-    } catch(e) { errEl.textContent = 'Terjadi kesalahan.'; errEl.classList.remove('hidden'); }
-    btn.disabled = false; btn.textContent = 'Simpan Kapal';
-});
-
-// ===== QUICK ADD JENIS PELAYARAN =====
-function openQuickAddJenisPelayaran() { document.getElementById('modal-quick-jenis-pelayaran').classList.remove('hidden'); }
-function closeQuickAddJenisPelayaran() { document.getElementById('modal-quick-jenis-pelayaran').classList.add('hidden'); }
-
-document.getElementById('form-quick-jenis-pelayaran').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = this.querySelector('[type=submit]');
-    btn.disabled = true; btn.textContent = 'Menyimpan...';
-    const errEl = document.getElementById('error-quick-jenis-pelayaran');
-    errEl.classList.add('hidden');
-    try {
-        const res = await fetch('{{ route('master.jenis-pelayaran.store') }}', {
-            method: 'POST',
-            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
-            body: new FormData(this)
-        });
-        const data = await res.json();
-        if (data.success) {
-            const sel = document.getElementById('jenis_pelayaran_id');
-            const opt = new Option('[' + data.data.prefix + '] ' + data.data.nama, data.data.id, true, true);
-            sel.add(opt);
-            this.reset(); closeQuickAddJenisPelayaran();
-        } else {
-            const msgs = data.errors ? Object.values(data.errors).flat().join(', ') : (data.message ?? 'Gagal menyimpan.');
-            errEl.textContent = msgs; errEl.classList.remove('hidden');
-        }
-    } catch(e) { errEl.textContent = 'Terjadi kesalahan.'; errEl.classList.remove('hidden'); }
-    btn.disabled = false; btn.textContent = 'Simpan';
+    handleQuickAdd('form-quick-jenis-pelayaran', 'modal-quick-jenis-pelayaran', 'error-quick-jenis-pelayaran', '{{ route('master.jenis-pelayaran.store') }}', (data) => {
+        const sel = document.getElementById('jenis_pelayaran_id');
+        if (sel) sel.add(new Option('[' + data.prefix + '] ' + data.nama, data.id, true, true));
+    });
 });
 </script>
