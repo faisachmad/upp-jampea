@@ -97,9 +97,10 @@
             </li>
 
             <!-- Laporan -->
-            <li x-data="{ open: false }">
+            @php $laporanActive = request()->routeIs('laporan.*') || request()->routeIs('import.*'); @endphp
+            <li x-data="{ open: {{ $laporanActive ? 'true' : 'false' }} }">
                 <button type="button"
-                        class="flex items-center w-full p-2 rounded-lg hover:bg-gray-700 group"
+                        class="flex items-center w-full p-2 rounded-lg hover:bg-gray-700 group {{ $laporanActive ? 'text-white' : '' }}"
                         @click="open = !open">
                     <svg class="w-5 h-5 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"/>
@@ -111,30 +112,33 @@
                 </button>
                 <ul x-show="open" x-collapse class="py-2 space-y-2">
                     <li>
-                        <a href="#" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700">PELRA</a>
+                        <a href="{{ route('laporan.pelra') }}" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('laporan.pelra') ? 'bg-gray-700' : '' }}">PELRA</a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700">Perintis</a>
+                        <a href="{{ route('laporan.perintis') }}" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('laporan.perintis') ? 'bg-gray-700' : '' }}">Perintis</a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700">Ferry</a>
+                        <a href="{{ route('laporan.ferry') }}" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('laporan.ferry') ? 'bg-gray-700' : '' }}">Ferry</a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700">Dalam Negeri</a>
+                        <a href="{{ route('laporan.dalam-negeri') }}" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('laporan.dalam-negeri') ? 'bg-gray-700' : '' }}">Dalam Negeri</a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700">Luar Negeri</a>
+                        <a href="{{ route('laporan.luar-negeri') }}" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('laporan.luar-negeri') ? 'bg-gray-700' : '' }}">Luar Negeri</a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700">Rekap SPB</a>
+                        <a href="{{ route('laporan.rekap-spb') }}" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('laporan.rekap-spb') ? 'bg-gray-700' : '' }}">Rekap SPB</a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700">Rekap Operasional</a>
+                        <a href="{{ route('laporan.rekap-operasional') }}" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('laporan.rekap-operasional') ? 'bg-gray-700' : '' }}">Rekap Operasional</a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 text-green-400">
-                            📥 Export Excel
+                        <a href="{{ route('laporan.export-excel') }}" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('laporan.export-excel') ? 'bg-gray-700' : 'text-green-400' }}">
+                            Export Excel
                         </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('import.excel.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('import.excel.*') ? 'bg-gray-700' : '' }}">Import Excel Lama</a>
                     </li>
                 </ul>
             </li>

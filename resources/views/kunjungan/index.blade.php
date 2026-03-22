@@ -137,6 +137,10 @@
                         </td>
                         <td class="whitespace-nowrap text-center">
                             <div class="flex justify-center gap-2">
+                                <a href="{{ route('kunjungan.edit', $kunjungan) }}"
+                                   class="inline-flex items-center px-2 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded text-[10px] font-medium hover:bg-amber-100 transition-all">
+                                    Edit
+                                </a>
                                 <a href="{{ route('kunjungan.show', $kunjungan) }}" 
                                    class="inline-flex items-center px-2 py-1 bg-blue-50 text-blue-600 border border-blue-200 rounded text-[10px] font-medium hover:bg-blue-100 transition-all">
                                     Detail

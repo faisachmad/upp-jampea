@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Contracts\Encryption\DecryptException;
 
 class Kunjungan extends Model
 {
+    use HasFactory;
+
     public function getRouteKey()
     {
         return Crypt::encryptString($this->getKey());
@@ -17,11 +20,13 @@ class Kunjungan extends Model
     {
         try {
             $id = Crypt::decryptString($value);
+
             return $this->where($field ?? $this->getRouteKeyName(), $id)->firstOrFail();
         } catch (DecryptException $e) {
             abort(404);
         }
     }
+
     protected $fillable = [
         'pelabuhan_id',
         'kapal_id',
@@ -42,8 +47,24 @@ class Kunjungan extends Model
         'no_spb_tiba',
         'no_spb_tolak',
         'eta',
+        'pnp_datang_dewasa',
+        'pnp_datang_anak',
+        'pnp_tolak_dewasa',
+        'pnp_tolak_anak',
         'penumpang_turun',
         'penumpang_naik',
+        'kend_datang_gol1',
+        'kend_datang_gol2',
+        'kend_datang_gol3',
+        'kend_datang_gol4a',
+        'kend_datang_gol4b',
+        'kend_datang_gol5',
+        'kend_tolak_gol1',
+        'kend_tolak_gol2',
+        'kend_tolak_gol3',
+        'kend_tolak_gol4a',
+        'kend_tolak_gol4b',
+        'kend_tolak_gol5',
         'mobil_turun',
         'mobil_naik',
         'motor_turun',
@@ -61,6 +82,8 @@ class Kunjungan extends Model
         'tgl_berangkat' => 'date',
         'eta' => 'date',
         'lanjutan_ton' => 'decimal:2',
+        'penumpang_turun' => 'integer',
+        'penumpang_naik' => 'integer',
     ];
 
     // Relationships

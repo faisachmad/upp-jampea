@@ -3,7 +3,10 @@
 use App\Http\Controllers\Api\KapalSearchController;
 use App\Http\Controllers\Api\NakhodaSearchController;
 use App\Http\Controllers\Api\PelabuhanSearchController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImportExcelController;
 use App\Http\Controllers\KunjunganController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\Master\BarangB3Controller;
 use App\Http\Controllers\Master\JenisKapalController;
 use App\Http\Controllers\Master\JenisPelayaranController;
@@ -18,9 +21,9 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,6 +32,23 @@ Route::middleware('auth')->group(function () {
 
     // Kunjungan Routes (Main Feature)
     Route::resource('kunjungan', KunjunganController::class);
+
+    Route::prefix('laporan')->name('laporan.')->group(function () {
+        Route::get('/', [LaporanController::class, 'index'])->name('index');
+        Route::get('/pelra', [LaporanController::class, 'pelra'])->name('pelra');
+        Route::get('/perintis', [LaporanController::class, 'perintis'])->name('perintis');
+        Route::get('/ferry', [LaporanController::class, 'ferry'])->name('ferry');
+        Route::get('/dalam-negeri', [LaporanController::class, 'dalamNegeri'])->name('dalam-negeri');
+        Route::get('/luar-negeri', [LaporanController::class, 'luarNegeri'])->name('luar-negeri');
+        Route::get('/rekap-spb', [LaporanController::class, 'rekapSpb'])->name('rekap-spb');
+        Route::get('/rekap-operasional', [LaporanController::class, 'rekapOperasional'])->name('rekap-operasional');
+        Route::get('/export-excel', [LaporanController::class, 'exportDataDukung'])->name('export-excel');
+    });
+
+    Route::prefix('import')->name('import.')->group(function () {
+        Route::get('/excel', [ImportExcelController::class, 'index'])->name('excel.index');
+        Route::post('/excel', [ImportExcelController::class, 'store'])->name('excel.store');
+    });
 
     // Master Data Routes
     Route::prefix('master')->name('master.')->group(function () {

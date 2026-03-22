@@ -38,12 +38,17 @@
             <h1 class="text-lg font-bold text-gray-900">Detail Kunjungan Kapal</h1>
             <p class="text-[10px] text-gray-500 font-medium">
                 {{ $kunjungan->kapal->nama ?? '-' }} |
-                {{ \Carbon\Carbon::parse($kunjungan->tgl_datang)->format('d F Y') }}
+                {{ optional($kunjungan->tgl_tiba)->format('d F Y') ?? '-' }}
             </p>
         </div>
-        <a href="{{ route('kunjungan.index') }}" class="px-3 py-1.5 bg-gray-100 text-gray-700 text-xs font-medium rounded-md hover:bg-gray-200 transition-all">
-            Kembali ke Daftar
-        </a>
+        <div class="flex items-center gap-2">
+            <a href="{{ route('kunjungan.edit', $kunjungan) }}" class="px-3 py-1.5 bg-amber-100 text-amber-700 text-xs font-medium rounded-md hover:bg-amber-200 transition-all">
+                Edit Data
+            </a>
+            <a href="{{ route('kunjungan.index') }}" class="px-3 py-1.5 bg-gray-100 text-gray-700 text-xs font-medium rounded-md hover:bg-gray-200 transition-all">
+                Kembali ke Daftar
+            </a>
+        </div>
     </div>
 
     <!-- Data Umum Kunjungan -->
@@ -66,7 +71,7 @@
                 <label class="block text-sm font-medium text-gray-500">Nama Kapal</label>
                 <p class="mt-1 text-gray-900 font-medium">{{ $kunjungan->kapal->nama ?? '-' }}</p>
                 <p class="text-sm text-gray-500">
-                    {{ $kunjungan->kapal->jenis ?? '-' }} |
+                    {{ $kunjungan->kapal->jenisKapal->nama ?? '-' }} |
                     GT: {{ $kunjungan->kapal->gt ?? '-' }} |
                     Call Sign: {{ $kunjungan->kapal->call_sign ?? '-' }}
                 </p>
@@ -100,8 +105,8 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-500">Tanggal & Jam</label>
                         <p class="mt-1 text-gray-900 font-medium">
-                            {{ \Carbon\Carbon::parse($kunjungan->tgl_datang)->format('d F Y') }} |
-                            {{ $kunjungan->jam_datang }}
+                            {{ optional($kunjungan->tgl_tiba)->format('d F Y') ?? '-' }} |
+                            {{ $kunjungan->jam_tiba }}
                         </p>
                     </div>
                     <div>
@@ -110,7 +115,11 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-500">No. SPB Datang</label>
-                        <p class="mt-1 text-gray-900">{{ $kunjungan->no_spb_datang ?? '-' }}</p>
+                        <p class="mt-1 text-gray-900">{{ $kunjungan->no_spb_tiba ?? '-' }}</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-500">Status Muatan Tiba</label>
+                        <p class="mt-1 text-gray-900">{{ $kunjungan->status_muatan_tiba ?? '-' }}</p>
                     </div>
                 </div>
             </div>
@@ -127,8 +136,8 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-500">Tanggal & Jam</label>
                         <p class="mt-1 text-gray-900 font-medium">
-                            {{ \Carbon\Carbon::parse($kunjungan->tgl_tolak)->format('d F Y') }} |
-                            {{ $kunjungan->jam_tolak }}
+                            {{ optional($kunjungan->tgl_berangkat)->format('d F Y') ?? '-' }} |
+                            {{ $kunjungan->jam_berangkat }}
                         </p>
                     </div>
                     <div>
@@ -139,7 +148,41 @@
                         <label class="block text-sm font-medium text-gray-500">No. SPB Tolak</label>
                         <p class="mt-1 text-gray-900">{{ $kunjungan->no_spb_tolak ?? '-' }}</p>
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-500">Status Muatan Tolak</label>
+                        <p class="mt-1 text-gray-900">{{ $kunjungan->status_muatan_tolak ?? '-' }}</p>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+        <h3 class="text-sm font-bold text-gray-900 mb-3 border-b pb-1.5">Tambat, ETA, dan Lanjutan</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-500">Tanggal Tambat</label>
+                <p class="mt-1 text-gray-900">{{ optional($kunjungan->tgl_tambat)->format('d F Y') ?? '-' }}</p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-500">Jam Tambat</label>
+                <p class="mt-1 text-gray-900">{{ $kunjungan->jam_tambat ?? '-' }}</p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-500">ETA</label>
+                <p class="mt-1 text-gray-900">{{ optional($kunjungan->eta)->format('d F Y') ?? '-' }}</p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-500">Jenis Lanjutan</label>
+                <p class="mt-1 text-gray-900">{{ $kunjungan->lanjutan_jenis ?? '-' }}</p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-500">Ton Lanjutan</label>
+                <p class="mt-1 text-gray-900">{{ number_format((float) $kunjungan->lanjutan_ton, 2, ',', '.') }}</p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-500">Mobil/Motor/Penumpang Lanjutan</label>
+                <p class="mt-1 text-gray-900">{{ $kunjungan->lanjutan_mobil }} / {{ $kunjungan->lanjutan_motor }} / {{ $kunjungan->lanjutan_penumpang }}</p>
             </div>
         </div>
     </div>

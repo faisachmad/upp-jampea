@@ -1,636 +1,458 @@
 # Panduan Pengguna SAPOJAM UPP Jampea
 
-Panduan lengkap penggunaan aplikasi SAPOJAM UPP Jampea untuk operator pelabuhan.
+Panduan ini ditujukan untuk operator dan petugas administrasi pelabuhan yang menggunakan SAPOJAM untuk mencatat kunjungan kapal secara manual, memelihara master data, dan memeriksa hasil input.
 
----
+Panduan ini hanya membahas penggunaan aplikasi. Panduan ini tidak membahas instalasi, deployment, atau konfigurasi teknis.
 
-## 📋 Daftar Isi
+## Daftar Isi
 
-- [Login & Dashboard](#login--dashboard)
-- [Master Data Pelabuhan](#master-data-pelabuhan)
-- [Master Data Kapal](#master-data-kapal)
-- [Master Data Nakhoda](#master-data-nakhoda)
-- [Master Data Barang B3](#master-data-barang-b3)
+- [Tujuan Aplikasi](#tujuan-aplikasi)
+- [Status Fitur Saat Ini](#status-fitur-saat-ini)
+- [Akses dan Login](#akses-dan-login)
+- [Alur Kerja Harian](#alur-kerja-harian)
+- [Persiapan Data Master](#persiapan-data-master)
 - [Input Kunjungan Kapal](#input-kunjungan-kapal)
-- [Lihat & Edit Kunjungan](#lihat--edit-kunjungan)
-- [Generate Laporan](#generate-laporan)
-- [Tips & Trik](#tips--trik)
+- [Memeriksa Hasil Input](#memeriksa-hasil-input)
+- [Modul yang Belum Tersedia](#modul-yang-belum-tersedia)
+- [Tips Operasional](#tips-operasional)
+- [Pertanyaan Umum](#pertanyaan-umum)
 
----
+## Tujuan Aplikasi
 
-## 🔐 Login & Dashboard
+SAPOJAM digunakan untuk memindahkan pencatatan manual operasional pelabuhan dari file Excel ke satu aplikasi yang terpusat.
 
-### Login ke Aplikasi
+Dalam kondisi aplikasi saat ini, SAPOJAM dipakai untuk:
 
-1. Buka browser dan akses URL aplikasi:
-   - Development: `http://localhost:8000`
-   - Production: `https://sapojam.uppjampea.id`
+1. Mengelola data referensi pelabuhan, kapal, nakhoda, jenis pelayaran, jenis kapal, tipe pelabuhan, dan barang B3.
+2. Mencatat satu kejadian kunjungan kapal dalam satu form yang mencakup data kedatangan, keberangkatan, penumpang, kendaraan, muatan, dan barang B3.
+3. Menelusuri kembali data kunjungan yang sudah diinput melalui daftar dan halaman detail.
+4. Menghapus data kunjungan yang salah lalu menginput ulang bila diperlukan.
 
-2. Masukkan kredensial:
-   - **Email**: admin@uppjampea.id
-   - **Password**: password (ganti setelah login pertama)
+## Status Fitur Saat Ini
 
-3. Klik tombol **"Log in"**
+Status ini penting agar operator tidak salah ekspektasi saat menggunakan aplikasi.
 
-4. Setelah berhasil login, Anda akan diarahkan ke **Dashboard**
+### Fitur yang sudah bisa digunakan
 
-### Dashboard Overview
+1. Login pengguna.
+2. Dashboard sebagai halaman awal.
+3. Master Data:
+   Pelabuhan, Tipe Pelabuhan, Kapal, Jenis Kapal, Nakhoda, Barang B3, Jenis Pelayaran.
+4. Input kunjungan kapal melalui wizard 5 tab.
+5. Pencarian dan filter data kunjungan.
+6. Melihat detail kunjungan.
+7. Menghapus data kunjungan.
 
-Dashboard menampilkan:
-- Ringkasan kunjungan hari ini
-- Statistik bulanan
-- Quick actions (Tambah Kunjungan, Lihat Laporan)
-- Notifikasi
+### Fitur yang belum tersedia atau belum lengkap
 
----
+1. Edit kunjungan yang sudah tersimpan belum tersedia di alur aplikasi saat ini.
+2. Laporan operasional, laporan PELRA, DN, LN, Perintis, Ferry, Rekap SPB, Rekap Operasional, dan export Excel atau PDF belum aktif.
+3. Import data lama dari Excel belum tersedia.
+4. Dashboard belum dapat dijadikan sumber resmi laporan bulanan karena modul laporan belum aktif.
 
-## 🏢 Master Data Pelabuhan
+## Akses dan Login
 
-### Menampilkan Daftar Pelabuhan
+### Cara masuk ke aplikasi
 
-1. Klik menu **"Master Data"** di sidebar
-2. Pilih **"Pelabuhan"**
-3. Anda akan melihat tabel dengan kolom:
-   - Kode Pelabuhan
-   - Nama Pelabuhan
-   - Tipe (UPP/POSKER/WILKER/LUAR)
-   - Status (Aktif/Nonaktif)
-   - Aksi
+1. Buka alamat SAPOJAM yang diberikan admin.
+2. Masukkan email dan password.
+3. Klik tombol masuk.
+4. Setelah login, Anda akan masuk ke dashboard.
 
-### Menambah Pelabuhan Baru
+### Yang perlu diperhatikan
 
-1. Di halaman Daftar Pelabuhan, klik tombol **"Tambah Pelabuhan"** (kanan atas)
-2. Isi form:
-   - **Kode**: Kode unik pelabuhan (contoh: MKS, SUB)
-   - **Nama**: Nama lengkap pelabuhan
-   - **Tipe**: Pilih salah satu:
-     - UPP - Pelabuhan Utama
-     - POSKER - Pos Pengawasan Kerja
-     - WILKER - Wilayah Kerja
-     - LUAR - Pelabuhan Eksternal
-   - **Status**: Centang "Aktif" jika pelabuhan operasional
-3. Klik **"Simpan"**
+1. Semua menu utama hanya dapat diakses setelah login.
+2. Jika sesi habis, login ulang lalu lanjutkan pekerjaan.
+3. Bila username atau password bermasalah, hubungi admin aplikasi.
 
-**Validasi**:
-- ❌ Kode tidak boleh kosong dan harus unik
-- ❌ Nama tidak boleh kosong
-- ❌ Tipe harus dipilih
+## Alur Kerja Harian
 
-### Edit Pelabuhan
+Urutan kerja yang disarankan untuk operator adalah sebagai berikut:
 
-1. Di kolom Aksi, klik tombol **"Edit"** (ikon pensil)
-2. Ubah data yang diperlukan
-3. Klik **"Update"**
+1. Pastikan data master sudah tersedia.
+2. Input kunjungan kapal setiap ada kapal datang atau berangkat.
+3. Isi data muatan dan barang B3 bila memang ada.
+4. Simpan data kunjungan.
+5. Buka daftar kunjungan untuk memeriksa apakah data sudah masuk.
+6. Buka halaman detail untuk memastikan data penting sudah benar.
+7. Jika ditemukan kesalahan, saat ini langkah koreksi yang tersedia adalah menghapus data lalu input ulang.
 
-### Hapus Pelabuhan
+## Persiapan Data Master
 
-1. Di kolom Aksi, klik tombol **"Hapus"** (ikon sampah)
-2. Konfirmasi penghapusan
-3. **Catatan**: Pelabuhan yang sudah pernah digunakan dalam kunjungan **tidak bisa dihapus**
+Sebelum menginput kunjungan, operator perlu memastikan data referensi sudah tersedia. Urutan yang disarankan adalah:
 
-### Filter & Pencarian
+1. Tipe Pelabuhan
+2. Pelabuhan
+3. Jenis Kapal
+4. Jenis Pelayaran
+5. Kapal
+6. Nakhoda
+7. Barang B3
 
-- **Search Box**: Ketik nama atau kode pelabuhan
-- **Filter Tipe**: Pilih UPP/POSKER/WILKER/LUAR
-- **Filter Status**: Pilih Semua/Aktif/Nonaktif
+### 1. Master Pelabuhan
 
----
+Menu: Master Data > Pelabuhan
 
-## 🚢 Master Data Kapal
+Gunakan menu ini untuk mencatat pelabuhan internal UPP Jampea dan pelabuhan luar yang sering muncul sebagai asal atau tujuan kapal.
 
-### Menampilkan Daftar Kapal
+Data yang diisi:
 
-1. Klik **"Master Data"** > **"Kapal"**
-2. Tabel menampilkan:
-   - Nama Kapal
-   - Jenis (KLM/KM/KMP/MV)
-   - GT (Gross Tonnage)
-   - Call Sign
-   - Pemilik/Agen
-   - Status
-   - Aksi
+1. Nama pelabuhan.
+2. Tipe pelabuhan.
+3. Status aktif atau nonaktif.
 
-### Menambah Kapal Baru
+Kegunaan dalam proses bisnis:
 
-1. Klik tombol **"Tambah Kapal"**
-2. Isi form dengan lengkap:
+1. Pelabuhan pencatat kunjungan.
+2. Pelabuhan asal kapal.
+3. Pelabuhan tujuan kapal.
 
-**Data Wajib**:
-- **Nama Kapal**: Nama lengkap kapal (contoh: KM Sabuk Nusantara)
-- **Jenis Kapal**: Pilih salah satu:
-  - **KLM** - Kapal Layar Motor
-  - **KM** - Kapal Motor
-  - **KMP** - Kapal Motor Penyeberangan
-  - **MV** - Motor Vessel
+Catatan operasional:
 
-**Data Opsional**:
-- **GT**: Gross Tonnage (contoh: 2500.00)
-- **DWT**: Dead Weight Tonnage
-- **Panjang**: Panjang kapal dalam meter (contoh: 75.50)
-- **Tanda Selar**: Tanda selar kapal
-- **Call Sign**: Call sign radio (contoh: YBXX)
-- **Tempat Kedudukan**: Lokasi kedudukan kapal
-- **Bendera**: Bendera negara
-- **Pemilik/Agen**: Nama pemilik atau agen kapal
+1. Data pelabuhan yang aktif akan dipakai dalam form kunjungan.
+2. Gunakan nama yang konsisten agar pencarian mudah.
 
-3. Centang **"Aktif"** untuk mengaktifkan kapal
-4. Klik **"Simpan"**
+### 2. Master Kapal
 
-### Edit & Hapus Kapal
+Menu: Master Data > Kapal
 
-Sama seperti prosedur Master Pelabuhan.
+Gunakan menu ini untuk mencatat data kapal yang akan muncul pada saat input kunjungan.
 
-### Tips:
-- 💡 Gunakan search untuk mencari kapal dengan cepat
-- 💡 Call Sign harus unik jika diisi
-- 💡 Kapal nonaktif tidak akan muncul di autocomplete
+Data utama yang bisa dicatat:
 
----
+1. Nama kapal.
+2. Jenis kapal.
+3. GT.
+4. DWT.
+5. Panjang kapal.
+6. Tanda selar.
+7. Call sign.
+8. Tempat kedudukan kapal.
+9. Bendera.
+10. Pemilik atau agen.
+11. Status aktif atau nonaktif.
 
-## 👨‍✈️ Master Data Nakhoda
+Catatan operasional:
 
-### Menambah Nakhoda
+1. Gunakan nama kapal yang sama dengan dokumen operasional agar tidak terjadi duplikasi penulisan.
+2. Jika kapal tidak aktif lagi, ubah statusnya menjadi nonaktif.
 
-1. Klik **"Master Data"** > **"Nakhoda"**
-2. Klik **"Tambah Nakhoda"**
-3. Isi form:
-   - **Nama Nakhoda**: Nama lengkap kapten (wajib)
-   - **Kapal**: Pilih kapal yang menjadi tugas (opsional, bisa diisi nanti)
-   - **Status**: Centang "Aktif"
-4. Klik **"Simpan"**
+### 3. Master Nakhoda
 
-### Assign Nakhoda ke Kapal
+Menu: Master Data > Nakhoda
 
-**Cara 1 - Via Form Nakhoda**:
-1. Edit nakhoda
-2. Pilih kapal dari dropdown
-3. Simpan
+Gunakan menu ini untuk mencatat nama nakhoda. Nakhoda dapat dikaitkan ke kapal, tetapi yang terpenting adalah namanya tersedia saat input kunjungan.
 
-**Cara 2 - Saat Input Kunjungan**:
-- Nakhoda bisa dipilih langsung tanpa harus di-assign ke kapal terlebih dahulu
+Data yang diisi:
 
-### Filter Nakhoda
+1. Nama nakhoda.
+2. Kapal terkait bila ada.
+3. Status aktif atau nonaktif.
 
-- Filter berdasarkan kapal
-- Filter berdasarkan status (aktif/nonaktif)
-- Search by nama
+### 4. Master Barang B3
 
----
+Menu: Master Data > Barang B3
 
-## ☣️ Master Data Barang B3
+Gunakan menu ini bila ada kegiatan bongkar atau muat barang berbahaya dan beracun.
 
-### Tentang Barang B3
+Data yang diisi:
 
-Barang B3 (Bahan Berbahaya dan Beracun) adalah material yang memerlukan penanganan khusus. Setiap barang B3 memiliki **UN Number** (United Nations Number) untuk identifikasi internasional.
+1. Nama barang B3.
+2. UN Number.
+3. Kelas.
+4. Kategori.
 
-### Menambah Barang B3
+Catatan operasional:
 
-1. Klik **"Master Data"** > **"Barang B3"**
-2. Klik **"Tambah Barang B3"**
-3. Isi form:
-   - **Nama Barang**: Nama barang B3 (contoh: Bensin, LPG, Asam Sulfat)
-   - **UN Number**: Kode UN (contoh: UN1203, UN1075) - harus unik
-   - **Kelas**: Kelas bahaya (1-9, bisa desimal seperti 2.1, 3, 6.1)
-   - **Kategori**: Kategori barang (contoh: Flammable Liquid, Toxic Gas)
-4. Klik **"Simpan"**
+1. Gunakan data B3 yang sesuai dengan dokumen pengawasan atau dokumen muatan.
+2. Jika jenis barang belum ada, tambahkan dulu di master atau gunakan tombol tambah jenis B3 baru dari form kunjungan.
 
-### Contoh Data B3 Umum
+### 5. Master Lainnya
 
-| Nama Barang | UN Number | Kelas | Kategori |
-|-------------|-----------|-------|----------|
-| Bensin | UN1203 | 3 | Flammable Liquid |
-| Solar | UN1202 | 3 | Flammable Liquid |
-| LPG | UN1075 | 2.1 | Flammable Gas |
-| Amonia | UN1005 | 2.3 | Toxic Gas |
-| Asam Sulfat | UN1830 | 8 | Corrosive |
+Menu master lain dipakai sebagai referensi tambahan:
 
-### Filter Barang B3
+1. Tipe Pelabuhan untuk klasifikasi pelabuhan.
+2. Jenis Kapal untuk klasifikasi kapal.
+3. Jenis Pelayaran untuk klasifikasi kunjungan, misalnya PELRA, DN, LN, Perintis, atau Ferry.
 
-- Search by nama atau UN Number
-- Filter by kelas (1-9)
+## Input Kunjungan Kapal
 
----
+Menu: Input Kunjungan
 
-## ⚓ Input Kunjungan Kapal
+Input kunjungan kapal adalah proses utama di SAPOJAM. Satu input kunjungan dipakai untuk merekam satu kejadian kapal datang dan berangkat, termasuk penumpang, kendaraan, muatan, dan B3 bila ada.
 
-### Overview Form Kunjungan
+### Cara membuka form input
 
-Form input kunjungan menggunakan **wizard 5 tab** untuk memudahkan entry data:
-1. **Tab 1**: Data Kunjungan
-2. **Tab 2**: Kedatangan & Keberangkatan
-3. **Tab 3**: Penumpang & Kendaraan
-4. **Tab 4**: Data Muatan
-5. **Tab 5**: Barang B3
+1. Klik menu Input Kunjungan.
+2. Klik tombol Input Kunjungan.
+3. Form akan terbuka dalam wizard 5 tab.
 
-### Memulai Input Kunjungan
+### Gambaran isi 5 tab
 
-1. Klik menu **"Kunjungan"** di sidebar
-2. Klik tombol **"Tambah Kunjungan"**
-3. Ikuti wizard step-by-step
+1. Data Kunjungan
+2. Kedatangan dan Keberangkatan
+3. Penumpang dan Kendaraan
+4. Data Muatan
+5. Barang B3
 
----
+### Tab 1: Data Kunjungan
 
-### TAB 1: Data Kunjungan
+Isi informasi dasar kunjungan:
 
-**Field yang harus diisi**:
+1. Pelabuhan
+   Pilih pelabuhan tempat kejadian dicatat.
+2. Jenis Pelayaran
+   Pilih jenis pelayaran sesuai kegiatan kapal.
+3. Kapal
+   Ketik nama kapal lalu pilih dari hasil pencarian.
+4. Nakhoda
+   Ketik nama nakhoda lalu pilih dari hasil pencarian.
+5. Bulan
+   Pilih bulan pelaporan.
+6. Tahun
+   Pilih tahun pelaporan.
 
-1. **Pelabuhan** (dropdown):
-   - Pilih pelabuhan tempat kapal berkunjung
-   - Hanya menampilkan 6 pelabuhan internal UPP Jampea
+Catatan operasional:
 
-2. **Jenis Pelayaran** (dropdown):
-   - PELRA - Pelayaran Rakyat
-   - DN - Dalam Negeri
-   - LN - Luar Negeri
-   - PERINTIS - Kapal Perintis
-   - FERRY-ASDP - Ferry ASDP
-   - FERRY-DJPD - Ferry DJPD
+1. Jika pelabuhan belum ada, gunakan tombol Tambah pada field pelabuhan.
+2. Jika nakhoda belum ada, pilih kapal terlebih dahulu lalu gunakan tombol Tambah Nakhoda.
+3. Pastikan bulan dan tahun sesuai periode administrasi yang dipakai kantor.
 
-3. **Kapal** (autocomplete):
-   - Ketik minimal 2 karakter
-   - Pilih dari hasil pencarian
-   - Menampilkan: Nama - Jenis - GT - Call Sign
+### Tab 2: Kedatangan dan Keberangkatan
 
-4. **Nakhoda** (autocomplete):
-   - Ketik nama nakhoda
-   - Opsional (bisa dikosongkan)
+Tab ini dipakai untuk mengisi data kedatangan dan data keberangkatan.
 
-5. **Periode**:
-   - **Bulan**: Pilih 1-12
-   - **Tahun**: Pilih tahun (2020-sekarang)
+#### Bagian kedatangan
 
-**Klik "Selanjutnya"** untuk ke Tab 2.
+1. Tanggal datang.
+2. Jam datang.
+3. Pelabuhan asal.
+4. Nomor SPB datang bila ada.
 
----
+#### Bagian keberangkatan
 
-### TAB 2: Kedatangan & Keberangkatan
+1. Tanggal tolak.
+2. Jam tolak.
+3. Pelabuhan tujuan.
+4. Nomor SPB tolak bila ada.
 
-#### Kolom Kiri: Kedatangan
+Catatan penting:
 
-1. **Tanggal Datang** (required):
-   - Format: DD/MM/YYYY
-   - Gunakan date picker
+1. Pada aplikasi saat ini, field datang dan tolak diperlakukan sebagai data yang harus diisi saat penyimpanan.
+2. Artinya, input kunjungan belum mendukung skenario kapal datang dulu lalu data tolak diisi belakangan melalui fitur edit.
+3. Jika data keberangkatan belum tersedia, operator perlu menunda input final atau menggunakan kebijakan kerja internal yang disepakati kantor.
 
-2. **Jam Datang** (required):
-   - Format: HH:MM
-   - Gunakan time picker
+### Tab 3: Penumpang dan Kendaraan
 
-3. **Pelabuhan Asal** (autocomplete):
-   - Ketik nama pelabuhan asal
-   - Opsional
+Tab ini dipakai untuk mencatat penumpang dan kendaraan turun atau naik.
 
-4. **No. SPB Datang**:
-   - Nomor Surat Persetujuan Berlayar kedatangan
-   - Opsional
+#### Penumpang
 
-#### Kolom Kanan: Keberangkatan
+Isi jumlah:
 
-1. **Tanggal Tolak** (opsional):
-   - Tanggal keberangkatan
-   - Kosongkan jika kapal masih berlabuh
+1. Datang - Dewasa
+2. Datang - Anak
+3. Tolak - Dewasa
+4. Tolak - Anak
 
-2. **Jam Tolak** (opsional):
-   - Jam keberangkatan
+#### Kendaraan
 
-3. **Pelabuhan Tujuan** (autocomplete):
-   - Ketik nama pelabuhan tujuan
-   - Opsional
+Isi jumlah datang dan tolak untuk golongan:
 
-4. **No. SPB Tolak**:
-   - Nomor SPB keberangkatan
-   - Opsional
+1. Gol I: Motor
+2. Gol II: Sedan atau jeep
+3. Gol III: Minibus
+4. Gol IVA: Bus kecil
+5. Gol IVB: Bus besar
+6. Gol V: Truk
 
-**Tips**:
-- 💡 Jika kapal baru datang dan belum tolak, kosongkan semua field keberangkatan
-- 💡 Anda bisa edit kunjungan nanti untuk mengisi data keberangkatan
+Catatan operasional:
 
-**Klik "Selanjutnya"** atau **"Sebelumnya"** untuk navigasi tab.
+1. Nilai yang tidak ada dapat diisi 0.
+2. Data kendaraan pada aplikasi aktif terutama mencakup motor dan mobil melalui agregasi dari golongan-golongan ini.
 
----
+### Tab 4: Data Muatan
 
-### TAB 3: Penumpang & Kendaraan
+Tab ini dipakai untuk mencatat muatan bongkar, muat, dan muatan lanjutan.
 
-#### Data Penumpang
+#### Muatan lanjutan
 
-**Penumpang Datang**:
-- Dewasa: Jumlah penumpang dewasa yang turun (default: 0)
-- Anak: Jumlah penumpang anak yang turun (default: 0)
+Field yang tersedia saat ini:
 
-**Penumpang Tolak**:
-- Dewasa: Jumlah penumpang dewasa yang naik (default: 0)
-- Anak: Jumlah penumpang anak yang naik (default: 0)
+1. Lanjutan Muatan (Ton)
 
-#### Data Kendaraan
+Isi field ini bila ada muatan transit atau muatan yang tidak dibongkar.
 
-Tabel 6 baris (Golongan I - V + IVA/IVB):
+#### Daftar muatan bongkar dan muat
 
-| Golongan | Deskripsi | Datang | Tolak |
-|----------|-----------|--------|-------|
-| **Gol I** | Sepeda motor | 0 | 0 |
-| **Gol II** | Sedan, jeep, mini bus | 0 | 0 |
-| **Gol III** | Bus kecil, truk kecil | 0 | 0 |
-| **Gol IVA** | Bus besar | 0 | 0 |
-| **Gol IVB** | Truk besar | 0 | 0 |
-| **Gol V** | Truk gandeng | 0 | 0 |
+Klik Tambah Muatan untuk menambahkan baris muatan.
 
-**Isi sesuai jumlah kendaraan yang naik/turun**.
+Isi setiap baris dengan:
 
-**Klik "Selanjutnya"**.
+1. Tipe: Bongkar atau Muat.
+2. Jenis Barang.
+3. Ton atau M3.
+4. Jenis Hewan bila muatan berupa hewan.
+5. Jumlah Hewan bila ada.
 
----
+Catatan operasional:
 
-### TAB 4: Data Muatan
+1. Jika tidak ada muatan, tab ini boleh dibiarkan tanpa baris muatan.
+2. Bila muatan lebih dari satu jenis, tambahkan beberapa baris.
+3. Pada aplikasi saat ini, muatan lanjutan yang tersedia baru tonase. Rincian lanjutan lain seperti kendaraan lanjutan atau penumpang lanjutan belum diinput melalui form aktif.
 
-#### Muatan Lanjutan
+### Tab 5: Barang B3
 
-**Muatan Lanjutan (ton)**: Muatan yang tetap di kapal (tidak bongkar/muat).
-- Opsional
-- Format: desimal (contoh: 150.50)
+Tab ini dipakai hanya bila kapal melakukan kegiatan bongkar atau muat barang B3.
 
-#### Muatan Bongkar/Muat (Dynamic Repeater)
+Klik Tambah B3 untuk menambahkan baris.
 
-Klik **"Tambah Muatan"** untuk menambah baris muatan:
+Isi setiap baris dengan:
 
-1. **Tipe Muatan** (dropdown):
-   - BONGKAR - Muatan yang dibongkar
-   - MUAT - Muatan yang dimuat
+1. Barang B3.
+2. Jenis kegiatan: Bongkar atau Muat.
+3. Bentuk muatan: Curah atau Padat/Kemasan.
+4. Jumlah ton bila ada.
+5. Jumlah container bila ada.
+6. Kemasan.
+7. Jumlah kemasan.
+8. Nama petugas.
 
-2. **Jenis Barang**:
-   - Nama/jenis barang (contoh: Beras, Semen, Kayu)
+Catatan operasional:
 
-3. **Ton/M³**:
-   - Volume muatan dalam ton atau meter kubik
-   - Format desimal (contoh: 25.75)
+1. Jika tidak ada B3, tab ini dapat dibiarkan kosong.
+2. Bila jenis barang belum tersedia, gunakan tombol Jenis B3 Baru.
+3. Pada aplikasi saat ini, jenis kegiatan B3 yang tersedia adalah Bongkar dan Muat.
 
-4. **Jenis Hewan** (jika muatan hewan):
-   - Jenis hewan (contoh: Sapi, Kambing, Ayam)
+### Menyimpan data kunjungan
 
-5. **Jumlah Ekor** (jika muatan hewan):
-   - Jumlah ekor hewan
+1. Setelah semua data selesai diisi, buka tab 5.
+2. Klik tombol Simpan Data Kunjungan.
+3. Tunggu sampai aplikasi kembali ke halaman daftar kunjungan dan menampilkan pesan berhasil.
 
-**Contoh**:
-```
-Muatan 1:
-- Tipe: BONGKAR
-- Jenis Barang: Beras
-- Ton/M³: 50.00
-- Jenis Hewan: (kosong)
-- Jumlah Ekor: (kosong)
+Sebelum menyimpan, lakukan pemeriksaan singkat:
 
-Muatan 2:
-- Tipe: MUAT
-- Jenis Barang: (kosong)
-- Ton/M³: (kosong)
-- Jenis Hewan: Sapi
-- Jumlah Ekor: 20
-```
+1. Kapal sudah benar.
+2. Pelabuhan pencatat, asal, dan tujuan sudah benar.
+3. Tanggal dan jam datang serta tolak sudah benar.
+4. Jenis pelayaran sudah sesuai.
+5. Penumpang, kendaraan, muatan, dan B3 sudah sesuai dokumen kerja.
 
-**Untuk menghapus muatan**: Klik tombol **"Hapus"** di baris yang ingin dihapus.
+## Memeriksa Hasil Input
 
-**Klik "Selanjutnya"**.
+### Daftar kunjungan
 
----
+Setelah menyimpan, operator kembali ke halaman daftar kunjungan.
 
-### TAB 5: Barang B3
+Di halaman ini operator dapat:
 
-#### Tambah Barang B3 (Dynamic Repeater)
+1. Mencari data berdasarkan bulan.
+2. Mencari data berdasarkan tahun.
+3. Memfilter data berdasarkan pelabuhan.
+4. Memfilter data berdasarkan jenis pelayaran.
+5. Membuka detail setiap kunjungan.
+6. Menghapus data kunjungan.
 
-**Hanya isi tab ini jika kapal membawa barang B3!**
+### Halaman detail kunjungan
 
-Klik **"Tambah B3"** untuk menambah baris:
+Gunakan tombol Detail untuk memeriksa isi data yang telah direkam.
 
-1. **Barang B3** (dropdown):
-   - Pilih dari master barang B3
-   - Menampilkan: Nama - UN Number - Kelas
+Informasi yang bisa diperiksa di halaman detail:
 
-2. **Jenis Kegiatan** (dropdown):
-   - BONGKAR - Membongkar B3
-   - MUAT - Memuat B3
-   - SIMPANLABUH - Simpan labuh B3
+1. Informasi umum kunjungan.
+2. Kedatangan dan keberangkatan.
+3. Data penumpang.
+4. Data kendaraan.
+5. Data muatan.
+6. Data barang B3.
 
-3. **Bentuk Muatan**:
-   - Bentuk fisik (contoh: Curah, Peti, Drum, Container)
+### Bila data salah
 
-4. **Jumlah (ton)**:
-   - Berat barang B3 dalam ton
+Pada aplikasi saat ini belum tersedia tombol edit kunjungan yang aktif di alur kerja utama. Karena itu langkah koreksi yang tersedia adalah:
 
-5. **Jumlah Container**:
-   - Jumlah kontainer jika menggunakan container
+1. Buka detail kunjungan.
+2. Pastikan data yang salah memang perlu diperbaiki.
+3. Klik Hapus Data Kunjungan.
+4. Konfirmasi penghapusan.
+5. Input ulang data kunjungan dengan data yang benar.
 
-6. **Kemasan**:
-   - Jenis kemasan (contoh: Drum 200L, Jerrycan, Tangki)
+Catatan penting:
 
-7. **Jumlah Kemasan**:
-   - Jumlah unit kemasan
+1. Saat data kunjungan dihapus, data muatan dan data B3 yang terkait juga ikut terhapus.
+2. Pastikan Anda sudah menyalin atau mencatat ulang data yang diperlukan sebelum menghapus.
 
-8. **Petugas**:
-   - Nama petugas yang menangani
+## Modul yang Belum Tersedia
 
-**Contoh**:
-```
-B3 #1:
-- Barang B3: Bensin - UN1203 - Kelas 3
-- Jenis Kegiatan: BONGKAR
-- Bentuk Muatan: Curah
-- Jumlah (ton): 5.00
-- Jumlah Container: (kosong)
-- Kemasan: Drum 200L
-- Jumlah Kemasan: 25
-- Petugas: Budi Santoso
-```
+Bagian ini perlu dipahami oleh end user agar tidak menunggu fitur yang memang belum aktif.
 
-**Untuk menghapus B3**: Klik tombol **"Hapus"**.
+### 1. Laporan
 
----
+Menu laporan sudah tampil di sidebar, tetapi fungsi laporan belum aktif.
 
-### Submit Data Kunjungan
+Yang belum tersedia saat ini:
 
-Setelah semua tab diisi:
-1. Review data di setiap tab (gunakan navigasi tab)
-2. Klik tombol **"Simpan Kunjungan"** di Tab 5
-3. Tunggu proses:
-   - ✅ Data kunjungan disimpan
-   - ✅ Data muatan disimpan (jika ada)
-   - ✅ Data B3 disimpan (jika ada)
-4. Anda akan diarahkan ke halaman detail kunjungan
-
-**Catatan**:
-- ⚠️ Tombol "Simpan" hanya muncul di Tab 5
-- ⚠️ Pastikan semua data wajib di Tab 1 & 2 sudah diisi
-- ⚠️ Jangan tutup browser saat proses penyimpanan
-
----
-
-## 👁️ Lihat & Edit Kunjungan
-
-### Daftar Kunjungan
-
-1. Klik menu **"Kunjungan"**
-2. Halaman menampilkan tabel kunjungan dengan kolom:
-   - Tanggal Datang
-   - Pelabuhan
-   - Kapal
-   - Jenis Pelayaran
-   - Nakhoda
-   - Rute (Asal → Tujuan)
-   - Aksi
-
-### Filter Kunjungan
-
-Gunakan form filter di atas tabel:
-- **Bulan**: Pilih bulan (1-12)
-- **Tahun**: Pilih tahun
-- **Pelabuhan**: Filter berdasarkan pelabuhan
-- **Jenis Pelayaran**: Filter berdasarkan jenis
-
-Klik **"Filter"** untuk menerapkan.
-
-### Detail Kunjungan
-
-Klik tombol **"Detail"** untuk melihat informasi lengkap:
-
-**7 Section Detail**:
-1. **Informasi Umum**: Pelabuhan, kapal, jenis pelayaran, nakhoda, periode
-2. **Kedatangan & Keberangkatan**: Tanggal, jam, pelabuhan asal/tujuan, SPB
-3. **Data Penumpang**: 4 card (datang dewasa, datang anak, tolak dewasa, tolak anak)
-4. **Data Kendaraan**: Tabel 6 golongan × 2 kolom (datang/tolak)
-5. **Data Muatan**: Muatan lanjutan + tabel muatan bongkar/muat
-6. **Data B3**: Tabel barang B3 dengan detail lengkap
-7. **Action Buttons**: Kembali, Edit, Hapus
-
-### Edit Kunjungan
-
-1. Dari halaman detail, klik tombol **"Edit"**
-2. Form wizard akan muncul dengan data yang sudah terisi
-3. Edit data yang diperlukan
-4. Klik **"Update"** untuk menyimpan perubahan
-
-### Hapus Kunjungan
-
-1. Di halaman detail atau list, klik tombol **"Hapus"**
-2. Konfirmasi penghapusan
-3. **Catatan**: 
-   - Menghapus kunjungan akan otomatis menghapus semua muatan dan B3 terkait
-   - Data tidak bisa dikembalikan setelah dihapus
-
----
-
-## 📊 Generate Laporan
-
-### Jenis Laporan
-
-Aplikasi menyediakan 6 jenis laporan sesuai jenis pelayaran:
 1. Laporan PELRA
-2. Laporan DN
-3. Laporan LN
-4. Laporan Perintis
-5. Laporan Ferry ASDP
-6. Laporan Ferry DJPD
+2. Laporan Perintis
+3. Laporan Ferry
+4. Laporan Dalam Negeri
+5. Laporan Luar Negeri
+6. Rekap SPB
+7. Rekap Operasional
+8. Export Excel
+9. Export PDF
 
-### Cara Generate Laporan (Coming Soon)
+Artinya:
 
-1. Klik menu **"Laporan"**
-2. Pilih jenis laporan
-3. Pilih periode (bulan & tahun)
-4. Pilih format export:
-   - Excel (.xlsx)
-   - PDF
-5. Klik **"Generate"**
-6. Download file
+1. SAPOJAM saat ini sudah dipakai untuk pencatatan data dasar.
+2. Rekap otomatis dalam format laporan bulanan atau data dukung masih belum tersedia langsung dari menu laporan.
 
----
+### 2. Import Excel Lama
 
-## 💡 Tips & Trik
+Belum ada menu untuk mengimpor file Excel lama langsung ke aplikasi.
 
-### Tips Umum
+### 3. Edit Kunjungan
 
-1. **Gunakan Autocomplete**:
-   - Ketik minimal 2-3 karakter untuk hasil yang relevan
-   - Gunakan nama atau kode untuk pencarian lebih cepat
+Belum ada proses edit kunjungan yang siap dipakai operator untuk memperbarui data yang sudah disimpan.
 
-2. **Save Progress**:
-   - Tidak ada fitur draft, pastikan isi semua data sebelum submit
-   - Jika browser crash, data akan hilang
+## Tips Operasional
 
-3. **Data Master Lengkap**:
-   - Isi data master (kapal, pelabuhan, nakhoda) terlebih dahulu
-   - Data master yang lengkap mempercepat input kunjungan
+1. Lengkapi master data terlebih dahulu sebelum mulai input kunjungan.
+2. Gunakan satu standar penulisan nama kapal, pelabuhan, dan nakhoda agar data tidak ganda.
+3. Periksa kembali tanggal, jam, dan rute sebelum menekan simpan.
+4. Isi 0 pada angka yang memang tidak ada agar tidak membingungkan saat verifikasi.
+5. Gunakan halaman detail sebagai tempat pemeriksaan akhir setelah input berhasil.
+6. Jika data salah, siapkan data pengganti terlebih dahulu sebelum menghapus data lama.
 
-4. **Backup Data**:
-   - Admin: Lakukan backup database secara berkala
-   - Export laporan sebagai arsip
+## Pertanyaan Umum
 
-### Keyboard Shortcuts
+### Apakah satu kunjungan kapal cukup diinput satu kali?
 
-- **Tab**: Pindah ke field berikutnya
-- **Shift + Tab**: Pindah ke field sebelumnya
-- **Enter**: Submit form (di field terakhir)
-- **Esc**: Tutup modal/popup
+Ya. Satu kunjungan kapal dicatat dalam satu form yang memuat data datang, data tolak, penumpang, kendaraan, muatan, dan B3 bila ada.
 
-### Performance Tips
+### Apakah semua proses Excel lama sudah otomatis menjadi laporan di aplikasi?
 
-1. **Filter Data**: Gunakan filter untuk menampilkan data yang relevan
-2. **Pagination**: Jangan load semua data sekaligus
-3. **Clear Browser Cache**: Jika tampilan error, clear cache & refresh
+Belum. Aplikasi sudah membantu pencatatan data operasional inti, tetapi rekap laporan otomatis dan export file belum aktif.
 
-### Error Handling
+### Apakah saya bisa memperbaiki data kunjungan yang salah?
 
-**Jika form tidak bisa disubmit**:
-- ✅ Cek semua field wajib (marked dengan *)
-- ✅ Cek format tanggal & waktu
-- ✅ Pastikan koneksi internet stabil
-- ✅ Cek console browser untuk error (F12)
+Saat ini koreksi dilakukan dengan menghapus data yang salah lalu menginput ulang.
 
-**Jika autocomplete tidak muncul**:
-- ✅ Ketik minimal 2 karakter
-- ✅ Pastikan data master sudah ada
-- ✅ Refresh halaman
+### Apakah data B3 wajib diisi?
 
-**Jika session expired**:
-- ✅ Login ulang
-- ✅ Atur SESSION_LIFETIME di .env untuk durasi lebih lama
+Tidak. Isi hanya jika ada kegiatan barang B3.
 
----
+### Apakah data muatan wajib diisi?
 
-## ❓ FAQ
+Tidak selalu. Isi jika memang ada kegiatan bongkar, muat, atau muatan lanjutan.
 
-**Q: Apakah bisa input kunjungan tanpa nakhoda?**  
-A: Ya, field nakhoda opsional.
+### Apakah data keberangkatan bisa diisi belakangan?
 
-**Q: Apakah bisa edit kunjungan yang sudah disimpan?**  
-A: Ya, klik tombol Detail > Edit.
+Dalam kondisi aplikasi saat ini, data keberangkatan belum didukung untuk diisi belakangan melalui fitur edit. Karena itu operator perlu menyesuaikan waktu input dengan kelengkapan data yang tersedia.
 
-**Q: Bagaimana jika kapal belum tolak?**  
-A: Kosongkan field keberangkatan di Tab 2. Edit nanti setelah kapal tolak.
+### Bagaimana bila nama kapal, pelabuhan, nakhoda, atau barang B3 belum tersedia?
 
-**Q: Apakah muatan dan B3 wajib diisi?**  
-A: Tidak, hanya isi jika kapal membawa muatan/B3.
+Tambahkan dulu melalui menu master data. Untuk beberapa field tertentu, aplikasi juga menyediakan tombol tambah cepat dari dalam form kunjungan.
 
-**Q: Bagaimana cara hapus baris muatan/B3?**  
-A: Klik tombol "Hapus" di baris yang ingin dihapus.
+### Apakah hasil di dashboard sudah bisa dipakai sebagai laporan resmi?
 
-**Q: Apakah bisa input kunjungan bulan lalu?**  
-A: Ya, pilih bulan & tahun yang sesuai di Tab 1.
-
-**Q: Format UN Number untuk B3?**  
-A: UN diikuti 4 digit angka (contoh: UN1203).
-
-**Q: Maksimal berapa muatan/B3 yang bisa ditambah?**  
-A: Tidak ada limit, tambahkan sebanyak yang diperlukan.
-
----
-
-## 📞 Bantuan & Support
-
-Jika mengalami kesulitan, hubungi:
-- **Tim IT UPP Jampea**
-- **Email**: support@uppjampea.id (jika tersedia)
-- **Telepon**: (021) xxx-xxxx
-
----
-
-**Panduan ini akan terus diupdate sesuai perkembangan aplikasi.**
-
----
-
-**© 2026 UPP Jampea - User Guide v1.0**
+Belum. Gunakan data kunjungan yang tersimpan sebagai sumber pencatatan, dan pahami bahwa modul laporan resmi masih belum aktif.
