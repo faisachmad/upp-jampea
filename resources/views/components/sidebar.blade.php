@@ -133,7 +133,7 @@
                         <a href="{{ route('laporan.rekap-operasional') }}" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('laporan.rekap-operasional') ? 'bg-gray-700' : '' }}">Rekap Operasional</a>
                     </li>
                     <li>
-                        <a href="{{ route('laporan.export-excel') }}" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('laporan.export-excel') ? 'bg-gray-700' : 'text-green-400' }}">
+                        <a href="{{ route('laporan.export-excel') }}" data-download-request="true" class="flex items-center w-full p-2 pl-11 rounded-lg hover:bg-gray-700 {{ request()->routeIs('laporan.export-excel') ? 'bg-gray-700' : 'text-green-400' }}">
                             Export Excel
                         </a>
                     </li>

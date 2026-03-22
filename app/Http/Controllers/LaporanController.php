@@ -65,10 +65,12 @@ class LaporanController extends Controller
     public function exportDataDukung(Request $request)
     {
         $filters = $this->filters($request);
+        $selectedPelabuhan = $this->selectedPelabuhan($filters['pelabuhan_id']);
 
         return $this->excelTemplateExportService->downloadDataDukungWorkbook(
             $filters['year'],
-            $filters['pelabuhan_id']
+            $filters['pelabuhan_id'],
+            $selectedPelabuhan?->nama,
         );
     }
 
@@ -83,11 +85,13 @@ class LaporanController extends Controller
     private function respondForReport(Request $request, string $reportKey, array $report, array $filters)
     {
         $format = strtolower((string) $request->query('format', 'html'));
+        $selectedPelabuhan = $this->selectedPelabuhan($filters['pelabuhan_id']);
 
         if ($format === 'excel') {
             return $this->excelTemplateExportService->downloadSingleReport(
                 $report,
-                Str::slug($report['title']).'-'.$filters['year'].'.xlsx'
+                Str::slug($report['title']).'-'.$filters['year'].'.xlsx',
+                $selectedPelabuhan?->nama,
             );
         }
 
@@ -95,6 +99,7 @@ class LaporanController extends Controller
             return Pdf::loadView('laporan.pdf', [
                 'report' => $report,
                 'filters' => $filters,
+                'selectedPelabuhan' => $selectedPelabuhan,
             ])->setPaper('a4', 'landscape')->download(Str::slug($report['title']).'-'.$filters['year'].'.pdf');
         }
 
@@ -102,7 +107,17 @@ class LaporanController extends Controller
             'report' => $report,
             'filters' => $filters,
             'pelabuhans' => Pelabuhan::internal()->active()->orderBy('nama')->get(),
+            'selectedPelabuhan' => $selectedPelabuhan,
         ]);
+    }
+
+    private function selectedPelabuhan(?int $pelabuhanId): ?Pelabuhan
+    {
+        if ($pelabuhanId === null) {
+            return null;
+        }
+
+        return Pelabuhan::query()->find($pelabuhanId);
     }
 
     private function filters(Request $request): array

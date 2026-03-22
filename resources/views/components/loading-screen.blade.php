@@ -1,10 +1,10 @@
-<div id="global-loader" 
+<div id="global-loader"
      class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/80 backdrop-blur-md transition-opacity duration-500 opacity-0 pointer-events-none"
      style="display: none;">
     <div class="relative flex flex-col items-center">
         <!-- Pulse ring animation -->
         <div class="absolute inset-0 rounded-full bg-blue-500/20 animate-ping scale-150"></div>
-        
+
         <!-- App Logo with Pulse -->
         <div class="relative animate-bounce-slow">
             <img src="{{ asset('icon.png') }}" alt="SAPOJAM Logo" class="h-24 w-24 object-contain drop-shadow-2xl">
@@ -54,7 +54,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         const loader = document.getElementById('global-loader');
         const messageEl = document.getElementById('loader-message');
-        
+        let suppressBeforeUnloadLoader = false;
+
         const messages = [
             "Menghubungkan ke pelabuhan...",
             "Memvalidasi manifes kapal...",
@@ -68,15 +69,25 @@
         ];
 
         let messageInterval;
+        let loaderAutoHideTimeout;
 
-        window.showLoader = function() {
+        const clearLoaderTimers = () => {
+            clearInterval(messageInterval);
+            clearTimeout(loaderAutoHideTimeout);
+        };
+
+        window.showLoader = function(options = {}) {
+            const autoHideMs = typeof options.autoHideMs === 'number' ? options.autoHideMs : null;
+
+            clearTimeout(loaderAutoHideTimeout);
+
             if (loader.classList.contains('show')) return;
-            
+
             loader.classList.add('show');
-            
+
             // Random initial message
             messageEl.innerText = messages[Math.floor(Math.random() * messages.length)];
-            
+
             // Cycle messages
             messageInterval = setInterval(() => {
                 messageEl.style.opacity = '0';
@@ -85,15 +96,40 @@
                     messageEl.style.opacity = '1';
                 }, 300);
             }, 3000);
+
+            if (autoHideMs !== null) {
+                loaderAutoHideTimeout = setTimeout(() => {
+                    hideLoader();
+                }, autoHideMs);
+            }
         };
 
         window.hideLoader = function() {
             loader.classList.remove('show');
-            clearInterval(messageInterval);
+            clearLoaderTimers();
         };
+
+        document.addEventListener('click', function(event) {
+            const downloadTrigger = event.target.closest('[data-download-request="true"]');
+
+            if (!downloadTrigger) {
+                return;
+            }
+
+            suppressBeforeUnloadLoader = true;
+            showLoader({ autoHideMs: 2200 });
+
+            setTimeout(() => {
+                suppressBeforeUnloadLoader = false;
+            }, 2500);
+        });
 
         // Page visibility / transition handling
         window.addEventListener('beforeunload', function() {
+            if (suppressBeforeUnloadLoader) {
+                return;
+            }
+
             showLoader();
         });
 

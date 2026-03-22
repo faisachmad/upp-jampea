@@ -141,14 +141,14 @@
                                    class="inline-flex items-center px-2 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded text-[10px] font-medium hover:bg-amber-100 transition-all">
                                     Edit
                                 </a>
-                                <a href="{{ route('kunjungan.show', $kunjungan) }}" 
+                                <a href="{{ route('kunjungan.show', $kunjungan) }}"
                                    class="inline-flex items-center px-2 py-1 bg-blue-50 text-blue-600 border border-blue-200 rounded text-[10px] font-medium hover:bg-blue-100 transition-all">
                                     Detail
                                 </a>
                                 <form action="{{ route('kunjungan.destroy', $kunjungan) }}" method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" 
+                                    <button type="submit"
                                             class="inline-flex items-center px-2 py-1 bg-red-50 text-red-600 border border-red-200 rounded text-[10px] font-medium hover:bg-red-100 transition-all"
                                             onclick="event.preventDefault(); confirmDelete(this.closest('form'), 'Yakin ingin menghapus data kunjungan ini?')">
                                         Hapus
