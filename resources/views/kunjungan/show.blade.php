@@ -226,7 +226,7 @@
         </div>
         @endif
 
-        @if($kunjungan->kunjunganMuatans->count() > 0)
+        @if($kunjungan->muatans->count() > 0)
         <div class="overflow-x-auto">
             <table class="detail-table min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
@@ -239,7 +239,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($kunjungan->kunjunganMuatans as $muatan)
+                    @foreach($kunjungan->muatans as $muatan)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $muatan->tipe == 'BONGKAR' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }}">
@@ -264,7 +264,7 @@
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
         <h3 class="text-sm font-bold text-gray-900 mb-3 border-b pb-1.5">Data Barang B3 (Berbahaya & Beracun)</h3>
 
-        @if($kunjungan->kunjunganB3s->count() > 0)
+        @if($kunjungan->b3s->count() > 0)
         <div class="overflow-x-auto">
             <table class="detail-table min-w-full divide-y divide-gray-200">
                 <thead class="bg-orange-50">
@@ -280,7 +280,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($kunjungan->kunjunganB3s as $b3)
+                    @foreach($kunjungan->b3s as $b3)
                     <tr>
                         <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $b3->barangB3->nama ?? '-' }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -323,7 +323,7 @@
             @csrf
             @method('DELETE')
             <button type="submit" class="px-4 py-2 text-xs font-medium bg-red-600 text-white rounded-md hover:bg-red-700 transition-all flex items-center gap-2"
-                    onclick="return confirm('Yakin ingin menghapus data kunjungan ini beserta semua muatan dan B3-nya?')">
+                    onclick="event.preventDefault(); confirmDelete(this.closest('form'), 'Yakin ingin menghapus data kunjungan ini beserta semua muatan dan B3-nya?')">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                 Hapus Data Kunjungan
             </button>

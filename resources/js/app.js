@@ -58,13 +58,19 @@ Alpine.data('autocomplete', (url, fieldName) => ({
     results: [],
     showResults: false,
     selectedId: '',
+    isLoading: false,
     async search() {
-        if (this.searchQuery.length < 2) { this.results = []; return; }
+        this.isLoading = true;
+        this.showResults = true;
         try {
             const response = await fetch(`${url}?q=${encodeURIComponent(this.searchQuery)}`);
             this.results = await response.json();
-            this.showResults = true;
-        } catch (error) { console.error('Search error:', error); }
+        } catch (error) {
+            console.error('Search error:', error);
+            this.results = [];
+        } finally {
+            this.isLoading = false;
+        }
     },
     selectItem(item) {
         this.searchQuery = item.label || item.nama;
@@ -78,13 +84,18 @@ Alpine.data('autocompleteNakhoda', (apiUrl) => ({
     nakhodaId: '',
     results: [],
     showResults: false,
+    isLoading: false,
     async search() {
-        if (this.searchQuery.length < 2) { this.results = []; return; }
+        this.isLoading = true;
+        this.showResults = true;
         try {
             const r = await fetch(`${apiUrl}?q=${encodeURIComponent(this.searchQuery)}`);
             this.results = await r.json();
-            this.showResults = true;
-        } catch(e) { this.results = []; }
+        } catch(e) {
+            this.results = [];
+        } finally {
+            this.isLoading = false;
+        }
     },
     selectNakhoda(item) {
         this.searchQuery = item.nama;

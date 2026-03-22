@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         // Create default admin user
         User::factory()->create([
             'name' => 'Admin UPP Jampea',
-            'email' => 'admin@uppjampea.id',
+            'email' => 'admin@sapojam.com',
         ]);
     }
 }

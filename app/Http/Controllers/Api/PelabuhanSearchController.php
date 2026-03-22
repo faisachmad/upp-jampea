@@ -19,19 +19,17 @@ class PelabuhanSearchController extends Controller
         $query = $request->input('q', '');
         $tipe = $request->input('tipe'); // Optional filter by tipe
 
-        if (empty($query)) {
-            return response()->json([]);
-        }
-
-        $searchQuery = Pelabuhan::active()->search($query);
-
-        // Filter by tipe if provided (useful for pelabuhan asal/tujuan)
-        if ($tipe) {
-            $searchQuery->where('tipe', $tipe);
-        }
+        $searchQuery = Pelabuhan::active()
+            ->when(!empty($query), function ($q) use ($query) {
+                return $q->search($query);
+            })
+            ->when($tipe, function ($q) use ($tipe) {
+                return $q->where('tipe', $tipe);
+            });
 
         $pelabuhans = $searchQuery
             ->select('id', 'kode', 'nama', 'tipe')
+            ->orderBy('nama')
             ->limit(10)
             ->get()
             ->map(function ($pelabuhan) {

@@ -119,15 +119,26 @@
                            id="kapal_search_input"
                            x-model="searchQuery"
                            @input.debounce.300ms="search()"
-                           @focus="showResults = true"
+                           @focus="if (results.length === 0) search(); showResults = true"
                            @click.away="showResults = false"
                            placeholder="Ketik nama kapal..."
                            class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     <input type="hidden" name="kapal_id" id="kapal_id" x-model="selectedId" required>
-                    <div x-show="showResults && results.length > 0"
-                         class="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+                    <div x-show="showResults"
+                         class="absolute z-[9999] mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+                        <!-- Loading State -->
+                        <div x-show="isLoading" class="px-4 py-3 text-sm text-gray-500 flex items-center gap-2">
+                            <svg class="animate-spin h-4 w-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            Mencari data kapal...
+                        </div>
+
+                        <!-- No Results State -->
+                        <div x-show="!isLoading && results.length === 0" class="px-4 py-3 text-sm text-gray-500 italic">
+                            Tidak ada data ditemukan.
+                        </div>
+
                         <template x-for="result in results" :key="result.id">
-                            <div @click="selectItem(result)" class="px-4 py-2 hover:bg-blue-50 cursor-pointer">
+                            <div @click="selectItem(result)" class="px-4 py-2 hover:bg-blue-50 cursor-pointer border-b last:border-0 border-gray-50">
                                 <div class="text-sm font-medium text-gray-900" x-text="result.nama"></div>
                                 <div class="text-xs text-gray-500">
                                     <span x-text="result.jenis"></span> &mdash; GT: <span x-text="result.gt"></span>
@@ -146,7 +157,7 @@
                         Nakhoda <span class="text-red-500">*</span>
                     </label>
                     <button type="button" 
-                            onclick="const kId = document.getElementById('kapal_id').value; if(!kId){ Swal.fire('Peringatan', 'Pilih kapal terlebih dahulu!', 'warning'); return; } document.getElementById('quick-nakhoda-kapal-id').value = kId; openModal('modal-quick-nakhoda')"
+                            onclick="const kId = document.getElementById('kapal_id').value; const kNama = document.getElementById('kapal_search_input').value; if(!kId){ Swal.fire('Peringatan', 'Pilih kapal terlebih dahulu!', 'warning'); return; } document.getElementById('quick-nakhoda-kapal-id').value = kId; document.getElementById('quick-nakhoda-kapal-nama').value = kNama; openModal('modal-quick-nakhoda')"
                             class="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                         Tambah Nakhoda
@@ -157,15 +168,26 @@
                            id="nakhoda_search_input"
                            x-model="searchQuery"
                            @input.debounce.300ms="search()"
-                           @focus="showResults = true"
+                           @focus="if (results.length === 0) search(); showResults = true"
                            @click.away="showResults = false"
                            placeholder="Ketik nama nakhoda..."
                            class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     <input type="hidden" name="nakhoda_id" id="nakhoda_id" x-model="nakhodaId" required>
-                    <div x-show="showResults && results.length > 0"
-                         class="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+                    <div x-show="showResults"
+                         class="absolute z-[9999] mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+                        <!-- Loading State -->
+                        <div x-show="isLoading" class="px-4 py-3 text-sm text-gray-500 flex items-center gap-2">
+                            <svg class="animate-spin h-4 w-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            Mencari data nakhoda...
+                        </div>
+
+                        <!-- No Results State -->
+                        <div x-show="!isLoading && results.length === 0" class="px-4 py-3 text-sm text-gray-500 italic">
+                            Tidak ada data ditemukan.
+                        </div>
+
                         <template x-for="result in results" :key="result.id">
-                            <div @click="selectNakhoda(result)" class="px-4 py-2 hover:bg-blue-50 cursor-pointer">
+                            <div @click="selectNakhoda(result)" class="px-4 py-2 hover:bg-blue-50 cursor-pointer border-b last:border-0 border-gray-50">
                                 <div class="text-sm font-medium text-gray-900" x-text="result.nama"></div>
                                 <div class="text-xs text-gray-500" x-text="result.kapal_nama ? 'Kapal: ' + result.kapal_nama : 'Tanpa kapal'"></div>
                             </div>
@@ -256,22 +278,33 @@ tangan & Keberangkatan -->
                     <label class="block text-sm font-medium text-gray-700 mb-1">
                         Pelabuhan Asal <span class="text-red-500">*</span>
                     </label>
-                    <div x-data="autocomplete('{{ route('api.pelabuhan.search') }}', 'pelabuhan_asal_id')">
+                    <div class="relative" x-data="autocomplete('{{ route('api.pelabuhan.search') }}', 'pelabuhan_asal_id')">
                         <input type="text"
                                x-model="searchQuery"
                                @input.debounce.300ms="search()"
-                               @focus="showResults = true"
+                               @focus="if (results.length === 0) search(); showResults = true"
                                @click.away="showResults = false"
                                placeholder="Ketik nama pelabuhan asal..."
-                               class="w-full px-3 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                         <input type="hidden" name="pelabuhan_asal_id" x-model="selectedId" required>
 
-                        <div x-show="showResults && results.length > 0"
-                             class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+                        <div x-show="showResults"
+                             class="absolute z-[9999] mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+                            <!-- Loading State -->
+                            <div x-show="isLoading" class="px-4 py-3 text-sm text-gray-500 flex items-center gap-2">
+                                <svg class="animate-spin h-4 w-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                Mencari pelabuhan...
+                            </div>
+
+                            <!-- No Results State -->
+                            <div x-show="!isLoading && results.length === 0" class="px-4 py-3 text-sm text-gray-500 italic">
+                                Tidak ada data ditemukan.
+                            </div>
+
                             <template x-for="result in results" :key="result.id">
                                 <div @click="selectItem(result)"
-                                     class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                                    <div class="font-medium" x-text="result.nama"></div>
+                                     class="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b last:border-0 border-gray-50">
+                                    <div class="font-medium text-gray-900" x-text="result.nama"></div>
                                     <div class="text-xs text-gray-500" x-text="result.kode + ' - ' + result.tipe"></div>
                                 </div>
                             </template>
@@ -321,22 +354,33 @@ tangan & Keberangkatan -->
                     <label class="block text-sm font-medium text-gray-700 mb-1">
                         Pelabuhan Tujuan <span class="text-red-500">*</span>
                     </label>
-                    <div x-data="autocomplete('{{ route('api.pelabuhan.search') }}', 'pelabuhan_tujuan_id')">
+                    <div class="relative" x-data="autocomplete('{{ route('api.pelabuhan.search') }}', 'pelabuhan_tujuan_id')">
                         <input type="text"
                                x-model="searchQuery"
                                @input.debounce.300ms="search()"
-                               @focus="showResults = true"
+                               @focus="if (results.length === 0) search(); showResults = true"
                                @click.away="showResults = false"
                                placeholder="Ketik nama pelabuhan tujuan..."
-                               class="w-full px-3 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                               class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                         <input type="hidden" name="pelabuhan_tujuan_id" x-model="selectedId" required>
 
-                        <div x-show="showResults && results.length > 0"
-                             class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+                        <div x-show="showResults"
+                             class="absolute z-[9999] mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+                            <!-- Loading State -->
+                            <div x-show="isLoading" class="px-4 py-3 text-sm text-gray-500 flex items-center gap-2">
+                                <svg class="animate-spin h-4 w-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                Mencari pelabuhan...
+                            </div>
+
+                            <!-- No Results State -->
+                            <div x-show="!isLoading && results.length === 0" class="px-4 py-3 text-sm text-gray-500 italic">
+                                Tidak ada data ditemukan.
+                            </div>
+
                             <template x-for="result in results" :key="result.id">
                                 <div @click="selectItem(result)"
-                                     class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                                    <div class="font-medium" x-text="result.nama"></div>
+                                     class="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b last:border-0 border-gray-50">
+                                    <div class="font-medium text-gray-900" x-text="result.nama"></div>
                                     <div class="text-xs text-gray-500" x-text="result.kode + ' - ' + result.tipe"></div>
                                 </div>
                             </template>
@@ -870,6 +914,11 @@ tangan & Keberangkatan -->
         </div>
         <form id="form-quick-nakhoda" class="space-y-3">
             @csrf
+            <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Kapal Terpilih</label>
+                <input type="text" id="quick-nakhoda-kapal-nama" disabled
+                       class="w-full px-3 py-1.5 text-sm border border-gray-200 bg-gray-50 rounded-md text-gray-500 font-medium">
+            </div>
             <div>
                 <label class="block text-xs font-medium text-gray-700 mb-1">Nama Nakhoda <span class="text-red-500">*</span></label>
                 <input type="text" name="nama" required placeholder="Nama lengkap nakhoda"

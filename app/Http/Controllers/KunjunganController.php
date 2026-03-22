@@ -41,7 +41,7 @@ class KunjunganController extends Controller
             $query->byJenisPelayaran($request->jenis_pelayaran_id);
         }
 
-        $kunjungans = $query->orderBy('tgl_datang', 'desc')->paginate(20);
+        $kunjungans = $query->orderBy('tgl_tiba', 'desc')->paginate(20);
 
         // Data for filters and form
         $pelabuhans = Pelabuhan::internal()->active()->orderBy('kode')->get();
@@ -145,6 +145,19 @@ class KunjunganController extends Controller
             DB::beginTransaction();
 
             // Create Kunjungan
+            $penumpang_turun = ($validated['pnp_datang_dewasa'] ?? 0) + ($validated['pnp_datang_anak'] ?? 0);
+            $penumpang_naik = ($validated['pnp_tolak_dewasa'] ?? 0) + ($validated['pnp_tolak_anak'] ?? 0);
+
+            $motor_turun = $validated['kend_datang_gol1'] ?? 0;
+            $motor_naik = $validated['kend_tolak_gol1'] ?? 0;
+
+            $mobil_turun = ($validated['kend_datang_gol2'] ?? 0) + ($validated['kend_datang_gol3'] ?? 0) + 
+                           ($validated['kend_datang_gol4a'] ?? 0) + ($validated['kend_datang_gol4b'] ?? 0) + 
+                           ($validated['kend_datang_gol5'] ?? 0);
+            $mobil_naik = ($validated['kend_tolak_gol2'] ?? 0) + ($validated['kend_tolak_gol3'] ?? 0) + 
+                          ($validated['kend_tolak_gol4a'] ?? 0) + ($validated['kend_tolak_gol4b'] ?? 0) + 
+                          ($validated['kend_tolak_gol5'] ?? 0);
+
             $kunjungan = Kunjungan::create([
                 'pelabuhan_id' => $validated['pelabuhan_id'],
                 'kapal_id' => $validated['kapal_id'],
@@ -152,31 +165,23 @@ class KunjunganController extends Controller
                 'nakhoda_id' => $validated['nakhoda_id'],
                 'bulan' => $validated['bulan'],
                 'tahun' => $validated['tahun'],
-                'tgl_datang' => $validated['tgl_datang'],
-                'jam_datang' => $validated['jam_datang'],
+                'tgl_tiba' => $validated['tgl_datang'],
+                'jam_tiba' => $validated['jam_datang'],
                 'pelabuhan_asal_id' => $validated['pelabuhan_asal_id'],
-                'no_spb_datang' => $validated['no_spb_datang'] ?? null,
-                'tgl_tolak' => $validated['tgl_tolak'],
-                'jam_tolak' => $validated['jam_tolak'],
+                'no_spb_tiba' => $validated['no_spb_datang'] ?? null,
+                'tgl_berangkat' => $validated['tgl_tolak'],
+                'jam_berangkat' => $validated['jam_tolak'],
                 'pelabuhan_tujuan_id' => $validated['pelabuhan_tujuan_id'],
                 'no_spb_tolak' => $validated['no_spb_tolak'] ?? null,
-                'pnp_datang_dewasa' => $validated['pnp_datang_dewasa'] ?? 0,
-                'pnp_datang_anak' => $validated['pnp_datang_anak'] ?? 0,
-                'pnp_tolak_dewasa' => $validated['pnp_tolak_dewasa'] ?? 0,
-                'pnp_tolak_anak' => $validated['pnp_tolak_anak'] ?? 0,
-                'kend_datang_gol1' => $validated['kend_datang_gol1'] ?? 0,
-                'kend_datang_gol2' => $validated['kend_datang_gol2'] ?? 0,
-                'kend_datang_gol3' => $validated['kend_datang_gol3'] ?? 0,
-                'kend_datang_gol4a' => $validated['kend_datang_gol4a'] ?? 0,
-                'kend_datang_gol4b' => $validated['kend_datang_gol4b'] ?? 0,
-                'kend_datang_gol5' => $validated['kend_datang_gol5'] ?? 0,
-                'kend_tolak_gol1' => $validated['kend_tolak_gol1'] ?? 0,
-                'kend_tolak_gol2' => $validated['kend_tolak_gol2'] ?? 0,
-                'kend_tolak_gol3' => $validated['kend_tolak_gol3'] ?? 0,
-                'kend_tolak_gol4a' => $validated['kend_tolak_gol4a'] ?? 0,
-                'kend_tolak_gol4b' => $validated['kend_tolak_gol4b'] ?? 0,
-                'kend_tolak_gol5' => $validated['kend_tolak_gol5'] ?? 0,
-                'lanjutan_ton' => $validated['lanjutan_ton'] ?? null,
+                
+                'penumpang_turun' => $penumpang_turun,
+                'penumpang_naik' => $penumpang_naik,
+                'motor_turun' => $motor_turun,
+                'motor_naik' => $motor_naik,
+                'mobil_turun' => $mobil_turun,
+                'mobil_naik' => $mobil_naik,
+                
+                'lanjutan_ton' => $validated['lanjutan_ton'] ?? 0,
             ]);
 
             // Create Kunjungan Muatan (if any)
@@ -229,7 +234,7 @@ class KunjunganController extends Controller
     public function show(Kunjungan $kunjungan)
     {
         $kunjungan->load(['pelabuhan', 'kapal', 'jenisPelayaran', 'nakhoda',
-            'pelabuhanAsal', 'pelabuhanTujuan', 'kunjunganMuatans', 'kunjunganB3s.barangB3']);
+            'pelabuhanAsal', 'pelabuhanTujuan', 'muatans', 'b3s.barangB3']);
 
         return view('kunjungan.show', compact('kunjungan'));
     }
@@ -259,8 +264,8 @@ class KunjunganController extends Controller
             DB::beginTransaction();
 
             // Delete related records first
-            $kunjungan->kunjunganMuatans()->delete();
-            $kunjungan->kunjunganB3s()->delete();
+            $kunjungan->muatans()->delete();
+            $kunjungan->b3s()->delete();
             $kunjungan->delete();
 
             DB::commit();

@@ -33,10 +33,18 @@
 @section('content')
 <div class="space-y-6" x-data="{ ...kunjunganForm() }">
     <!-- Search, Filter & Action Card -->
-    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <form method="GET" action="{{ route('kunjungan.index') }}" class="flex flex-col md:flex-row gap-3 w-full md:w-auto flex-1">
-            <div class="w-full md:w-32">
-                <select name="bulan" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+    <div class="bg-white p-4 lg:p-5 rounded-xl shadow-sm border border-gray-100 mb-6 space-y-4">
+        <div class="flex justify-between items-center sm:justify-end">
+            <!-- Title only visible on mobile nicely, but button always accessible -->
+            <button x-on:click="$dispatch('open-modal', 'input-kunjungan-modal')" class="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md shadow-sm hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Input Kunjungan
+            </button>
+        </div>
+
+        <form method="GET" action="{{ route('kunjungan.index') }}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+            <div class="w-full">
+                <select name="bulan" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
                     <option value="">Bulan</option>
                     @for($i = 1; $i <= 12; $i++)
                     <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
@@ -45,16 +53,16 @@
                     @endfor
                 </select>
             </div>
-            <div class="w-full md:w-28">
-                <select name="tahun" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            <div class="w-full">
+                <select name="tahun" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
                     <option value="">Tahun</option>
                     @for($year = date('Y'); $year >= 2020; $year--)
                     <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>{{ $year }}</option>
                     @endfor
                 </select>
             </div>
-            <div class="w-full md:w-48 relative z-50">
-                <select name="pelabuhan_id" class="searchable-select w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            <div class="w-full sm:col-span-2 md:col-span-1 lg:col-span-2 xl:col-span-2 relative z-50">
+                <select name="pelabuhan_id" class="searchable-select w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
                     <option value="">Semua Pelabuhan</option>
                     @foreach($pelabuhans as $pelabuhan)
                     <option value="{{ $pelabuhan->id }}" {{ request('pelabuhan_id') == $pelabuhan->id ? 'selected' : '' }}>
@@ -63,8 +71,8 @@
                     @endforeach
                 </select>
             </div>
-            <div class="w-full md:w-44">
-                <select name="jenis_pelayaran_id" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            <div class="w-full sm:col-span-2 md:col-span-2 lg:col-span-1">
+                <select name="jenis_pelayaran_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
                     <option value="">Semua Jenis</option>
                     @foreach($jenisPelayarans as $jenis)
                     <option value="{{ $jenis->id }}" {{ request('jenis_pelayaran_id') == $jenis->id ? 'selected' : '' }}>
@@ -73,24 +81,17 @@
                     @endforeach
                 </select>
             </div>
-            <div class="flex w-full md:w-auto">
-                <div class="inline-flex shadow-sm rounded-md" role="group">
-                    <button type="submit" class="px-4 py-1.5 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-l-md hover:bg-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-500 transition-all">
+            <div class="w-full sm:col-span-2 md:col-span-3 lg:col-span-5 xl:col-span-1 flex justify-end items-end md:mt-0 xl:mt-0">
+                <div class="inline-flex shadow-sm rounded-md w-full sm:w-auto" role="group">
+                    <button type="submit" class="flex-1 sm:flex-none px-6 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-l-md hover:bg-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-500 transition-all">
                         Cari
                     </button>
-                    <a href="{{ route('kunjungan.index') }}" class="px-4 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-blue-500 transition-all">
+                    <a href="{{ route('kunjungan.index') }}" class="flex-1 sm:flex-none flex items-center justify-center px-6 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-blue-500 transition-all">
                         Reset
                     </a>
                 </div>
             </div>
         </form>
-
-        <div class="w-full md:w-auto border-t md:border-t-0 md:border-l border-gray-200 pt-4 md:pt-0 md:pl-4 flex justify-end">
-            <button x-on:click="$dispatch('open-modal', 'input-kunjungan-modal')" class="px-4 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-all flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                Input Kunjungan
-            </button>
-        </div>
     </div>
 
     <!-- Data Table -->
@@ -112,7 +113,7 @@
                     @forelse($kunjungans as $kunjungan)
                     <tr>
                         <td class="whitespace-nowrap font-medium text-gray-900">
-                            {{ \Carbon\Carbon::parse($kunjungan->tgl_datang)->format('d M Y') }}
+                            {{ \Carbon\Carbon::parse($kunjungan->tgl_tiba)->format('d M Y') }}
                         </td>
                         <td class="whitespace-nowrap">
                             {{ $kunjungan->pelabuhan->nama ?? '-' }}
@@ -170,10 +171,10 @@
     </div>
 
     <!-- Modal Form Input Kunjungan -->
-    <x-modal name="input-kunjungan-modal" :show="false" maxWidth="7xl" :closeable="false">
-        <div class="bg-white">
+    <x-modal name="input-kunjungan-modal" :show="false" maxWidth="7xl" :closeable="false" :overflowVisible="true">
+        <div class="bg-white rounded-lg sm:rounded-xl">
             <!-- Modal Header -->
-            <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center z-10">
+            <div class="sticky top-0 bg-white rounded-t-lg sm:rounded-t-xl border-b border-gray-200 px-6 py-4 flex justify-between items-center z-10">
                 <div>
                     <h2 class="text-xl font-bold text-gray-900">Input Kunjungan Kapal</h2>
                     <p class="text-sm text-gray-600 mt-1">Lengkapi semua data kunjungan kapal</p>

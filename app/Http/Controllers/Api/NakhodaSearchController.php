@@ -18,14 +18,13 @@ class NakhodaSearchController extends Controller
     {
         $query = $request->input('q', '');
 
-        if (empty($query)) {
-            return response()->json([]);
-        }
-
         $nakhodas = Nakhoda::with('kapal:id,nama')
             ->active()
-            ->where('nama', 'like', '%'.$query.'%')
+            ->when(!empty($query), function ($q) use ($query) {
+                return $q->where('nama', 'like', '%'.$query.'%');
+            })
             ->select('id', 'nama', 'kapal_id')
+            ->orderBy('nama')
             ->limit(10)
             ->get()
             ->map(function ($nakhoda) {

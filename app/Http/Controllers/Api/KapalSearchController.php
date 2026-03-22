@@ -18,14 +18,14 @@ class KapalSearchController extends Controller
     {
         $query = $request->input('q', '');
 
-        if (empty($query)) {
-            return response()->json([]);
-        }
-
+        // Show initial 10 results if query is empty
         $kapals = Kapal::active()
-            ->search($query)
+            ->when(!empty($query), function ($q) use ($query) {
+                return $q->search($query);
+            })
             ->leftJoin('jenis_kapals', 'kapals.jenis_kapal_id', '=', 'jenis_kapals.id')
             ->select('kapals.id', 'kapals.nama', 'jenis_kapals.nama as jenis', 'kapals.gt', 'kapals.call_sign', 'kapals.pemilik_agen')
+            ->orderBy('kapals.nama')
             ->limit(10)
             ->get()
             ->map(function ($kapal) {

@@ -3,9 +3,25 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class Kunjungan extends Model
 {
+    public function getRouteKey()
+    {
+        return Crypt::encryptString($this->getKey());
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        try {
+            $id = Crypt::decryptString($value);
+            return $this->where($field ?? $this->getRouteKeyName(), $id)->firstOrFail();
+        } catch (DecryptException $e) {
+            abort(404);
+        }
+    }
     protected $fillable = [
         'pelabuhan_id',
         'kapal_id',
